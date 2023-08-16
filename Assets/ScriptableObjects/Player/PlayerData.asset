@@ -21,7 +21,7 @@ MonoBehaviour:
   _dashKillDistance: 6
   _groundDrag: 10
   _airDrag: 0
-  _horizontalSensitivity: 35000
-  _verticalSensitivity: 35000
+  _horizontalSensitivity: 100000
+  _verticalSensitivity: 100000
   _chainCooldown: 1
   _maxTargetDistance: 100

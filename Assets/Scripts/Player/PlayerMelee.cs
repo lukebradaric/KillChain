@@ -13,16 +13,17 @@ namespace KillChain.Player
         [Header("Components")]
         [SerializeField] private GameInput _gameInput;
         [SerializeField] private TimeManager _timeManager;
+        [SerializeField] private Transform _cameraTransform;
 
         [Space]
         [Header("Settings")]
-        [SerializeField] private float _timeStopDuration = 0.2f;
+        [SerializeField] private LayerMask _meleeLayerMask;
         [SerializeField] private Vector3 _hitCapsuleStartPosition;
         [SerializeField] private float _hitCapsuleLength;
         [SerializeField] private float _hitCapsuleRadius;
-        [SerializeField] private LayerMask _meleeLayerMask;
 
-        public static event Action Meleed;
+        public static event Action MeleeStarted;
+        public static event Action MeleeCompleted;
 
         private void OnEnable()
         {
@@ -36,10 +37,10 @@ namespace KillChain.Player
 
         private void MeleePressedHandler()
         {
-            Meleed?.Invoke();
+            MeleeStarted?.Invoke();
 
             Collider[] colliders = Physics.OverlapCapsule(transform.position + _hitCapsuleStartPosition,
-                transform.position + _hitCapsuleStartPosition + Camera.main.transform.forward * _hitCapsuleLength,
+                transform.position + _hitCapsuleStartPosition + _cameraTransform.forward * _hitCapsuleLength,
                 _hitCapsuleRadius,
                 _meleeLayerMask);
 
@@ -53,13 +54,13 @@ namespace KillChain.Player
                     meleeable.Melee();
             }
 
-            _timeManager.StopTime(_timeStopDuration);
+            MeleeCompleted?.Invoke();
         }
 
         private void OnDrawGizmos()
         {
             GizmosExtras.DrawWireCapsule(transform.position + _hitCapsuleStartPosition,
-                transform.position + _hitCapsuleStartPosition + Camera.main.transform.forward * _hitCapsuleLength,
+                transform.position + _hitCapsuleStartPosition + _cameraTransform.forward * _hitCapsuleLength,
                 _hitCapsuleRadius);
         }
 

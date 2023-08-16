@@ -1,0 +1,16 @@
+{
+    "name": "KillChain.Audio",
+    "rootNamespace": "",
+    "references": [
+        "GUID:fd4dbe05ff7edb144892fec8286fc54a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

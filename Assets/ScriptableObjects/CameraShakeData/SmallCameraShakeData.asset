@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66092b42de96efd409b0a5c5b05ef84c, type: 3}
   m_Name: SmallCameraShakeData
   m_EditorClassIdentifier: 
-  _duration: 0.4
-  _strength: 5
-  _vibrato: 30
+  _duration: 0.65
+  _strength: 20
+  _vibrato: 20
   _randomness: 75
   _fadeOut: 1

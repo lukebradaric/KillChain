@@ -1,4 +1,7 @@
+using KillChain.Audio;
+using KillChain.Camera;
 using KillChain.Core.Extensions;
+using KillChain.Core.Generics;
 using KillChain.Input;
 using System;
 using System.Collections;
@@ -13,27 +16,24 @@ namespace KillChain.Player
         [SerializeField] private GameInput _gameInput;
         [SerializeField] private PlayerData _playerData;
         [SerializeField] private Rigidbody _rigidbody;
-        [SerializeField] private LineRenderer _chainLineRenderer;
+        [SerializeField] private Transform _cameraTransform;
         [SerializeField] private Transform _chainStartTransform;
+        [SerializeField] private LineRenderer _chainLineRenderer;
 
         [Space]
-        [Header("Settigs")]
+        [Header("Settings")]
         [SerializeField] private LayerMask _enemyLayerMask;
+
+        [Space]
+        [Header("Debug")]
+        // TODO : Remove these debug variables once enemies are actually implemented
+        public AudioAsset DEBUG_enemyDeathAudioAsset;
+        public GameObject DEBUG_enemyDeathParticlePrefab;
+        public CameraShakeData DEBUG_enemyDeathCameraShakeData;
 
         public bool ChainOnCooldown { get; private set; }
 
-        private PlayerWeaponState _state = PlayerWeaponState.Idle;
-        public PlayerWeaponState State
-        {
-            get => _state;
-            private set
-            {
-                _state = value;
-                StateChanged?.Invoke(value);
-            }
-        }
-
-        public event Action<PlayerWeaponState> StateChanged;
+        public static Observable<PlayerWeaponState> State { get; private set; } = new Observable<PlayerWeaponState>(PlayerWeaponState.Idle);
 
         private GameObject _attachedEnemy = null;
 
@@ -59,9 +59,9 @@ namespace KillChain.Player
 
         private void FirePressedHandler()
         {
-            if (State == PlayerWeaponState.Attach)
+            if (State.Value == PlayerWeaponState.Attach)
             {
-                State = PlayerWeaponState.Dash;
+                State.Value = PlayerWeaponState.Dash;
                 return;
             }
 
@@ -73,9 +73,9 @@ namespace KillChain.Player
             StartCoroutine(ChainCooldownCoroutine());
 
             RaycastHit hit;
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, _playerData.MaxTargetDistance, _enemyLayerMask))
+            if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out hit, _playerData.MaxTargetDistance, _enemyLayerMask))
             {
-                State = PlayerWeaponState.Attach;
+                State.Value = PlayerWeaponState.Attach;
                 _attachedEnemy = hit.collider.gameObject;
             }
         }
@@ -84,13 +84,13 @@ namespace KillChain.Player
         {
             ChainOnCooldown = true;
 
-            if (State != PlayerWeaponState.Attach)
-                State = PlayerWeaponState.Miss;
+            if (State.Value != PlayerWeaponState.Attach)
+                State.Value = PlayerWeaponState.Miss;
 
             yield return new WaitForSeconds(_playerData.ChainCooldown);
 
-            if (State == PlayerWeaponState.Miss)
-                State = PlayerWeaponState.Idle;
+            if (State.Value == PlayerWeaponState.Miss)
+                State.Value = PlayerWeaponState.Idle;
 
             ChainOnCooldown = false;
         }
@@ -98,7 +98,7 @@ namespace KillChain.Player
         private void HandleChainLineRenderer()
         {
             // If idle, disable
-            switch (State)
+            switch (State.Value)
             {
                 case PlayerWeaponState.Idle:
                     _chainLineRenderer.enabled = false;
@@ -116,16 +116,19 @@ namespace KillChain.Player
 
         private void HandleMovement()
         {
-            if (State == PlayerWeaponState.Dash)
+            if (State.Value == PlayerWeaponState.Dash)
             {
                 _rigidbody.velocity = (_attachedEnemy.transform.position - transform.position).normalized * _playerData.DashSpeed;
 
                 if (Vector3.Distance(transform.position, _attachedEnemy.transform.position) < _playerData.DashKillDistance)
                 {
                     // TODO : Replace this with an actual enemy implementation
+                    Instantiate(DEBUG_enemyDeathParticlePrefab, _attachedEnemy.transform.position, Quaternion.identity);
+                    DEBUG_enemyDeathCameraShakeData?.Play();
                     Destroy(_attachedEnemy);
+                    DEBUG_enemyDeathAudioAsset?.Play();
                     _attachedEnemy = null;
-                    State = PlayerWeaponState.Idle;
+                    State.Value = PlayerWeaponState.Idle;
                     _rigidbody.SetVelocityY(0);
                     _rigidbody.AddForce(Vector3.up * _playerData.DashKillUpwardForce, ForceMode.Impulse);
                 }

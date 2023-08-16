@@ -16,6 +16,7 @@ namespace KillChain.Player
         [SerializeField] private PlayerGroundCheck _groundCheck;
 
         public bool IsGrounded { get; private set; }
+        public bool IsMoving { get; private set; }
 
         private Vector3 _moveDirection;
         private Vector3 _flatVelocity;
@@ -79,6 +80,8 @@ namespace KillChain.Player
             {
                 _rigidbody.AddForce(_moveDirection * _playerData.MoveSpeed * _playerData.AirSpeedMultiplier, ForceMode.Force);
             }
+
+            IsMoving = _moveDirection.magnitude > 0;
         }
 
         private void HandleSpeed()
