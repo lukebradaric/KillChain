@@ -1,20 +1,17 @@
-using ChainKill.Core.Extensions;
-using ChainKill.Input;
+using KillChain.Core.Extensions;
+using KillChain.Input;
 using System;
+using System.Collections;
 using UnityEngine;
 
-namespace ChainKill.Player
+namespace KillChain.Player
 {
     public class PlayerWeapon : MonoBehaviour
     {
         [Space]
-        [Header("Prefabs")]
-        [SerializeField] private GameObject _projectilePrefab;
-
-        [Space]
         [Header("Components")]
         [SerializeField] private GameInput _gameInput;
-        [SerializeField] private PlayerSettings _playerSettings;
+        [SerializeField] private PlayerData _playerData;
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private LineRenderer _chainLineRenderer;
         [SerializeField] private Transform _chainStartTransform;
@@ -22,6 +19,8 @@ namespace ChainKill.Player
         [Space]
         [Header("Settigs")]
         [SerializeField] private LayerMask _enemyLayerMask;
+
+        public bool ChainOnCooldown { get; private set; }
 
         private PlayerWeaponState _state = PlayerWeaponState.Idle;
         public PlayerWeaponState State
@@ -33,6 +32,7 @@ namespace ChainKill.Player
                 StateChanged?.Invoke(value);
             }
         }
+
         public event Action<PlayerWeaponState> StateChanged;
 
         private GameObject _attachedEnemy = null;
@@ -65,12 +65,34 @@ namespace ChainKill.Player
                 return;
             }
 
+            if (ChainOnCooldown)
+            {
+                return;
+            }
+
+            StartCoroutine(ChainCooldownCoroutine());
+
             RaycastHit hit;
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, _playerSettings.MaxTargetDistance, _enemyLayerMask))
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, _playerData.MaxTargetDistance, _enemyLayerMask))
             {
                 State = PlayerWeaponState.Attach;
                 _attachedEnemy = hit.collider.gameObject;
             }
+        }
+
+        private IEnumerator ChainCooldownCoroutine()
+        {
+            ChainOnCooldown = true;
+
+            if (State != PlayerWeaponState.Attach)
+                State = PlayerWeaponState.Miss;
+
+            yield return new WaitForSeconds(_playerData.ChainCooldown);
+
+            if (State == PlayerWeaponState.Miss)
+                State = PlayerWeaponState.Idle;
+
+            ChainOnCooldown = false;
         }
 
         private void HandleChainLineRenderer()
@@ -96,15 +118,16 @@ namespace ChainKill.Player
         {
             if (State == PlayerWeaponState.Dash)
             {
-                _rigidbody.velocity = (_attachedEnemy.transform.position - transform.position).normalized * _playerSettings.DashSpeed;
+                _rigidbody.velocity = (_attachedEnemy.transform.position - transform.position).normalized * _playerData.DashSpeed;
 
-                if (Vector3.Distance(transform.position, _attachedEnemy.transform.position) < _playerSettings.DashKillDistance)
+                if (Vector3.Distance(transform.position, _attachedEnemy.transform.position) < _playerData.DashKillDistance)
                 {
+                    // TODO : Replace this with an actual enemy implementation
                     Destroy(_attachedEnemy);
                     _attachedEnemy = null;
                     State = PlayerWeaponState.Idle;
                     _rigidbody.SetVelocityY(0);
-                    _rigidbody.AddForce(Vector3.up * _playerSettings.DashKillUpwardForce, ForceMode.Impulse);
+                    _rigidbody.AddForce(Vector3.up * _playerData.DashKillUpwardForce, ForceMode.Impulse);
                 }
             }
         }

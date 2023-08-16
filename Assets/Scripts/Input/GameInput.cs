@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace ChainKill.Input
+namespace KillChain.Input
 {
-    [CreateAssetMenu(menuName = "ChainKill/GameInput")]
+    [CreateAssetMenu(menuName = "KillChain/GameInput")]
     public class GameInput : ScriptableObject
     {
         public float HorizontalInput { get; private set; }
@@ -16,6 +16,7 @@ namespace ChainKill.Input
         public event Action FirePressed;
         // TODO: Rename alt fire (Right click)
         public event Action AltFirePressed;
+        public event Action MeleePressed;
 
         public void SetHorizontalInput(float value)
         {
@@ -50,6 +51,11 @@ namespace ChainKill.Input
         public void OnAltFirePressed()
         {
             AltFirePressed?.Invoke();
+        }
+
+        public void OnMeleePressed()
+        {
+            MeleePressed?.Invoke();
         }
     }
 }

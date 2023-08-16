@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a94811848ef0a124d83f69ce535342d8, type: 3}
-  m_Name: PlayerSettings
+  m_Name: PlayerData
   m_EditorClassIdentifier: 
   _moveSpeed: 120
   _maxSpeed: 10
@@ -21,6 +21,7 @@ MonoBehaviour:
   _dashKillDistance: 6
   _groundDrag: 10
   _airDrag: 0
-  _horizontalSensitivity: 300
-  _verticalSensitivity: 300
+  _horizontalSensitivity: 35000
+  _verticalSensitivity: 35000
+  _chainCooldown: 1
   _maxTargetDistance: 100

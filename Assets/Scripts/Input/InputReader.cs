@@ -1,12 +1,14 @@
+using KillChain.Bootstrap;
 using UnityEngine;
 
-namespace ChainKill.Input
+namespace KillChain.Input
 {
+    [AutoBootstrap]
     public class InputReader : MonoBehaviour
     {
         [Space]
         [Header("Components")]
-        [SerializeField] private GameInput _gameInput;
+        [SerializeField] private GameInput _gameInput = default;
 
         private void Update()
         {
@@ -21,6 +23,8 @@ namespace ChainKill.Input
             if (UnityEngine.Input.GetKeyDown("mouse 0")) _gameInput.OnFirePressed();
 
             if (UnityEngine.Input.GetKeyDown("mouse 1")) _gameInput.OnAltFirePressed();
+
+            if (UnityEngine.Input.GetKeyDown("f")) _gameInput.OnMeleePressed();
         }
     }
 }

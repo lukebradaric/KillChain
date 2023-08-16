@@ -1,0 +1,18 @@
+{
+    "name": "KillChain.Tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:fd4dbe05ff7edb144892fec8286fc54a",
+        "GUID:d6b25a830b1e82545858ae2609b3909e",
+        "GUID:4782e632e49b81049a3edf9d5cf88c5e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

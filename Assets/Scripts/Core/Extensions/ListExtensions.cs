@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ChainKill.Core.Extensions
+namespace KillChain.Core.Extensions
 {
     public static class ListExtensions
     {

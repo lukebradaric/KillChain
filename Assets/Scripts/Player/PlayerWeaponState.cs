@@ -1,11 +1,12 @@
-﻿namespace ChainKill.Player
+﻿namespace KillChain.Player
 {
     public enum PlayerWeaponState
     {
         Idle,
         Attach,
         Pull,
-        Dash
+        Dash,
+        Miss
     }
 }
 

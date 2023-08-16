@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SmartNSSettings
   m_EditorClassIdentifier: 
   m_ScriptRoot: Assets/Scripts
-  m_NamespacePrefix: ChainKill
+  m_NamespacePrefix: KillChain
   m_UniversalNamespace: 
   m_IndentUsingSpaces: 1
   m_NumberOfSpaces: 4

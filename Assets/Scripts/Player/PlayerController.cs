@@ -1,8 +1,8 @@
-using ChainKill.Core.Extensions;
-using ChainKill.Input;
+using KillChain.Core.Extensions;
+using KillChain.Input;
 using UnityEngine;
 
-namespace ChainKill.Player
+namespace KillChain.Player
 {
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerController : MonoBehaviour
@@ -12,7 +12,7 @@ namespace ChainKill.Player
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Transform _lookTransform;
         [SerializeField] private GameInput _gameInput;
-        [SerializeField] private PlayerSettings _playerSettings;
+        [SerializeField] private PlayerData _playerData;
         [SerializeField] private PlayerGroundCheck _groundCheck;
 
         public bool IsGrounded { get; private set; }
@@ -47,7 +47,7 @@ namespace ChainKill.Player
 
             // Reset player Y velocity
             _rigidbody.SetVelocityY(0);
-            _rigidbody.AddForce(Vector3.up * _playerSettings.JumpForce, ForceMode.Impulse);
+            _rigidbody.AddForce(Vector3.up * _playerData.JumpForce, ForceMode.Impulse);
         }
 
         private void HandleGroundCheck()
@@ -59,11 +59,11 @@ namespace ChainKill.Player
         {
             if (IsGrounded)
             {
-                _rigidbody.drag = _playerSettings.GroundDrag;
+                _rigidbody.drag = _playerData.GroundDrag;
             }
             else
             {
-                _rigidbody.drag = _playerSettings.AirDrag;
+                _rigidbody.drag = _playerData.AirDrag;
             }
         }
 
@@ -73,11 +73,11 @@ namespace ChainKill.Player
 
             if (IsGrounded)
             {
-                _rigidbody.AddForce(_moveDirection * _playerSettings.MoveSpeed, ForceMode.Force);
+                _rigidbody.AddForce(_moveDirection * _playerData.MoveSpeed, ForceMode.Force);
             }
             else
             {
-                _rigidbody.AddForce(_moveDirection * _playerSettings.MoveSpeed * _playerSettings.AirSpeedMultiplier, ForceMode.Force);
+                _rigidbody.AddForce(_moveDirection * _playerData.MoveSpeed * _playerData.AirSpeedMultiplier, ForceMode.Force);
             }
         }
 
@@ -85,9 +85,9 @@ namespace ChainKill.Player
         {
             _flatVelocity = new Vector3(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
 
-            if (_flatVelocity.magnitude > _playerSettings.MaxSpeed)
+            if (_flatVelocity.magnitude > _playerData.MaxSpeed)
             {
-                Vector3 newVelocity = _flatVelocity.normalized * _playerSettings.MaxSpeed;
+                Vector3 newVelocity = _flatVelocity.normalized * _playerData.MaxSpeed;
                 _rigidbody.velocity = new Vector3(newVelocity.x, _rigidbody.velocity.y, newVelocity.z);
             }
         }

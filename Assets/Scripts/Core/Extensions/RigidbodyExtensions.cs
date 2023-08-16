@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ChainKill.Core.Extensions
+namespace KillChain.Core.Extensions
 {
     public static class RigidbodyExtensions
     {

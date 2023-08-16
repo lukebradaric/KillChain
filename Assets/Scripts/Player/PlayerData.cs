@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace ChainKill.Player
+namespace KillChain.Player
 {
-    [CreateAssetMenu(menuName = "ChainKill/PlayerSettings")]
-    public class PlayerSettings : ScriptableObject
+    [CreateAssetMenu(menuName = "KillChain/PlayerData")]
+    public class PlayerData : ScriptableObject
     {
         [Space]
         [Header("Movement")]
@@ -48,6 +48,9 @@ namespace ChainKill.Player
 
         [Space]
         [Header("Weapon")]
+        [SerializeField] private float _chainCooldown;
+        public float ChainCooldown => _chainCooldown;
+
         [SerializeField] private float _maxTargetDistance;
         public float MaxTargetDistance => _maxTargetDistance;
     }

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ChainKill.Player
+namespace KillChain.Player
 {
     [System.Serializable]
     internal class PlayerWeaponStateSprite

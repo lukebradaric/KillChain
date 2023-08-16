@@ -1,5 +1,5 @@
-using ChainKill.Input;
-using ChainKill.Player;
+using KillChain.Input;
+using KillChain.Player;
 using UnityEngine;
 
 public class PlayerCameraController : MonoBehaviour
@@ -8,20 +8,21 @@ public class PlayerCameraController : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Transform _lookTransform;
     [SerializeField] private GameInput _gameInput;
-    [SerializeField] private PlayerSettings _playerSettings;
+    [SerializeField] private PlayerData _playerData;
 
     private Vector2 _rotation;
 
     private void Start()
     {
+        // TODO : Better cursor locking
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     private void Update()
     {
-        _rotation.y += _gameInput.MouseHorizontal * _playerSettings.HorizontalSensitivity;
-        _rotation.x -= _gameInput.MouseVertical * _playerSettings.VerticalSensitivity;
+        _rotation.y += _gameInput.MouseHorizontal * _playerData.HorizontalSensitivity * Time.deltaTime;
+        _rotation.x -= _gameInput.MouseVertical * _playerData.VerticalSensitivity * Time.deltaTime;
 
         _rotation.x = Mathf.Clamp(_rotation.x, -90f, 90f);
 
