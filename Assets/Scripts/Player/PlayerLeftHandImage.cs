@@ -12,25 +12,41 @@ namespace KillChain.Player
         [Space]
         [Header("Settings")]
         [SerializeField] private Vector3 _punchPosition;
-        [SerializeField] private Ease _punchEase;
         [SerializeField] private Vector3 _punchReturnPosition;
-        [SerializeField] private float _punchReturnTime;
         [SerializeField] private Ease _punchReturnEase;
+
+        private Tween _currentTween = null;
 
         private void OnEnable()
         {
-            PlayerMelee.MeleeStarted += MeleedHandler;
+            PlayerMelee.MeleeStarted += MeleeStartedHandler;
+            PlayerMelee.MeleeCooldownStarted += MeleeCooldownStartedHandler;
         }
 
         private void OnDisable()
         {
-            PlayerMelee.MeleeStarted -= MeleedHandler;
+            PlayerMelee.MeleeStarted -= MeleeStartedHandler;
+            PlayerMelee.MeleeCooldownStarted -= MeleeCooldownStartedHandler;
         }
 
-        private void MeleedHandler()
+        private void MeleeStartedHandler()
         {
+            if (_currentTween != null && (bool)_currentTween?.IsPlaying())
+            {
+                _currentTween.Kill();
+                _currentTween = null;
+            }
+
             _leftHandTransform.localPosition = _punchPosition;
-            _leftHandTransform.DOLocalMove(_punchReturnPosition, _punchReturnTime).SetEase(_punchReturnEase);
+        }
+
+        private void MeleeCooldownStartedHandler(float cooldownDuration)
+        {
+            // Lerp hand to resting based on punch cooldown (+ small buffer)
+            _currentTween = _leftHandTransform.DOLocalMove(_punchReturnPosition, cooldownDuration + 0.1f).SetEase(_punchReturnEase).OnKill(() =>
+            {
+                _currentTween = null;
+            });
         }
     }
 }

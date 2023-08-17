@@ -10,6 +10,11 @@ namespace KillChain.Input
         [Header("Components")]
         [SerializeField] private GameInput _gameInput = default;
 
+        private void Awake()
+        {
+            _gameInput = Resources.Load<GameInput>("Input/GameInput");
+        }
+
         private void Update()
         {
             _gameInput.SetHorizontalInput(UnityEngine.Input.GetAxisRaw("Horizontal"));

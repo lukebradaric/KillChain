@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 namespace KillChain.Player
 {
@@ -7,20 +8,86 @@ namespace KillChain.Player
         [Space]
         [Header("Components")]
         [SerializeField] private PlayerController _playerController;
-        [SerializeField] private Animator _animator;
+        [SerializeField] private RectTransform _rightHandTransform;
 
-        private void Update()
+        [Space]
+        [Header("Settings")]
+        [SerializeField] private float _bobAnimationHeight;
+        [SerializeField] private float _bobAnimationDuration;
+        [SerializeField] private Ease _animationEase;
+
+        private Sequence _moveSequence = null;
+        private Tween _idleTween = null;
+
+        private void OnEnable()
         {
-            if (!_playerController.IsGrounded)
-            {
-                _animator.Play("PlayerIdleAnimation");
-                return;
-            }
+            _playerController.IsMoving.ValueChanged += IsMovingValueChangedHandler;
+            _playerController.IsGrounded.ValueChanged += IsGroundedValueChangedHandler;
+        }
 
-            if (_playerController.IsMoving)
-                _animator.Play("PlayerMoveAnimation");
+        private void OnDisable()
+        {
+            _playerController.IsMoving.ValueChanged -= IsMovingValueChangedHandler;
+            _playerController.IsGrounded.ValueChanged -= IsGroundedValueChangedHandler;
+        }
+
+        private void IsGroundedValueChangedHandler(bool isGrounded)
+        {
+            if (isGrounded)
+            {
+                if (_playerController.IsMoving.Value)
+                    PlayMoveAnimation();
+            }
             else
-                _animator.Play("PlayerIdleAnimation");
+            {
+                PlayIdleAnimation();
+            }
+        }
+
+        private void IsMovingValueChangedHandler(bool isMoving)
+        {
+            if (!_playerController.IsGrounded.Value)
+                return;
+
+            if (isMoving)
+                PlayMoveAnimation();
+            else
+                PlayIdleAnimation();
+        }
+
+        private void KillIdleTween()
+        {
+            if (_idleTween != null)
+            {
+                _idleTween.Kill();
+                _idleTween = null;
+            }
+        }
+
+        private void KillMoveSequence()
+        {
+            if (_moveSequence != null)
+            {
+                _moveSequence.Kill();
+                _moveSequence = null;
+            }
+        }
+
+        private void PlayMoveAnimation()
+        {
+            KillIdleTween();
+
+            _moveSequence = DOTween.Sequence();
+            _moveSequence.Append(_rightHandTransform.DOLocalMoveY(_bobAnimationHeight, _bobAnimationDuration).SetEase(_animationEase));
+            _moveSequence.Append(_rightHandTransform.DOLocalMoveY(0, _bobAnimationDuration).SetEase(_animationEase));
+            _moveSequence.SetLoops(-1, LoopType.Yoyo);
+        }
+
+        private void PlayIdleAnimation()
+        {
+            KillMoveSequence();
+
+            _idleTween = _rightHandTransform.DOLocalMoveY(0, _bobAnimationDuration).SetEase(_animationEase);
         }
     }
 }

@@ -3,6 +3,7 @@ using KillChain.Core.Common;
 using KillChain.Core.Managers;
 using KillChain.Input;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace KillChain.Player
@@ -17,6 +18,8 @@ namespace KillChain.Player
 
         [Space]
         [Header("Settings")]
+        [SerializeField] private int _meleeDamage = 1;
+        [SerializeField] private float _meleeCooldown = 0.75f;
         [SerializeField] private LayerMask _meleeLayerMask;
         [SerializeField] private Vector3 _hitCapsuleStartPosition;
         [SerializeField] private float _hitCapsuleLength;
@@ -24,6 +27,9 @@ namespace KillChain.Player
 
         public static event Action MeleeStarted;
         public static event Action MeleeCompleted;
+        public static event Action<float> MeleeCooldownStarted;
+
+        public bool CanMelee { get; private set; } = true;
 
         private void OnEnable()
         {
@@ -37,7 +43,11 @@ namespace KillChain.Player
 
         private void MeleePressedHandler()
         {
+            if (!CanMelee) return;
+
             MeleeStarted?.Invoke();
+
+            StartCoroutine(MeleeCooldownCoroutine());
 
             Collider[] colliders = Physics.OverlapCapsule(transform.position + _hitCapsuleStartPosition,
                 transform.position + _hitCapsuleStartPosition + _cameraTransform.forward * _hitCapsuleLength,
@@ -49,12 +59,19 @@ namespace KillChain.Player
 
             foreach (Collider collider in colliders)
             {
-                // TODO : Consider using an alternative interface? (IDamageable?)
-                if (collider.TryGetComponent<IMeleeable>(out var meleeable))
-                    meleeable.Melee();
+                if (collider.TryGetComponent<IDamageable>(out var damageable))
+                    damageable.Damage(_meleeDamage);
             }
 
             MeleeCompleted?.Invoke();
+        }
+
+        private IEnumerator MeleeCooldownCoroutine()
+        {
+            CanMelee = false;
+            MeleeCooldownStarted?.Invoke(_meleeCooldown);
+            yield return new WaitForSeconds(_meleeCooldown);
+            CanMelee = true;
         }
 
         private void OnDrawGizmos()

@@ -13,22 +13,14 @@ namespace KillChain.Player
         [SerializeField] private float _maxSpeed;
         public float MaxSpeed => _maxSpeed;
 
+        [SerializeField] private float _maxAirSpeed;
+        public float MaxAirSpeed => _maxAirSpeed;
+
         [SerializeField] private float _jumpForce;
         public float JumpForce => _jumpForce;
 
         [SerializeField] private float _airSpeedMultiplier;
         public float AirSpeedMultiplier => _airSpeedMultiplier;
-
-        [Space]
-        [Header("Dash")]
-        [SerializeField] private float _dashSpeed;
-        public float DashSpeed => _dashSpeed;
-
-        [SerializeField] private float _dashKillUpwardForce;
-        public float DashKillUpwardForce => _dashKillUpwardForce;
-
-        [SerializeField] private float _dashKillDistance;
-        public float DashKillDistance => _dashKillDistance;
 
         [Space]
         [Header("Drag")]
@@ -48,10 +40,29 @@ namespace KillChain.Player
 
         [Space]
         [Header("Weapon")]
-        [SerializeField] private float _chainCooldown;
-        public float ChainCooldown => _chainCooldown;
-
         [SerializeField] private float _maxTargetDistance;
         public float MaxTargetDistance => _maxTargetDistance;
+
+        [Space]
+        [Header("Dash")]
+        [SerializeField] private int _dashDamage;
+        public int DashDamage => _dashDamage;
+
+        [SerializeField] private float _dashSpeed;
+        public float DashSpeed => _dashSpeed;
+
+        [SerializeField] private float _dashKillUpwardForce;
+        public float DashKillUpwardForce => _dashKillUpwardForce;
+
+        [SerializeField] private float _dashKillDistance;
+        public float DashKillDistance => _dashKillDistance;
+
+        [Space]
+        [Header("Pull")]
+        [SerializeField] private float _pullSpeed;
+        public float PullSpeed => _pullSpeed;
+
+        [SerializeField] private float _pullStopDistance;
+        public float PullStopDistance => _pullStopDistance;
     }
 }

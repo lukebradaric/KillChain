@@ -14,14 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 120
   _maxSpeed: 10
+  _maxAirSpeed: 12
   _jumpForce: 12
   _airSpeedMultiplier: 0.25
-  _dashSpeed: 40
-  _dashKillUpwardForce: 12
-  _dashKillDistance: 6
   _groundDrag: 10
   _airDrag: 0
-  _horizontalSensitivity: 100000
-  _verticalSensitivity: 100000
+  _horizontalSensitivity: 16
+  _verticalSensitivity: 16
   _chainCooldown: 1
   _maxTargetDistance: 100
+  _dashDamage: 1
+  _dashSpeed: 40
+  _dashKillUpwardForce: 12
+  _dashKillDistance: 5
+  _pullSpeed: 40
+  _pullStopDistance: 3

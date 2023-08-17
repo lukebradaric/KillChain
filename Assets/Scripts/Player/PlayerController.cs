@@ -1,4 +1,5 @@
 using KillChain.Core.Extensions;
+using KillChain.Core.Generics;
 using KillChain.Input;
 using UnityEngine;
 
@@ -9,14 +10,14 @@ namespace KillChain.Player
     {
         [Space]
         [Header("Components")]
-        [SerializeField] private Rigidbody _rigidbody;
-        [SerializeField] private Transform _lookTransform;
         [SerializeField] private GameInput _gameInput;
         [SerializeField] private PlayerData _playerData;
+        [SerializeField] private Rigidbody _rigidbody;
+        [SerializeField] private Transform _lookTransform;
         [SerializeField] private PlayerGroundCheck _groundCheck;
 
-        public bool IsGrounded { get; private set; }
-        public bool IsMoving { get; private set; }
+        public Observable<bool> IsGrounded { get; private set; } = new Observable<bool>(false);
+        public Observable<bool> IsMoving { get; private set; } = new Observable<bool>(false);
 
         private Vector3 _moveDirection;
         private Vector3 _flatVelocity;
@@ -41,7 +42,7 @@ namespace KillChain.Player
 
         private void JumpPressedHandler()
         {
-            if (!IsGrounded)
+            if (!IsGrounded.Value)
             {
                 return;
             }
@@ -53,12 +54,12 @@ namespace KillChain.Player
 
         private void HandleGroundCheck()
         {
-            IsGrounded = _groundCheck.Found();
+            IsGrounded.Value = _groundCheck.Found();
         }
 
         private void HandleDrag()
         {
-            if (IsGrounded)
+            if (IsGrounded.Value)
             {
                 _rigidbody.drag = _playerData.GroundDrag;
             }
@@ -72,7 +73,7 @@ namespace KillChain.Player
         {
             _moveDirection = (_lookTransform.forward * _gameInput.VerticalInput + _lookTransform.right * _gameInput.HorizontalInput).normalized;
 
-            if (IsGrounded)
+            if (IsGrounded.Value)
             {
                 _rigidbody.AddForce(_moveDirection * _playerData.MoveSpeed, ForceMode.Force);
             }
@@ -81,16 +82,20 @@ namespace KillChain.Player
                 _rigidbody.AddForce(_moveDirection * _playerData.MoveSpeed * _playerData.AirSpeedMultiplier, ForceMode.Force);
             }
 
-            IsMoving = _moveDirection.magnitude > 0;
+            IsMoving.Value = _moveDirection.magnitude > 0;
         }
 
         private void HandleSpeed()
         {
+            if (PlayerWeapon.State.Value == PlayerWeaponState.Dash) return;
+
             _flatVelocity = new Vector3(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
 
-            if (_flatVelocity.magnitude > _playerData.MaxSpeed)
+            float maxSpeed = IsGrounded.Value ? _playerData.MaxSpeed : _playerData.MaxAirSpeed;
+
+            if (_flatVelocity.magnitude > maxSpeed)
             {
-                Vector3 newVelocity = _flatVelocity.normalized * _playerData.MaxSpeed;
+                Vector3 newVelocity = _flatVelocity.normalized * maxSpeed;
                 _rigidbody.velocity = new Vector3(newVelocity.x, _rigidbody.velocity.y, newVelocity.z);
             }
         }

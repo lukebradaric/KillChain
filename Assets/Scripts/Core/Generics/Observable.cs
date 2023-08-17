@@ -25,6 +25,11 @@ namespace KillChain.Core.Generics
             }
             set
             {
+                if (_value.Equals(value))
+                {
+                    return;
+                }
+
                 ValueChanging?.Invoke(_value, value);
                 _value = value;
                 ValueChanged?.Invoke(_value);
