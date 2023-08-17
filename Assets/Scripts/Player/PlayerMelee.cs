@@ -1,5 +1,6 @@
 ﻿using KillChain.Core;
 using KillChain.Core.Common;
+using KillChain.Core.Events;
 using KillChain.Core.Managers;
 using KillChain.Input;
 using System;
@@ -10,6 +11,11 @@ namespace KillChain.Player
 {
     public class PlayerMelee : MonoBehaviour
     {
+        [Space]
+        [Header("EventChannels")]
+        [SerializeField] private VoidEventChannel _playerMeleeEventChannel;
+        [SerializeField] private FloatEventChannel _playerMeleeCooldownStartedEventChannel;
+
         [Space]
         [Header("Components")]
         [SerializeField] private GameInput _gameInput;
@@ -24,10 +30,6 @@ namespace KillChain.Player
         [SerializeField] private Vector3 _hitCapsuleStartPosition;
         [SerializeField] private float _hitCapsuleLength;
         [SerializeField] private float _hitCapsuleRadius;
-
-        public static event Action MeleeStarted;
-        public static event Action MeleeCompleted;
-        public static event Action<float> MeleeCooldownStarted;
 
         public bool CanMelee { get; private set; } = true;
 
@@ -45,7 +47,7 @@ namespace KillChain.Player
         {
             if (!CanMelee) return;
 
-            MeleeStarted?.Invoke();
+            _playerMeleeEventChannel.Invoke();
 
             StartCoroutine(MeleeCooldownCoroutine());
 
@@ -62,14 +64,12 @@ namespace KillChain.Player
                 if (collider.TryGetComponent<IDamageable>(out var damageable))
                     damageable.Damage(_meleeDamage);
             }
-
-            MeleeCompleted?.Invoke();
         }
 
         private IEnumerator MeleeCooldownCoroutine()
         {
             CanMelee = false;
-            MeleeCooldownStarted?.Invoke(_meleeCooldown);
+            _playerMeleeCooldownStartedEventChannel.Invoke(_meleeCooldown);
             yield return new WaitForSeconds(_meleeCooldown);
             CanMelee = true;
         }

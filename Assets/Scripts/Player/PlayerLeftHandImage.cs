@@ -1,10 +1,16 @@
 ﻿using UnityEngine;
 using DG.Tweening;
+using KillChain.Core.Events;
 
 namespace KillChain.Player
 {
     public class PlayerLeftHandImage : MonoBehaviour
     {
+        [Space]
+        [Header("EventChannels")]
+        [SerializeField] private VoidEventChannel _playerMeleeEventChannel;
+        [SerializeField] private FloatEventChannel _playerMeleeCooldownStartedEventChannel;
+
         [Space]
         [Header("Components")]
         [SerializeField] private RectTransform _leftHandTransform;
@@ -19,17 +25,17 @@ namespace KillChain.Player
 
         private void OnEnable()
         {
-            PlayerMelee.MeleeStarted += MeleeStartedHandler;
-            PlayerMelee.MeleeCooldownStarted += MeleeCooldownStartedHandler;
+            _playerMeleeEventChannel.Event += PlayerMeleeHandler;
+            _playerMeleeCooldownStartedEventChannel.Event += PlayerMeleeCooldownStartedHandler;
         }
 
         private void OnDisable()
         {
-            PlayerMelee.MeleeStarted -= MeleeStartedHandler;
-            PlayerMelee.MeleeCooldownStarted -= MeleeCooldownStartedHandler;
+            _playerMeleeEventChannel.Event -= PlayerMeleeHandler;
+            _playerMeleeCooldownStartedEventChannel.Event -= PlayerMeleeCooldownStartedHandler;
         }
 
-        private void MeleeStartedHandler()
+        private void PlayerMeleeHandler()
         {
             if (_currentTween != null && (bool)_currentTween?.IsPlaying())
             {
@@ -40,7 +46,7 @@ namespace KillChain.Player
             _leftHandTransform.localPosition = _punchPosition;
         }
 
-        private void MeleeCooldownStartedHandler(float cooldownDuration)
+        private void PlayerMeleeCooldownStartedHandler(float cooldownDuration)
         {
             // Lerp hand to resting based on punch cooldown (+ small buffer)
             _currentTween = _leftHandTransform.DOLocalMove(_punchReturnPosition, cooldownDuration + 0.1f).SetEase(_punchReturnEase).OnKill(() =>

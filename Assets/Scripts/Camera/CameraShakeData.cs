@@ -2,7 +2,7 @@
 
 namespace KillChain.Camera
 {
-    [CreateAssetMenu(menuName = "KillChain/CameraShakeData")]
+    [CreateAssetMenu(menuName = "KillChain/Camera/CameraShakeData")]
     public class CameraShakeData : ScriptableObject
     {
 

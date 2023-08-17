@@ -15,6 +15,7 @@ namespace KillChain.Player
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Transform _lookTransform;
         [SerializeField] private PlayerGroundCheck _groundCheck;
+        [SerializeField] private PlayerWeapon _playerWeapon;
 
         public Observable<bool> IsGrounded { get; private set; } = new Observable<bool>(false);
         public Observable<bool> IsMoving { get; private set; } = new Observable<bool>(false);
@@ -87,7 +88,7 @@ namespace KillChain.Player
 
         private void HandleSpeed()
         {
-            if (PlayerWeapon.State.Value == PlayerWeaponState.Dash) return;
+            if (_playerWeapon.State.Value == PlayerWeaponState.Dash) return;
 
             _flatVelocity = new Vector3(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
 

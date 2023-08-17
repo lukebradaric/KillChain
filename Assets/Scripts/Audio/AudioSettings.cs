@@ -2,8 +2,7 @@
 
 namespace KillChain.Audio
 {
-    // Commented out because we only want one settings object :)
-    [CreateAssetMenu(menuName = "KillChain/AudioSettings")]
+    [CreateAssetMenu(menuName = "KillChain/Audio/AudioSettings")]
     public class AudioSettings : ScriptableObject
     {
         [Space]

@@ -5453,6 +5453,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 506424221671714838, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _playerMeleeEventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: fecbc33209c89a04a96963c8ddde4477,
+        type: 2}
+    - target: {fileID: 506424221671714838, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _playerMeleeCooldownStartedEventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: 1860cbc0001cce74a9cd91b20991dfca,
+        type: 2}
     - target: {fileID: 1779755403413120462, guid: c93ac1b47395c114fa0d69176d5b6e67,
         type: 3}
       propertyPath: m_Name
@@ -5460,9 +5472,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2660861669225979911, guid: c93ac1b47395c114fa0d69176d5b6e67,
         type: 3}
+      propertyPath: _playerWeapon
+      value: 
+      objectReference: {fileID: 2608208508730249989}
+    - target: {fileID: 2660861669225979911, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
       propertyPath: _chainBreakAudioAsset
       value: 
       objectReference: {fileID: 11400000, guid: eb2029f23a4e6a7429886ec31b5e2211,
+        type: 2}
+    - target: {fileID: 2660861669225979911, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _playerMeleeEventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: fecbc33209c89a04a96963c8ddde4477,
+        type: 2}
+    - target: {fileID: 2660861669225979911, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _playerChainBrokeEventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: d861d8f33c54766449854310e1a5744e,
         type: 2}
     - target: {fileID: 3079430048673656752, guid: c93ac1b47395c114fa0d69176d5b6e67,
         type: 3}
@@ -5524,11 +5553,39 @@ PrefabInstance:
       propertyPath: _chainBreakLayerMask.m_Bits
       value: 73
       objectReference: {fileID: 0}
+    - target: {fileID: 3408718295929874816, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _playerChainBrokeEventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: d861d8f33c54766449854310e1a5744e,
+        type: 2}
+    - target: {fileID: 5011505479135121499, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _playerWeapon
+      value: 
+      objectReference: {fileID: 2608208508730249989}
     - target: {fileID: 5542292963663981009, guid: c93ac1b47395c114fa0d69176d5b6e67,
         type: 3}
       propertyPath: _hitCapsuleLength
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5542292963663981009, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _playerMeleeEventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: fecbc33209c89a04a96963c8ddde4477,
+        type: 2}
+    - target: {fileID: 5542292963663981009, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _playerMeleeCooldownStartedEventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: 1860cbc0001cce74a9cd91b20991dfca,
+        type: 2}
+    - target: {fileID: 8308646648334923379, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _playerWeapon
+      value: 
+      objectReference: {fileID: 2608208508730249989}
     - target: {fileID: 8876101568456729951, guid: c93ac1b47395c114fa0d69176d5b6e67,
         type: 3}
       propertyPath: _camera
@@ -5569,6 +5626,18 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1310351301}
   m_SourcePrefab: {fileID: 100100000, guid: c93ac1b47395c114fa0d69176d5b6e67, type: 3}
+--- !u!114 &2608208508730249989 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3408718295929874816, guid: c93ac1b47395c114fa0d69176d5b6e67,
+    type: 3}
+  m_PrefabInstance: {fileID: 2608208508730249988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 037097d6f4180124fa061f9497314372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

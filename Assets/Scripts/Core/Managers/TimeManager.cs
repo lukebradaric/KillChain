@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace KillChain.Core.Managers
 {
-    [CreateAssetMenu(menuName = "KillChain/TimeManager")]
+    [CreateAssetMenu(menuName = "KillChain/Managers/TimeManager")]
     public class TimeManager : ScriptableObject
     {
         public void StopTime(float duration)

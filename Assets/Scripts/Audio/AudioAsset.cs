@@ -4,7 +4,7 @@ using UnityEngine.Audio;
 
 namespace KillChain.Audio
 {
-    [CreateAssetMenu(menuName = "KillChain/AudioAsset")]
+    [CreateAssetMenu(menuName = "KillChain/Audio/AudioAsset")]
     public class AudioAsset : ScriptableObject, IAudioAsset
     {
         [Space]

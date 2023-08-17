@@ -1,14 +1,18 @@
 using KillChain.Core;
+using KillChain.Core.Events;
 using KillChain.Core.Extensions;
 using KillChain.Core.Generics;
 using KillChain.Input;
-using System;
 using UnityEngine;
 
 namespace KillChain.Player
 {
     public class PlayerWeapon : MonoBehaviour
     {
+        [Space]
+        [Header("EventChannels")]
+        [SerializeField] private VoidEventChannel _playerChainBrokeEventChannel;
+
         [Space]
         [Header("Components")]
         [SerializeField] private GameInput _gameInput;
@@ -23,10 +27,9 @@ namespace KillChain.Player
         [SerializeField] private LayerMask _chainableLayerMask;
         [SerializeField] private LayerMask _chainBreakLayerMask;
 
-        public bool ChainOnCooldown { get; private set; }
+        public Observable<PlayerWeaponState> State { get; private set; } = new Observable<PlayerWeaponState>(PlayerWeaponState.Idle);
 
-        public static event Action ChainBroke;
-        public static Observable<PlayerWeaponState> State { get; private set; } = new Observable<PlayerWeaponState>(PlayerWeaponState.Idle);
+        public bool ChainOnCooldown { get; private set; }
 
         private IChainable _currentChainable = null;
         private IPullable _currentPullable = null;
@@ -137,7 +140,7 @@ namespace KillChain.Player
                     if (hit.transform != _currentChainable.Transform)
                     {
                         State.Value = PlayerWeaponState.Idle;
-                        ChainBroke?.Invoke();
+                        _playerChainBrokeEventChannel.Invoke();
                         _currentChainable = null;
                     }
                 }

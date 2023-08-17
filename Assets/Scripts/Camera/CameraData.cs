@@ -2,7 +2,7 @@
 
 namespace KillChain.Camera
 {
-    [CreateAssetMenu(menuName = "KillChain/CameraData")]
+    [CreateAssetMenu(menuName = "KillChain/Camera/CameraData")]
     public class CameraData : ScriptableObject
     {
         [SerializeField] private float _maxFovIncrease;

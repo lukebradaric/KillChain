@@ -16,6 +16,7 @@ namespace KillChain.Player
         [Space]
         [Header("Components")]
         [SerializeField] private Image _handImage;
+        [SerializeField] private PlayerWeapon _playerWeapon;
 
         [Space]
         [Header("Settings")]
@@ -33,12 +34,12 @@ namespace KillChain.Player
 
         private void OnEnable()
         {
-            PlayerWeapon.State.ValueChanged += StateChangedHandler;
+            _playerWeapon.State.ValueChanged += StateChangedHandler;
         }
 
         private void OnDisable()
         {
-            PlayerWeapon.State.ValueChanged -= StateChangedHandler;
+            _playerWeapon.State.ValueChanged -= StateChangedHandler;
         }
 
         private void StateChangedHandler(PlayerWeaponState playerWeaponState)

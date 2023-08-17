@@ -1,11 +1,20 @@
 ﻿using KillChain.Audio;
-using System;
+using KillChain.Core.Events;
 using UnityEngine;
 
 namespace KillChain.Player
 {
     public class PlayerAudio : MonoBehaviour
     {
+        [Space]
+        [Header("EventChannels")]
+        [SerializeField] private VoidEventChannel _playerChainBrokeEventChannel;
+        [SerializeField] private VoidEventChannel _playerMeleeEventChannel;
+
+        [Space]
+        [Header("Components")]
+        [SerializeField] private PlayerWeapon _playerWeapon;
+
         [Space]
         [Header("Audio")]
         [SerializeField] private AudioAsset _chainAttachAudioAsset;
@@ -14,17 +23,17 @@ namespace KillChain.Player
 
         private void OnEnable()
         {
-            PlayerWeapon.State.ValueChanged += StateChangedHandler;
-            PlayerWeapon.ChainBroke += ChainBrokeHandler;
-            PlayerMelee.MeleeStarted += MeleeStartedHandler;
+            _playerWeapon.State.ValueChanged += StateChangedHandler;
+            _playerChainBrokeEventChannel.Event += PlayerChainBrokeHandler;
+            _playerMeleeEventChannel.Event += PlayerMeleeHandler;
 
         }
 
         private void OnDisable()
         {
-            PlayerWeapon.State.ValueChanged -= StateChangedHandler;
-            PlayerWeapon.ChainBroke -= ChainBrokeHandler;
-            PlayerMelee.MeleeStarted -= MeleeStartedHandler;
+            _playerWeapon.State.ValueChanged -= StateChangedHandler;
+            _playerChainBrokeEventChannel.Event -= PlayerChainBrokeHandler;
+            _playerMeleeEventChannel.Event -= PlayerMeleeHandler;
         }
 
         private void StateChangedHandler(PlayerWeaponState state)
@@ -32,12 +41,12 @@ namespace KillChain.Player
             if (state == PlayerWeaponState.Attach) _chainAttachAudioAsset?.Play();
         }
 
-        private void ChainBrokeHandler()
+        private void PlayerChainBrokeHandler()
         {
             _chainBreakAudioAsset?.Play();
         }
 
-        private void MeleeStartedHandler()
+        private void PlayerMeleeHandler()
         {
             _meleeAudioAsset?.Play();
         }
