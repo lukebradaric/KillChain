@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6150626131794016944}
   - component: {fileID: 8253314505419236856}
   - component: {fileID: 2093542819655544753}
-  - component: {fileID: 602224217350331178}
   - component: {fileID: 4688008120018749714}
+  - component: {fileID: 8776462449703903784}
   m_Layer: 6
   m_Name: TEST EnemyProjectilePrefab
   m_TagString: Untagged
@@ -85,28 +85,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &602224217350331178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4394878287065079044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50d13cae3b0ecde42bcb531cde65910f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _timeManager: {fileID: 11400000, guid: 75f8bd5a45bd9bc4faea5c78f292092f, type: 2}
-  _rigidbody: {fileID: 2093542819655544753}
-  _parryCameraShakeData: {fileID: 11400000, guid: c1f85285f5332cd4592891113d47146c,
-    type: 2}
-  _parryParticlePrefab: {fileID: 4726059673932196062, guid: 520e0c2db39e70d49819d7fff4b29c21,
-    type: 3}
-  _parryAudioAsset: {fileID: 11400000, guid: 10011ae661502354bb7c2dd5c158d310, type: 2}
-  _damage: 1
-  _parrySpeedMultiplier: 3
-  _parryTimeStopDuration: 0.1
 --- !u!114 &4688008120018749714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +97,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3a6070fa0be4e3419f97abd7867a3ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8776462449703903784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4394878287065079044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb1d35cf1f9b9d4788e83556573bc07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 2093542819655544753}
+  _damage: 1
+  _maxLifetime: 5
 --- !u!1 &5408902246659446031
 GameObject:
   m_ObjectHideFlags: 0

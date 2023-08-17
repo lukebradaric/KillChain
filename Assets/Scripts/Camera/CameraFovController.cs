@@ -21,15 +21,9 @@ namespace KillChain.Camera
 
         private void Update()
         {
-            // TODO (002) : Actual/Better implementation
-            // 90% of max speed = 90% of max fov increase
-
-            // Calculate player velocity, ignoring Y speed
-            Vector3 flatPlayerVelocity = new Vector3(_rigidbody.velocity.x, 0, _rigidbody.velocity.z);
-
             // Calculate new FOV, default if grounded
             float newCameraFov = _playerController.IsGrounded.Value ? _defaultCameraFov :
-                _defaultCameraFov + (_cameraData.MaxFovIncrease / (_cameraData.MaxVelocityFovChange / flatPlayerVelocity.magnitude));
+                _defaultCameraFov + (_cameraData.MaxFovIncrease / (_cameraData.MaxVelocityFovChange / _rigidbody.velocity.magnitude));
 
             // Clamp FOV value
             newCameraFov = Mathf.Clamp(newCameraFov, _defaultCameraFov, _defaultCameraFov + _cameraData.MaxFovIncrease);

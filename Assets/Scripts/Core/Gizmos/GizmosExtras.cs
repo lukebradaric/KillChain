@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace KillChain.Core.Common
+namespace KillChain.Core.Gizmos
 {
     public static class GizmosExtras
     {

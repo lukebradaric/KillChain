@@ -29,8 +29,6 @@ namespace KillChain.Player
 
         public Observable<PlayerWeaponState> State { get; private set; } = new Observable<PlayerWeaponState>(PlayerWeaponState.Idle);
 
-        public bool ChainOnCooldown { get; private set; }
-
         private IChainable _currentChainable = null;
         private IPullable _currentPullable = null;
         private IDestroyable _currentDestroyable = null;
@@ -70,6 +68,7 @@ namespace KillChain.Player
             // Raycast to check if player hit a chainable object
             RaycastHit hit;
             Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out hit, _playerData.MaxTargetDistance, _chainableLayerMask);
+
             if (hit.collider != null && hit.collider.TryGetComponent<IChainable>(out var chainable))
             {
                 // TODO (001) : lol this is ass, fix after testing
@@ -154,18 +153,23 @@ namespace KillChain.Player
             {
                 _rigidbody.velocity = (_currentChainable.Transform.position - transform.position).normalized * _playerData.DashSpeed;
 
-                if (Vector3.Distance(transform.position, _currentChainable.Transform.position) < _playerData.DashKillDistance)
+                if (Vector3.Distance(transform.position, _currentChainable.Transform.position) < _playerData.DashDamageDistance)
                 {
                     // If chainable is also damageable, damage and add upwards force
                     if (_currentChainable.Transform.TryGetComponent<IDamageable>(out var damageable))
                     {
                         damageable.Damage(_playerData.DashDamage);
                         _rigidbody.SetVelocityY(0);
-                        _rigidbody.AddForce(Vector3.up * _playerData.DashKillUpwardForce, ForceMode.Impulse);
+                        _rigidbody.AddForce(Vector3.up * _playerData.DashDamageUpwardForce, ForceMode.Impulse);
+                    }
+                    else
+                    {
+                        // Bounce player off of target they were dashing to
+                        _rigidbody.velocity = -_rigidbody.velocity.normalized * _playerData.DashReboundSpeed;
+                        _rigidbody.SetVelocityY(_playerData.DashReboundUpwardForce);
                     }
 
                     _currentChainable = null;
-
                     State.Value = PlayerWeaponState.Idle;
                 }
             }

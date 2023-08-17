@@ -17,6 +17,7 @@ namespace KillChain.Input
         // TODO: Rename alt fire (Right click)
         public event Action AltFirePressed;
         public event Action MeleePressed;
+        public event Action SlamPressed;
 
         public void SetHorizontalInput(float value)
         {
@@ -56,6 +57,11 @@ namespace KillChain.Input
         public void OnMeleePressed()
         {
             MeleePressed?.Invoke();
+        }
+
+        public void OnSlamPressed()
+        {
+            SlamPressed?.Invoke();
         }
     }
 }
