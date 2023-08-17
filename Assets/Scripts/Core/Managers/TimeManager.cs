@@ -6,7 +6,7 @@ namespace KillChain.Core.Managers
     [CreateAssetMenu(menuName = "KillChain/Managers/TimeManager")]
     public class TimeManager : ScriptableObject
     {
-        public void StopTime(float duration)
+        public void TimeStop(float duration)
         {
             CoroutineManager.Instance.StartCoroutine(StopTimeCoroutine(duration));
         }

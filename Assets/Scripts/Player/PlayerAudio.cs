@@ -10,6 +10,7 @@ namespace KillChain.Player
         [Header("EventChannels")]
         [SerializeField] private VoidEventChannel _playerChainBrokeEventChannel;
         [SerializeField] private VoidEventChannel _playerMeleeEventChannel;
+        [SerializeField] private VoidEventChannel _playerParryEventChannel;
 
         [Space]
         [Header("Components")]
@@ -17,16 +18,17 @@ namespace KillChain.Player
 
         [Space]
         [Header("Audio")]
-        [SerializeField] private AudioAsset _chainAttachAudioAsset;
-        [SerializeField] private AudioAsset _chainBreakAudioAsset;
-        [SerializeField] private AudioAsset _meleeAudioAsset;
+        [SerializeField] private AudioAsset _playerChainAttachAudioAsset;
+        [SerializeField] private AudioAsset _playerChainBreakAudioAsset;
+        [SerializeField] private AudioAsset _playerMeleeAudioAsset;
+        [SerializeField] private AudioAsset _playerParryAudioAsset;
 
         private void OnEnable()
         {
             _playerWeapon.State.ValueChanged += StateChangedHandler;
             _playerChainBrokeEventChannel.Event += PlayerChainBrokeHandler;
             _playerMeleeEventChannel.Event += PlayerMeleeHandler;
-
+            _playerParryEventChannel.Event += PlayerParryHandler;
         }
 
         private void OnDisable()
@@ -34,22 +36,19 @@ namespace KillChain.Player
             _playerWeapon.State.ValueChanged -= StateChangedHandler;
             _playerChainBrokeEventChannel.Event -= PlayerChainBrokeHandler;
             _playerMeleeEventChannel.Event -= PlayerMeleeHandler;
+            _playerParryEventChannel.Event -= PlayerParryHandler;
         }
 
         private void StateChangedHandler(PlayerWeaponState state)
         {
-            if (state == PlayerWeaponState.Attach) _chainAttachAudioAsset?.Play();
+            if (state == PlayerWeaponState.Attach) _playerChainAttachAudioAsset?.Play();
         }
 
-        private void PlayerChainBrokeHandler()
-        {
-            _chainBreakAudioAsset?.Play();
-        }
+        private void PlayerChainBrokeHandler() => _playerChainBreakAudioAsset?.Play();
 
-        private void PlayerMeleeHandler()
-        {
-            _meleeAudioAsset?.Play();
-        }
+        private void PlayerMeleeHandler() => _playerMeleeAudioAsset?.Play();
+
+        private void PlayerParryHandler() => _playerParryAudioAsset?.Play();
     }
 }
 

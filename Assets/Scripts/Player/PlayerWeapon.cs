@@ -29,8 +29,6 @@ namespace KillChain.Player
 
         public Observable<PlayerWeaponState> State { get; private set; } = new Observable<PlayerWeaponState>(PlayerWeaponState.Idle);
 
-        public bool ChainOnCooldown { get; private set; }
-
         private IChainable _currentChainable = null;
         private IPullable _currentPullable = null;
         private IDestroyable _currentDestroyable = null;

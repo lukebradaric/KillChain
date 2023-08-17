@@ -1,5 +1,5 @@
 ﻿using KillChain.Core;
-using KillChain.Core.Common;
+using KillChain.Core.Gizmos;
 using KillChain.Core.Events;
 using KillChain.Core.Managers;
 using KillChain.Input;
@@ -14,6 +14,7 @@ namespace KillChain.Player
         [Header("EventChannels")]
         [SerializeField] private VoidEventChannel _playerMeleeEventChannel;
         [SerializeField] private FloatEventChannel _playerMeleeCooldownStartedEventChannel;
+        [SerializeField] private VoidEventChannel _playerParryEventChannel;
 
         [Space]
         [Header("Components")]
@@ -21,11 +22,14 @@ namespace KillChain.Player
         [SerializeField] private PlayerData _playerData;
         [SerializeField] private TimeManager _timeManager;
         [SerializeField] private Transform _cameraTransform;
+        [SerializeField] private GameObject _parryParticlePrefab;
 
         [Space]
         [Header("Settings")]
         [SerializeField] private Vector3 _hitCapsuleStartPosition;
         [SerializeField] private LayerMask _meleeLayerMask;
+        [SerializeField] private float _parryTimeStopDuration = 0.15f;
+        [SerializeField] private float _parryVelocityMultiplier = 2.5f;
 
         public bool CanMelee { get; private set; } = true;
 
@@ -57,8 +61,20 @@ namespace KillChain.Player
 
             foreach (Collider collider in colliders)
             {
+                // Do damage
                 if (collider.TryGetComponent<IDamageable>(out var damageable))
+                {
                     damageable.Damage(_playerData.MeleeDamage);
+                }
+
+                // Do parry
+                if (collider.TryGetComponent<IParryable>(out var parryable))
+                {
+                    parryable.Parry(_parryVelocityMultiplier);
+                    _playerParryEventChannel?.Invoke();
+                    Instantiate(_parryParticlePrefab, collider.transform.position, Quaternion.identity);
+                    _timeManager.TimeStop(_parryTimeStopDuration);
+                }
             }
         }
 
