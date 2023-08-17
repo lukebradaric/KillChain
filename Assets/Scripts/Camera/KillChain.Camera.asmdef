@@ -2,7 +2,8 @@
     "name": "KillChain.Camera",
     "rootNamespace": "",
     "references": [
-        "GUID:fd4dbe05ff7edb144892fec8286fc54a"
+        "GUID:fd4dbe05ff7edb144892fec8286fc54a",
+        "GUID:4f8c53eb644d698438aadbf696738df2"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

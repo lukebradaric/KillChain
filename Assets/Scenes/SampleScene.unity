@@ -3201,12 +3201,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1310351295 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3328750551858837960, guid: c93ac1b47395c114fa0d69176d5b6e67,
+    type: 3}
+  m_PrefabInstance: {fileID: 2608208508730249988}
+  m_PrefabAsset: {fileID: 0}
 --- !u!20 &1310351300 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 5736865838330536215, guid: c93ac1b47395c114fa0d69176d5b6e67,
     type: 3}
   m_PrefabInstance: {fileID: 2608208508730249988}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1310351301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310351295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aaf1327c9278a24ca5e87ad62c4e563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cameraData: {fileID: 11400000, guid: 11baf53e875599f4e93b8895003993ee, type: 2}
+  _camera: {fileID: 1310351300}
+  _rigidbody: {fileID: 2054193049}
+  _playerController: {fileID: 2054193048}
 --- !u!1 &1362230769
 GameObject:
   m_ObjectHideFlags: 0
@@ -5520,7 +5542,12 @@ PrefabInstance:
     - target: {fileID: 8876101568456729951, guid: c93ac1b47395c114fa0d69176d5b6e67,
         type: 3}
       propertyPath: _maxFovIncrease
-      value: 10
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8876101568456729951, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _maxVelocityCheck
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8876101568456729951, guid: c93ac1b47395c114fa0d69176d5b6e67,
         type: 3}
@@ -5536,7 +5563,11 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 8747807411198028922, guid: c93ac1b47395c114fa0d69176d5b6e67, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3328750551858837960, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1310351301}
   m_SourcePrefab: {fileID: 100100000, guid: c93ac1b47395c114fa0d69176d5b6e67, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
