@@ -22,14 +22,12 @@ namespace KillChain.Player
         [SerializeField] private PlayerData _playerData;
         [SerializeField] private TimeManager _timeManager;
         [SerializeField] private Transform _cameraTransform;
+        [SerializeField] private Transform _hitboxTransform;
         [SerializeField] private GameObject _parryParticlePrefab;
 
         [Space]
         [Header("Settings")]
-        [SerializeField] private Vector3 _hitCapsuleStartPosition;
         [SerializeField] private LayerMask _meleeLayerMask;
-        [SerializeField] private float _parryTimeStopDuration = 0.15f;
-        [SerializeField] private float _parryVelocityMultiplier = 2.5f;
 
         public bool CanMelee { get; private set; } = true;
 
@@ -51,8 +49,8 @@ namespace KillChain.Player
 
             StartCoroutine(MeleeCooldownCoroutine());
 
-            Collider[] colliders = Physics.OverlapCapsule(transform.position + _hitCapsuleStartPosition,
-                transform.position + _hitCapsuleStartPosition + _cameraTransform.forward * _playerData.MeleeLength,
+            Collider[] colliders = Physics.OverlapCapsule(_hitboxTransform.position,
+                _hitboxTransform.position + _cameraTransform.forward * _playerData.MeleeLength,
                 _playerData.MeleeRadius,
                 _meleeLayerMask);
 
@@ -70,10 +68,10 @@ namespace KillChain.Player
                 // Do parry
                 if (collider.TryGetComponent<IParryable>(out var parryable))
                 {
-                    parryable.Parry(_parryVelocityMultiplier);
+                    parryable.Parry(_playerData.ParryVelocityMultiplier);
                     _playerParryEventChannel?.Invoke();
                     Instantiate(_parryParticlePrefab, collider.transform.position, Quaternion.identity);
-                    _timeManager.TimeStop(_parryTimeStopDuration);
+                    _timeManager.TimeStop(_playerData.ParryTimeStopDuration);
                 }
             }
         }
@@ -88,8 +86,8 @@ namespace KillChain.Player
 
         private void OnDrawGizmos()
         {
-            GizmosExtras.DrawWireCapsule(transform.position + _hitCapsuleStartPosition,
-                transform.position + _hitCapsuleStartPosition + _cameraTransform.forward * _playerData.MeleeLength,
+            GizmosExtras.DrawWireCapsule(_hitboxTransform.position,
+                _hitboxTransform.position + _cameraTransform.forward * _playerData.MeleeLength,
                 _playerData.MeleeRadius);
         }
 

@@ -1,5 +1,8 @@
+using KillChain.Core;
+using KillChain.Core.Events;
 using KillChain.Core.Extensions;
 using KillChain.Core.Generics;
+using KillChain.Core.Gizmos;
 using KillChain.Input;
 using UnityEngine;
 
@@ -9,16 +12,27 @@ namespace KillChain.Player
     public class PlayerController : MonoBehaviour
     {
         [Space]
+        [Header("EventChannels")]
+        [SerializeField] private VoidEventChannel _playerSlamEventChannel;
+
+        [Space]
         [Header("Components")]
         [SerializeField] private GameInput _gameInput;
         [SerializeField] private PlayerData _playerData;
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Transform _lookTransform;
+        [SerializeField] private Transform _slamHitboxTransform;
         [SerializeField] private PlayerGroundCheck _groundCheck;
         [SerializeField] private PlayerWeapon _playerWeapon;
+        [SerializeField] private GameObject _slamParticlePrefab;
+
+        [Space]
+        [Header("Settings")]
+        [SerializeField] private LayerMask _slamLayerMask;
 
         public Observable<bool> IsGrounded { get; private set; } = new Observable<bool>(false);
         public Observable<bool> IsMoving { get; private set; } = new Observable<bool>(false);
+        public Observable<bool> IsSlamming { get; private set; } = new Observable<bool>(false);
 
         private Vector3 _moveDirection;
         private Vector3 _flatVelocity;
@@ -26,11 +40,15 @@ namespace KillChain.Player
         private void OnEnable()
         {
             _gameInput.JumpPressed += JumpPressedHandler;
+            _gameInput.SlamPressed += SlamPressedHandler;
+            IsGrounded.ValueChanged += IsGroundedChangedHandler;
         }
 
         private void OnDisable()
         {
             _gameInput.JumpPressed -= JumpPressedHandler;
+            _gameInput.SlamPressed -= SlamPressedHandler;
+            IsGrounded.ValueChanged -= IsGroundedChangedHandler;
         }
 
         private void FixedUpdate()
@@ -51,6 +69,26 @@ namespace KillChain.Player
             // Reset player Y velocity
             _rigidbody.SetVelocityY(0);
             _rigidbody.AddForce(Vector3.up * _playerData.JumpForce, ForceMode.Impulse);
+        }
+
+        private void SlamPressedHandler()
+        {
+            // If grounded or already slamming, return
+            if (IsGrounded.Value || IsSlamming.Value || _playerWeapon.State.Value == PlayerWeaponState.Dash)
+                return;
+
+            // Move downwards and set slamming to true
+            _rigidbody.SetVelocityY(_playerData.SlamSpeed);
+            IsSlamming.Value = true;
+        }
+
+        private void IsGroundedChangedHandler(bool isGrounded)
+        {
+            // If we are now grounded and are slamming, invoke slam event
+            if (isGrounded && IsSlamming.Value)
+            {
+                this.Slam();
+            }
         }
 
         private void HandleGroundCheck()
@@ -99,6 +137,27 @@ namespace KillChain.Player
                 Vector3 newVelocity = _flatVelocity.normalized * maxSpeed;
                 _rigidbody.velocity = new Vector3(newVelocity.x, _rigidbody.velocity.y, newVelocity.z);
             }
+        }
+
+        private void Slam()
+        {
+            _playerSlamEventChannel?.Invoke();
+            IsSlamming.Value = false;
+            Instantiate(_slamParticlePrefab, _slamHitboxTransform.position, Quaternion.identity);
+
+            Collider[] colliders = Physics.OverlapBox(_slamHitboxTransform.position, new Vector3(5, 1, 5), Quaternion.identity, _slamLayerMask);
+            foreach (Collider collider in colliders)
+            {
+                if (collider.TryGetComponent<IDamageable>(out var damageable))
+                {
+                    damageable.Damage(_playerData.SlamDamage);
+                }
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawWireCube(_slamHitboxTransform.position, new Vector3(5, 1, 5));
         }
     }
 }

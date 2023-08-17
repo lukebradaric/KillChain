@@ -11,6 +11,7 @@ namespace KillChain.Player
         [SerializeField] private VoidEventChannel _playerChainBrokeEventChannel;
         [SerializeField] private VoidEventChannel _playerMeleeEventChannel;
         [SerializeField] private VoidEventChannel _playerParryEventChannel;
+        [SerializeField] private VoidEventChannel _playerSlamEventChannel;
 
         [Space]
         [Header("Components")]
@@ -22,6 +23,7 @@ namespace KillChain.Player
         [SerializeField] private AudioAsset _playerChainBreakAudioAsset;
         [SerializeField] private AudioAsset _playerMeleeAudioAsset;
         [SerializeField] private AudioAsset _playerParryAudioAsset;
+        [SerializeField] private AudioAsset _playerSlamAudioAsset;
 
         private void OnEnable()
         {
@@ -29,6 +31,7 @@ namespace KillChain.Player
             _playerChainBrokeEventChannel.Event += PlayerChainBrokeHandler;
             _playerMeleeEventChannel.Event += PlayerMeleeHandler;
             _playerParryEventChannel.Event += PlayerParryHandler;
+            _playerSlamEventChannel.Event += PlayerSlamHandler;
         }
 
         private void OnDisable()
@@ -37,6 +40,7 @@ namespace KillChain.Player
             _playerChainBrokeEventChannel.Event -= PlayerChainBrokeHandler;
             _playerMeleeEventChannel.Event -= PlayerMeleeHandler;
             _playerParryEventChannel.Event -= PlayerParryHandler;
+            _playerSlamEventChannel.Event += PlayerSlamHandler;
         }
 
         private void StateChangedHandler(PlayerWeaponState state)
@@ -49,6 +53,8 @@ namespace KillChain.Player
         private void PlayerMeleeHandler() => _playerMeleeAudioAsset?.Play();
 
         private void PlayerParryHandler() => _playerParryAudioAsset?.Play();
+
+        private void PlayerSlamHandler() => _playerSlamAudioAsset?.Play();
     }
 }
 
