@@ -21,7 +21,6 @@ MonoBehaviour:
   _airDrag: 0
   _horizontalSensitivity: 16
   _verticalSensitivity: 16
-  _chainCooldown: 1
   _maxTargetDistance: 100
   _dashDamage: 1
   _dashSpeed: 40
@@ -29,3 +28,7 @@ MonoBehaviour:
   _dashKillDistance: 5
   _pullSpeed: 40
   _pullStopDistance: 3
+  _meleeDamage: 1
+  _meleeCooldown: 0.75
+  _meleeLength: 2.5
+  _meleeRadius: 0.5

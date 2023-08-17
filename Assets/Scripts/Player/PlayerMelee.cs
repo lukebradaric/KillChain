@@ -3,7 +3,6 @@ using KillChain.Core.Common;
 using KillChain.Core.Events;
 using KillChain.Core.Managers;
 using KillChain.Input;
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -19,17 +18,14 @@ namespace KillChain.Player
         [Space]
         [Header("Components")]
         [SerializeField] private GameInput _gameInput;
+        [SerializeField] private PlayerData _playerData;
         [SerializeField] private TimeManager _timeManager;
         [SerializeField] private Transform _cameraTransform;
 
         [Space]
         [Header("Settings")]
-        [SerializeField] private int _meleeDamage = 1;
-        [SerializeField] private float _meleeCooldown = 0.75f;
-        [SerializeField] private LayerMask _meleeLayerMask;
         [SerializeField] private Vector3 _hitCapsuleStartPosition;
-        [SerializeField] private float _hitCapsuleLength;
-        [SerializeField] private float _hitCapsuleRadius;
+        [SerializeField] private LayerMask _meleeLayerMask;
 
         public bool CanMelee { get; private set; } = true;
 
@@ -52,8 +48,8 @@ namespace KillChain.Player
             StartCoroutine(MeleeCooldownCoroutine());
 
             Collider[] colliders = Physics.OverlapCapsule(transform.position + _hitCapsuleStartPosition,
-                transform.position + _hitCapsuleStartPosition + _cameraTransform.forward * _hitCapsuleLength,
-                _hitCapsuleRadius,
+                transform.position + _hitCapsuleStartPosition + _cameraTransform.forward * _playerData.MeleeLength,
+                _playerData.MeleeRadius,
                 _meleeLayerMask);
 
             if (colliders.Length == 0)
@@ -62,23 +58,23 @@ namespace KillChain.Player
             foreach (Collider collider in colliders)
             {
                 if (collider.TryGetComponent<IDamageable>(out var damageable))
-                    damageable.Damage(_meleeDamage);
+                    damageable.Damage(_playerData.MeleeDamage);
             }
         }
 
         private IEnumerator MeleeCooldownCoroutine()
         {
             CanMelee = false;
-            _playerMeleeCooldownStartedEventChannel.Invoke(_meleeCooldown);
-            yield return new WaitForSeconds(_meleeCooldown);
+            _playerMeleeCooldownStartedEventChannel.Invoke(_playerData.MeleeCooldown);
+            yield return new WaitForSeconds(_playerData.MeleeCooldown);
             CanMelee = true;
         }
 
         private void OnDrawGizmos()
         {
             GizmosExtras.DrawWireCapsule(transform.position + _hitCapsuleStartPosition,
-                transform.position + _hitCapsuleStartPosition + _cameraTransform.forward * _hitCapsuleLength,
-                _hitCapsuleRadius);
+                transform.position + _hitCapsuleStartPosition + _cameraTransform.forward * _playerData.MeleeLength,
+                _playerData.MeleeRadius);
         }
 
     }

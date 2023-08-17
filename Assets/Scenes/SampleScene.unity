@@ -5566,6 +5566,12 @@ PrefabInstance:
       objectReference: {fileID: 2608208508730249989}
     - target: {fileID: 5542292963663981009, guid: c93ac1b47395c114fa0d69176d5b6e67,
         type: 3}
+      propertyPath: _playerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 0e1197ef0cd670a45b0e3a1bc27eb8a1,
+        type: 2}
+    - target: {fileID: 5542292963663981009, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
       propertyPath: _hitCapsuleLength
       value: 2.5
       objectReference: {fileID: 0}
