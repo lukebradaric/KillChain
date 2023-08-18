@@ -23,21 +23,25 @@ namespace KillChain.Player.States
         {
             _rigidbody.SetVelocity((_playerWeapon.CurrentChainable.Transform.position - _playerStateMachine.transform.position).normalized * _playerData.DashSpeed);
 
-            if (Vector3.Distance(_playerStateMachine.transform.position, _playerWeapon.CurrentChainable.Transform.position) < _playerData.DashDamageDistance)
+            if (Vector3.Distance(_playerStateMachine.transform.position, _playerWeapon.CurrentChainable.Transform.position) < _playerData.DashStopDistance)
             {
                 Debug.Log("Mock Damage Dash Target!");
                 if (_playerWeapon.CurrentChainable.Transform.TryGetComponent<IDamageable>(out var damageable))
                 {
                     damageable.Damage(_playerData.DashDamage);
+                    _rigidbody.SetVelocity(_rigidbody.velocity * _playerData.DashDamageSpeedMultiplier);
                     _rigidbody.SetVelocityY(_playerData.DashDamageUpwardForce);
                 }
+                //else if( THE CHAINABLE IS A BOOSTABLE )
                 else
                 {
+                    //_rigidbody.SetVelocity(_rigidbody.velocity * _playerData.BoostSpeedMultiplier);
                     _rigidbody.SetVelocity(-_rigidbody.velocity.normalized * _playerData.DashReboundSpeed);
                     _rigidbody.SetVelocityY(_playerData.DashDamageUpwardForce);
-
-                    _playerStateMachine.ChangeState(_playerStateMachine.AirState);
                 }
+
+                _playerStateMachine.ChangeState(_playerStateMachine.AirState);
+                _playerWeapon.State.Value = PlayerWeaponState.Idle;
             }
         }
 

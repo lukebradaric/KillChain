@@ -12,21 +12,20 @@ namespace KillChain.Player
         [SerializeField] private float _moveSpeed;
         public float MoveSpeed => _moveSpeed;
 
-        [Tooltip("Max speed player can reach.")]
-        [SerializeField] private float _maxSpeed;
-        public float MaxSpeed => _maxSpeed;
-
-        [Tooltip("Max speed player can reach while in air.")]
-        [SerializeField] private float _maxAirSpeed;
-        public float MaxAirSpeed => _maxAirSpeed;
-
         [Tooltip("Force applied upwards when jumping.")]
         [SerializeField] private float _jumpForce;
         public float JumpForce => _jumpForce;
 
+        [Tooltip("Value multiplied by player velocity when going through boost")]
+        [SerializeField] private float _boostSpeedMultiplier;
+        public float BoostSpeedMultiplier => _boostSpeedMultiplier;
+
         [Tooltip("Movement speed multiplier while in air.")]
         [SerializeField] private float _airSpeedMultiplier;
         public float AirSpeedMultiplier => _airSpeedMultiplier;
+
+        [SerializeField] private float _fallForce;
+        public float FallForce => _fallForce;
         #endregion
 
         #region Drag
@@ -99,13 +98,17 @@ namespace KillChain.Player
         [SerializeField] private float _dashReboundUpwardForce;
         public float DashReboundUpwardForce => _dashReboundUpwardForce;
 
+        [Tooltip("Value multiplied by player velocity when doing dash damage.")]
+        [SerializeField] private float _dashDamageSpeedMultiplier;
+        public float DashDamageSpeedMultiplier => _dashDamageSpeedMultiplier;
+
         [Tooltip("Upwards force applied to player aftering damaging chained target with dash.")]
         [SerializeField] private float _dashDamageUpwardForce;
         public float DashDamageUpwardForce => _dashDamageUpwardForce;
 
         [Tooltip("Distance dash will damaged chained target from.")]
-        [SerializeField] private float _dashDamageDistance;
-        public float DashDamageDistance => _dashDamageDistance;
+        [SerializeField] private float _dashStopDistance;
+        public float DashStopDistance => _dashStopDistance;
         #endregion
 
         #region Pull

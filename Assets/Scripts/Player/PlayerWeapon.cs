@@ -155,7 +155,7 @@ namespace KillChain.Player
             {
                 _rigidbody.velocity = (_currentChainable.Transform.position - transform.position).normalized * _playerData.DashSpeed;
 
-                if (Vector3.Distance(transform.position, _currentChainable.Transform.position) < _playerData.DashDamageDistance)
+                if (Vector3.Distance(transform.position, _currentChainable.Transform.position) < _playerData.DashStopDistance)
                 {
                     // If chainable is also damageable, damage and add upwards force
                     if (_currentChainable.Transform.TryGetComponent<IDamageable>(out var damageable))

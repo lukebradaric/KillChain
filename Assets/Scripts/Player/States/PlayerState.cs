@@ -19,17 +19,6 @@ namespace KillChain.Player.States
         public abstract void FixedUpdate();
         public abstract void Exit();
 
-        protected void LimitVelocity(float maxVelocityMagnitude)
-        {
-            Vector3 _flatVelocity = new Vector3(_rigidbody.velocity.x, 0, _rigidbody.velocity.z);
-
-            if (_flatVelocity.magnitude > maxVelocityMagnitude)
-            {
-                Vector3 newVelocity = _flatVelocity.normalized * maxVelocityMagnitude;
-                _rigidbody.velocity = new Vector3(newVelocity.x, _rigidbody.velocity.y, newVelocity.z);
-            }
-        }
-
         protected void Move(float velocityMultiplier = 1f)
         {
             // Movement

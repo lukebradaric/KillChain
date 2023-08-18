@@ -126,17 +126,17 @@ namespace KillChain.Player
 
         private void HandleSpeed()
         {
-            if (_playerWeapon.State.Value == PlayerWeaponState.Dash) return;
+            //if (_playerWeapon.State.Value == PlayerWeaponState.Dash) return;
 
-            _flatVelocity = new Vector3(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
+            //_flatVelocity = new Vector3(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
 
-            float maxSpeed = IsGrounded.Value ? _playerData.MaxSpeed : _playerData.MaxAirSpeed;
+            //float maxSpeed = IsGrounded.Value ? _playerData.MaxSpeed : _playerData.MaxAirSpeed;
 
-            if (_flatVelocity.magnitude > maxSpeed)
-            {
-                Vector3 newVelocity = _flatVelocity.normalized * maxSpeed;
-                _rigidbody.velocity = new Vector3(newVelocity.x, _rigidbody.velocity.y, newVelocity.z);
-            }
+            //if (_flatVelocity.magnitude > maxSpeed)
+            //{
+            //    Vector3 newVelocity = _flatVelocity.normalized * maxSpeed;
+            //    _rigidbody.velocity = new Vector3(newVelocity.x, _rigidbody.velocity.y, newVelocity.z);
+            //}
         }
 
         private void Slam()

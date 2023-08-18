@@ -26,7 +26,8 @@ namespace KillChain.Player.States
         {
             Move();
 
-            LimitVelocity(_playerData.MaxSpeed);
+            if(!_playerGroundCheck.Found())
+                _playerStateMachine.ChangeState(_playerStateMachine.AirState);
         }
 
         public override void Update() { }
@@ -35,7 +36,6 @@ namespace KillChain.Player.States
         {
             _playerGroundCheck.TempDisable();
             _rigidbody.SetVelocityY(_playerData.JumpForce);
-            //_rigidbody.AddForce(Vector3.up * _playerData.JumpForce, ForceMode.Impulse);
             _playerStateMachine.ChangeState(_playerStateMachine.AirState);
         }
 

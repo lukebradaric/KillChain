@@ -68,6 +68,11 @@ namespace KillChain.Player.States
         {
             _currentState?.FixedUpdate();
         }
+
+        private void OnDestroy()
+        {
+            _currentState.Exit();
+        }
     }
 }
 

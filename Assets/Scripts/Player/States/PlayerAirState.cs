@@ -23,7 +23,7 @@ namespace KillChain.Player.States
         {
             Move(_playerData.AirSpeedMultiplier);
 
-            LimitVelocity(_playerData.MaxAirSpeed);
+            _rigidbody.AddForce(Vector3.down * _playerData.FallForce);
 
             if (_playerGroundCheck.Found())
             {

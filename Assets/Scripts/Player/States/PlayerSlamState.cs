@@ -17,8 +17,6 @@ namespace KillChain.Player.States
         {
             Move();
 
-            LimitVelocity(_playerData.MaxAirSpeed);
-
             if (_playerGroundCheck.Found())
             {
                 Debug.Log("Mock Slam Nearby Enemies!");
