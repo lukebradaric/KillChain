@@ -1,5 +1,4 @@
 ﻿using KillChain.Core.Extensions;
-using UnityEngine;
 
 namespace KillChain.Player.States
 {
@@ -8,49 +7,49 @@ namespace KillChain.Player.States
     {
         public override void Enter()
         {
-            _gameInput.JumpPressed += JumpPressedHandler;
-            _gameInput.FirePressed += FirePressedHandler;
-            _gameInput.SlidePressed += SlidePressedHandler;
+            _player.GameInput.JumpPressed += JumpPressedHandler;
+            _player.GameInput.FirePressed += FirePressedHandler;
+            _player.GameInput.SlidePressed += SlidePressedHandler;
 
-            _rigidbody.drag = _playerData.GroundDrag;
+            _player.Rigidbody.drag = _player.Data.GroundDrag;
         }
 
         public override void Exit()
         {
-            _gameInput.JumpPressed -= JumpPressedHandler;
-            _gameInput.FirePressed -= FirePressedHandler;
-            _gameInput.SlidePressed -= SlidePressedHandler;
+            _player.GameInput.JumpPressed -= JumpPressedHandler;
+            _player.GameInput.FirePressed -= FirePressedHandler;
+            _player.GameInput.SlidePressed -= SlidePressedHandler;
         }
 
         public override void FixedUpdate()
         {
-            Move();
+            base.Move();
 
-            if(!_playerGroundCheck.Found())
-                _playerStateMachine.ChangeState(_playerStateMachine.AirState);
+            if(!_player.GroundCheck.Found())
+                _player.StateMachine.ChangeState(_player.StateMachine.AirState);
         }
 
         public override void Update() { }
 
         private void JumpPressedHandler()
         {
-            _playerGroundCheck.TempDisable();
-            _rigidbody.SetVelocityY(_playerData.JumpForce);
-            _playerStateMachine.ChangeState(_playerStateMachine.AirState);
+            _player.GroundCheck.TempDisable();
+            _player.Rigidbody.SetVelocityY(_player.Data.JumpForce);
+            _player.StateMachine.ChangeState(_player.StateMachine.AirState);
         }
 
         private void FirePressedHandler()
         {
             // If player left clicked while chained to enemy, enter dashing state
-            if (_playerWeapon.State.Value != PlayerWeaponState.Attach)
+            if (_player.Weapon.State.Value != PlayerWeaponState.Attach)
                 return;
 
-            _playerStateMachine.ChangeState(_playerStateMachine.DashState);
+            _player.StateMachine.ChangeState(_player.StateMachine.DashState);
         }
 
         private void SlidePressedHandler()
         {
-            _playerStateMachine.ChangeState(_playerStateMachine.SlideState);
+            _player.StateMachine.ChangeState(_player.StateMachine.SlideState);
         }
     }
 }

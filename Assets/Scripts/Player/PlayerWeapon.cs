@@ -2,25 +2,15 @@ using KillChain.Core;
 using KillChain.Core.Events;
 using KillChain.Core.Extensions;
 using KillChain.Core.Generics;
-using KillChain.Input;
 using UnityEngine;
 
 namespace KillChain.Player
 {
-    public class PlayerWeapon : MonoBehaviour
+    public class PlayerWeapon : PlayerMonoBehaviour
     {
         [Space]
         [Header("EventChannels")]
         [SerializeField] private VoidEventChannel _playerChainBrokeEventChannel;
-
-        [Space]
-        [Header("Components")]
-        [SerializeField] private GameInput _gameInput;
-        [SerializeField] private PlayerData _playerData;
-        [SerializeField] private Rigidbody _rigidbody;
-        [SerializeField] private Transform _cameraTransform;
-        [SerializeField] private Transform _chainStartTransform;
-        [SerializeField] private LineRenderer _chainLineRenderer;
 
         [Space]
         [Header("Settings")]
@@ -37,14 +27,14 @@ namespace KillChain.Player
 
         private void OnEnable()
         {
-            _gameInput.FirePressed += FirePressedHandler;
-            _gameInput.AltFirePressed += AltFirePressedHandler;
+            _player.GameInput.FirePressed += FirePressedHandler;
+            _player.GameInput.AltFirePressed += AltFirePressedHandler;
         }
 
         private void OnDisable()
         {
-            _gameInput.FirePressed -= FirePressedHandler;
-            _gameInput.AltFirePressed -= AltFirePressedHandler;
+            _player.GameInput.FirePressed -= FirePressedHandler;
+            _player.GameInput.AltFirePressed -= AltFirePressedHandler;
         }
 
         private void Update()
@@ -60,21 +50,14 @@ namespace KillChain.Player
 
         private void FirePressedHandler()
         {
-            //// If player already attached, enter dash state
-            //if (State.Value == PlayerWeaponState.Attach)
-            //{
-            //    State.Value = PlayerWeaponState.Dash;
-            //    return;
-            //}
-
             // Raycast to check if player hit a chainable object
             RaycastHit hit;
-            Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out hit, _playerData.MaxTargetDistance, _chainableLayerMask);
+            Physics.Raycast(_player.CameraTransform.position, _player.CameraTransform.forward, out hit, _player.Data.MaxTargetDistance, _chainableLayerMask);
 
             if (hit.collider != null && hit.collider.TryGetComponent<IChainable>(out var chainable))
             {
                 // TODO (001) : lol this is ass, fix after testing
-                if (Physics.Raycast(_cameraTransform.position, (chainable.Transform.position - _cameraTransform.position).normalized, out var hitCenter, _playerData.MaxTargetDistance, _chainBreakLayerMask))
+                if (Physics.Raycast(_player.CameraTransform.position, (chainable.Transform.position - _player.CameraTransform.position).normalized, out var hitCenter, _player.Data.MaxTargetDistance, _chainBreakLayerMask))
                 {
                     if (hitCenter.transform != null && hitCenter.transform == chainable.Transform)
                     {
@@ -96,7 +79,7 @@ namespace KillChain.Player
             {
                 _currentPullable = pullable;
                 State.Value = PlayerWeaponState.Pull;
-                pullable.Pull(transform, _playerData.PullSpeed);
+                pullable.Pull(transform, _player.Data.PullSpeed);
 
                 if (pullable.Transform.TryGetComponent<IDestroyable>(out var destroyable))
                 {
@@ -119,14 +102,14 @@ namespace KillChain.Player
             switch (State.Value)
             {
                 case PlayerWeaponState.Idle:
-                    _chainLineRenderer.enabled = false;
+                    _player.ChainLineRenderer.enabled = false;
                     break;
                 case PlayerWeaponState.Attach:
                 case PlayerWeaponState.Dash:
                 case PlayerWeaponState.Pull:
-                    _chainLineRenderer.enabled = true;
-                    _chainLineRenderer.SetPosition(0, _chainStartTransform.position);
-                    _chainLineRenderer.SetPosition(1, _currentChainable.Transform.position);
+                    _player.ChainLineRenderer.enabled = true;
+                    _player.ChainLineRenderer.SetPosition(0, _player.ChainStartTransform.position);
+                    _player.ChainLineRenderer.SetPosition(1, _currentChainable.Transform.position);
                     break;
             }
         }
@@ -136,7 +119,7 @@ namespace KillChain.Player
             // Chain Break Check
             if (State.Value == PlayerWeaponState.Attach || State.Value == PlayerWeaponState.Dash)
             {
-                if (Physics.Raycast(_cameraTransform.position, (_currentChainable.Transform.position - _cameraTransform.position).normalized, out var hit, _playerData.MaxTargetDistance, _chainBreakLayerMask))
+                if (Physics.Raycast(_player.CameraTransform.position, (_currentChainable.Transform.position - _player.CameraTransform.position).normalized, out var hit, _player.Data.MaxTargetDistance, _chainBreakLayerMask))
                 {
                     if (hit.transform != _currentChainable.Transform)
                     {
@@ -153,22 +136,22 @@ namespace KillChain.Player
             // Dash State
             if (State.Value == PlayerWeaponState.Dash)
             {
-                _rigidbody.velocity = (_currentChainable.Transform.position - transform.position).normalized * _playerData.DashSpeed;
+                _player.Rigidbody.velocity = (_currentChainable.Transform.position - transform.position).normalized * _player.Data.DashSpeed;
 
-                if (Vector3.Distance(transform.position, _currentChainable.Transform.position) < _playerData.DashStopDistance)
+                if (Vector3.Distance(transform.position, _currentChainable.Transform.position) < _player.Data.DashStopDistance)
                 {
                     // If chainable is also damageable, damage and add upwards force
                     if (_currentChainable.Transform.TryGetComponent<IDamageable>(out var damageable))
                     {
-                        damageable.Damage(_playerData.DashDamage);
-                        _rigidbody.SetVelocityY(0);
-                        _rigidbody.AddForce(Vector3.up * _playerData.DashDamageUpwardForce, ForceMode.Impulse);
+                        damageable.Damage(_player.Data.DashDamage);
+                        _player.Rigidbody.SetVelocityY(0);
+                        _player.Rigidbody.AddForce(Vector3.up * _player.Data.DashDamageUpwardForce, ForceMode.Impulse);
                     }
                     else
                     {
                         // Bounce player off of target they were dashing to
-                        _rigidbody.velocity = -_rigidbody.velocity.normalized * _playerData.DashReboundSpeed;
-                        _rigidbody.SetVelocityY(_playerData.DashReboundUpwardForce);
+                        _player.Rigidbody.velocity = -_player.Rigidbody.velocity.normalized * _player.Data.DashReboundSpeed;
+                        _player.Rigidbody.SetVelocityY(_player.Data.DashReboundUpwardForce);
                     }
 
                     _currentChainable = null;
@@ -179,7 +162,7 @@ namespace KillChain.Player
             // Pull State
             if (State.Value == PlayerWeaponState.Pull)
             {
-                if (Vector3.Distance(transform.position, _currentPullable.Transform.position) < _playerData.PullStopDistance)
+                if (Vector3.Distance(transform.position, _currentPullable.Transform.position) < _player.Data.PullStopDistance)
                 {
                     _currentPullable.Stop();
                     _currentPullable = null;

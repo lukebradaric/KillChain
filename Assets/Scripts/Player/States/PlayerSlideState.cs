@@ -10,28 +10,28 @@ namespace KillChain.Player.States
 
         public override void Enter()
         {
-            _slideDirection = _lookTransform.forward;
+            _slideDirection = _player.LookTransform.forward;
             _slideDirection.y = 0;
 
-            _gameInput.SlideReleased += SlideReleasedHandler;
+            _player.GameInput.SlideReleased += SlideReleasedHandler;
         }
 
         public override void Exit()
         {
-            _gameInput.SlideReleased -= SlideReleasedHandler;
+            _player.GameInput.SlideReleased -= SlideReleasedHandler;
         }
 
         public override void FixedUpdate()
         {
-            Vector3 slideVelocity = _slideDirection * _playerData.SlideSpeed;
-            _rigidbody.SetVelocity(slideVelocity.x, _rigidbody.velocity.y, slideVelocity.z);
+            Vector3 slideVelocity = _slideDirection * _player.Data.SlideSpeed;
+            _player.Rigidbody.SetVelocity(slideVelocity.x, _player.Rigidbody.velocity.y, slideVelocity.z);
         }
 
         public override void Update() { }
 
         private void SlideReleasedHandler()
         {
-            _playerStateMachine.ChangeState(_playerStateMachine.MoveState);
+            _player.StateMachine.ChangeState(_player.StateMachine.MoveState);
         }
     }
 }

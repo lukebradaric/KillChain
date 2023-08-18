@@ -6,24 +6,21 @@ namespace KillChain.Player.States
     [System.Serializable]
     public abstract class PlayerState
     {
-        [HideInInspector] public GameInput _gameInput;
-        [HideInInspector] public PlayerData _playerData;
-        [HideInInspector] public Rigidbody _rigidbody;
-        [HideInInspector] public Transform _lookTransform;
-        [HideInInspector] public PlayerWeapon _playerWeapon;
-        [HideInInspector] public PlayerStateMachine _playerStateMachine;
-        [HideInInspector] public PlayerGroundCheck _playerGroundCheck;
+        public void SetPlayer(Player player) => _player = player;
+        protected Player _player;
 
         public abstract void Enter();
         public abstract void Update();
         public abstract void FixedUpdate();
         public abstract void Exit();
 
+        public virtual void OnDrawGizmos() { }
+
         protected void Move(float velocityMultiplier = 1f)
         {
             // Movement
-            Vector3 moveDirection = (_lookTransform.forward * _gameInput.VerticalInput + _lookTransform.right * _gameInput.HorizontalInput).normalized;
-            _rigidbody.AddForce(moveDirection * _playerData.MoveSpeed * velocityMultiplier);
+            Vector3 moveDirection = (_player.LookTransform.forward * _player.GameInput.MoveInput.y + _player.LookTransform.right * _player.GameInput.MoveInput.x).normalized;
+            _player.Rigidbody.AddForce(moveDirection * _player.Data.MoveSpeed * velocityMultiplier);
         }
     }
 }

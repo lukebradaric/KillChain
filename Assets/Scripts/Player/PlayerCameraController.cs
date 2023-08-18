@@ -8,9 +8,6 @@ public class PlayerCameraController : MonoBehaviour
     [Header("Components")]
     [SerializeField] private GameInput _gameInput;
     [SerializeField] private PlayerData _playerData;
-    [SerializeField] private PlayerController _playerController;
-    [SerializeField] private Camera _camera;
-    [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Transform _lookTransform;
 
     private Vector2 _rotation;

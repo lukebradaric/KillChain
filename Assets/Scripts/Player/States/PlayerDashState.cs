@@ -9,39 +9,39 @@ namespace KillChain.Player.States
     {
         public override void Enter()
         {
-            _gameInput.FirePressed += FirePressedHandler;
-            _gameInput.SlamPressed += SlamPressedHandler;
+            _player.GameInput.FirePressed += FirePressedHandler;
+            _player.GameInput.SlamPressed += SlamPressedHandler;
         }
 
         public override void Exit()
         {
-            _gameInput.FirePressed -= FirePressedHandler;
-            _gameInput.SlamPressed -= SlamPressedHandler;
+            _player.GameInput.FirePressed -= FirePressedHandler;
+            _player.GameInput.SlamPressed -= SlamPressedHandler;
         }
 
         public override void FixedUpdate()
         {
-            _rigidbody.SetVelocity((_playerWeapon.CurrentChainable.Transform.position - _playerStateMachine.transform.position).normalized * _playerData.DashSpeed);
+            _player.Rigidbody.SetVelocity((_player.Weapon.CurrentChainable.Transform.position - _player.StateMachine.transform.position).normalized * _player.Data.DashSpeed);
 
-            if (Vector3.Distance(_playerStateMachine.transform.position, _playerWeapon.CurrentChainable.Transform.position) < _playerData.DashStopDistance)
+            if (Vector3.Distance(_player.StateMachine.transform.position, _player.Weapon.CurrentChainable.Transform.position) < _player.Data.DashStopDistance)
             {
-                Debug.Log("Mock Damage Dash Target!");
-                if (_playerWeapon.CurrentChainable.Transform.TryGetComponent<IDamageable>(out var damageable))
+                if (_player.Weapon.CurrentChainable.Transform.TryGetComponent<IDamageable>(out var damageable))
                 {
-                    damageable.Damage(_playerData.DashDamage);
-                    _rigidbody.SetVelocity(_rigidbody.velocity * _playerData.DashDamageSpeedMultiplier);
-                    _rigidbody.SetVelocityY(_playerData.DashDamageUpwardForce);
+                    damageable.Damage(_player.Data.DashDamage);
+                    _player.Rigidbody.SetVelocity(_player.Rigidbody.velocity * _player.Data.DashDamageSpeedMultiplier);
+                    _player.Rigidbody.SetVelocityY(_player.Data.DashDamageUpwardForce);
                 }
+                // TODO: Check for boostable chainable targets here, and then boost player
                 //else if( THE CHAINABLE IS A BOOSTABLE )
                 else
                 {
-                    //_rigidbody.SetVelocity(_rigidbody.velocity * _playerData.BoostSpeedMultiplier);
-                    _rigidbody.SetVelocity(-_rigidbody.velocity.normalized * _playerData.DashReboundSpeed);
-                    _rigidbody.SetVelocityY(_playerData.DashDamageUpwardForce);
+                    //_player.Rigidbody.SetVelocity(_player.Rigidbody.velocity * _player.Data.BoostSpeedMultiplier);
+                    _player.Rigidbody.SetVelocity(-_player.Rigidbody.velocity.normalized * _player.Data.DashReboundSpeed);
+                    _player.Rigidbody.SetVelocityY(_player.Data.DashDamageUpwardForce);
                 }
 
-                _playerStateMachine.ChangeState(_playerStateMachine.AirState);
-                _playerWeapon.State.Value = PlayerWeaponState.Idle;
+                _player.StateMachine.ChangeState(_player.StateMachine.AirState);
+                _player.Weapon.State.Value = PlayerWeaponState.Idle;
             }
         }
 
@@ -49,12 +49,12 @@ namespace KillChain.Player.States
 
         private void FirePressedHandler()
         {
-            _playerStateMachine.ChangeState(_playerStateMachine.AirState);
+            _player.StateMachine.ChangeState(_player.StateMachine.AirState);
         }
 
         private void SlamPressedHandler()
         {
-            _playerStateMachine.ChangeState(_playerStateMachine.SlamState);
+            _player.StateMachine.ChangeState(_player.StateMachine.SlamState);
         }
     }
 }

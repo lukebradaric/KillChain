@@ -17,8 +17,7 @@ namespace KillChain.Input
 
         private void Update()
         {
-            _gameInput.SetHorizontalInput(UnityEngine.Input.GetAxisRaw("Horizontal"));
-            _gameInput.SetVerticalInput(UnityEngine.Input.GetAxisRaw("Vertical"));
+            _gameInput.SetMoveInput(UnityEngine.Input.GetAxisRaw("Horizontal"), UnityEngine.Input.GetAxisRaw("Vertical"));
 
             _gameInput.SetMouseHorizontal(UnityEngine.Input.GetAxisRaw("Mouse X") * Time.deltaTime);
             _gameInput.SetMouseVertical(UnityEngine.Input.GetAxisRaw("Mouse Y") * Time.deltaTime);

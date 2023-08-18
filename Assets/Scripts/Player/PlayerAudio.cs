@@ -1,12 +1,10 @@
 ﻿using KillChain.Audio;
 using KillChain.Core.Events;
-using KillChain.Player.States;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace KillChain.Player
 {
-    public class PlayerAudio : MonoBehaviour
+    public class PlayerAudio : PlayerMonoBehaviour
     {
         [Space]
         [Header("EventChannels")]
@@ -14,10 +12,6 @@ namespace KillChain.Player
         [SerializeField] private VoidEventChannel _playerMeleeEventChannel;
         [SerializeField] private VoidEventChannel _playerParryEventChannel;
         [SerializeField] private VoidEventChannel _playerSlamEventChannel;
-
-        [Space]
-        [Header("Components")]
-        [SerializeField] private PlayerWeapon _playerWeapon;
 
         [Space]
         [Header("Audio")]
@@ -29,7 +23,7 @@ namespace KillChain.Player
 
         private void OnEnable()
         {
-            _playerWeapon.State.ValueChanged += StateChangedHandler;
+            _player.Weapon.State.ValueChanged += StateChangedHandler;
             _playerChainBrokeEventChannel.Event += PlayerChainBrokeHandler;
             _playerMeleeEventChannel.Event += PlayerMeleeHandler;
             _playerParryEventChannel.Event += PlayerParryHandler;
@@ -38,7 +32,7 @@ namespace KillChain.Player
 
         private void OnDisable()
         {
-            _playerWeapon.State.ValueChanged -= StateChangedHandler;
+            _player.Weapon.State.ValueChanged -= StateChangedHandler;
             _playerChainBrokeEventChannel.Event -= PlayerChainBrokeHandler;
             _playerMeleeEventChannel.Event -= PlayerMeleeHandler;
             _playerParryEventChannel.Event -= PlayerParryHandler;

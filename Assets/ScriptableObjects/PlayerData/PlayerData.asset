@@ -35,7 +35,7 @@ MonoBehaviour:
   _pullSpeed: 40
   _pullStopDistance: 3
   _meleeDamage: 1
-  _meleeCooldown: 0.75
+  _meleeCooldown: 0.6
   _meleeLength: 2.5
   _meleeRadius: 0.5
   _parryTimeStopDuration: 0.1

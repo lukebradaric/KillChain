@@ -7,27 +7,27 @@ namespace KillChain.Player.States
     {
         public override void Enter()
         {
-            _gameInput.FirePressed += FirePressedHandler;
-            _gameInput.SlamPressed += SlamPressedHandler;
+            _player.GameInput.FirePressed += FirePressedHandler;
+            _player.GameInput.SlamPressed += SlamPressedHandler;
 
-            _rigidbody.drag = _playerData.AirDrag;
+            _player.Rigidbody.drag = _player.Data.AirDrag;
         }
 
         public override void Exit()
         {
-            _gameInput.FirePressed -= FirePressedHandler;
-            _gameInput.SlamPressed -= SlamPressedHandler;
+            _player.GameInput.FirePressed -= FirePressedHandler;
+            _player.GameInput.SlamPressed -= SlamPressedHandler;
         }
 
         public override void FixedUpdate()
         {
-            Move(_playerData.AirSpeedMultiplier);
+            base.Move(_player.Data.AirSpeedMultiplier);
 
-            _rigidbody.AddForce(Vector3.down * _playerData.FallForce);
+            _player.Rigidbody.AddForce(Vector3.down * _player.Data.FallForce);
 
-            if (_playerGroundCheck.Found())
+            if (_player.GroundCheck.Found())
             {
-                _playerStateMachine.ChangeState(_playerStateMachine.MoveState);
+                _player.StateMachine.ChangeState(_player.StateMachine.MoveState);
             }
         }
 
@@ -36,15 +36,15 @@ namespace KillChain.Player.States
         private void FirePressedHandler()
         {
             // If player left clicked while chained to enemy, enter dashing state
-            if (_playerWeapon.State.Value != PlayerWeaponState.Attach)
+            if (_player.Weapon.State.Value != PlayerWeaponState.Attach)
                 return;
 
-            _playerStateMachine.ChangeState(_playerStateMachine.DashState);
+            _player.StateMachine.ChangeState(_player.StateMachine.DashState);
         }
 
         protected virtual void SlamPressedHandler()
         {
-            _playerStateMachine.ChangeState(_playerStateMachine.SlamState);
+            _player.StateMachine.ChangeState(_player.StateMachine.SlamState);
         }
     }
 }

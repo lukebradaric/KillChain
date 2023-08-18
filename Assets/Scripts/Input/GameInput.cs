@@ -6,8 +6,7 @@ namespace KillChain.Input
     [CreateAssetMenu(menuName = "KillChain/GameInput")]
     public class GameInput : ScriptableObject
     {
-        public float HorizontalInput { get; private set; }
-        public float VerticalInput { get; private set; }
+        public Vector2 MoveInput { get; private set; }
 
         public float MouseHorizontal { get; private set; }
         public float MouseVertical { get; private set; }
@@ -21,14 +20,9 @@ namespace KillChain.Input
         public event Action SlidePressed;
         public event Action SlideReleased;
 
-        public void SetHorizontalInput(float value)
+        public void SetMoveInput(float x, float y)
         {
-            HorizontalInput = value;
-        }
-
-        public void SetVerticalInput(float value)
-        {
-            VerticalInput = value;
+            MoveInput = new Vector2(x, y);
         }
 
         public void SetMouseHorizontal(float value)

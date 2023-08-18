@@ -1,4 +1,6 @@
 ﻿using DG.Tweening;
+using KillChain.Input;
+using KillChain.Player.States;
 using UnityEngine;
 
 namespace KillChain.Player
@@ -7,7 +9,8 @@ namespace KillChain.Player
     {
         [Space]
         [Header("Components")]
-        [SerializeField] private PlayerController _playerController;
+        [SerializeField] private GameInput _gameInput;
+        [SerializeField] private PlayerStateMachine _playerStateMachine;
         [SerializeField] private RectTransform _rightHandTransform;
 
         [Space]
@@ -19,40 +22,16 @@ namespace KillChain.Player
         private Sequence _moveSequence = null;
         private Tween _idleTween = null;
 
-        private void OnEnable()
+        private void Update()
         {
-            _playerController.IsMoving.ValueChanged += IsMovingValueChangedHandler;
-            _playerController.IsGrounded.ValueChanged += IsGroundedValueChangedHandler;
-        }
-
-        private void OnDisable()
-        {
-            _playerController.IsMoving.ValueChanged -= IsMovingValueChangedHandler;
-            _playerController.IsGrounded.ValueChanged -= IsGroundedValueChangedHandler;
-        }
-
-        private void IsGroundedValueChangedHandler(bool isGrounded)
-        {
-            if (isGrounded)
+            if (_playerStateMachine.CurrentStateType == typeof(PlayerMoveState) && _gameInput.MoveInput.magnitude > 0)
             {
-                if (_playerController.IsMoving.Value)
-                    PlayMoveAnimation();
-            }
-            else
-            {
-                PlayIdleAnimation();
-            }
-        }
-
-        private void IsMovingValueChangedHandler(bool isMoving)
-        {
-            if (!_playerController.IsGrounded.Value)
-                return;
-
-            if (isMoving)
                 PlayMoveAnimation();
+            }
             else
+            {
                 PlayIdleAnimation();
+            }
         }
 
         private void KillIdleTween()
@@ -75,6 +54,11 @@ namespace KillChain.Player
 
         private void PlayMoveAnimation()
         {
+            if (_moveSequence != null)
+            {
+                return;
+            }
+
             KillIdleTween();
 
             _moveSequence = DOTween.Sequence();
@@ -85,6 +69,11 @@ namespace KillChain.Player
 
         private void PlayIdleAnimation()
         {
+            if (_idleTween != null)
+            {
+                return;
+            }
+
             KillMoveSequence();
 
             _idleTween = _rightHandTransform.DOLocalMoveY(0, _bobAnimationDuration).SetEase(_animationEase);

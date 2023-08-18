@@ -1,4 +1,4 @@
-﻿using KillChain.Player;
+﻿using KillChain.Player.States;
 using UnityEngine;
 
 namespace KillChain.Camera
@@ -10,7 +10,7 @@ namespace KillChain.Camera
         [SerializeField] private CameraData _cameraData;
         [SerializeField] private UnityEngine.Camera _camera;
         [SerializeField] private Rigidbody _rigidbody;
-        [SerializeField] private PlayerController _playerController;
+        [SerializeField] private PlayerStateMachine _playerStateMachine;
 
         private float _defaultCameraFov;
 
@@ -22,7 +22,7 @@ namespace KillChain.Camera
         private void Update()
         {
             // Calculate new FOV, default if grounded
-            float newCameraFov = _playerController.IsGrounded.Value ? _defaultCameraFov :
+            float newCameraFov = _playerStateMachine.CurrentStateType == typeof(PlayerMoveState) ? _defaultCameraFov :
                 _defaultCameraFov + (_cameraData.MaxFovIncrease / (_cameraData.MaxVelocityFovChange / _rigidbody.velocity.magnitude));
 
             // Clamp FOV value
