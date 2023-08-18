@@ -53,6 +53,13 @@ namespace KillChain.Player
         public float VerticalSensitivity => _verticalSensitivity;
         #endregion
 
+        #region Slide
+        [Space]
+        [Header("Slide")]
+        [SerializeField] private float _slideSpeed;
+        public float SlideSpeed => _slideSpeed;
+        #endregion
+
         #region Slam
         [Space]
         [Header("Slam")]

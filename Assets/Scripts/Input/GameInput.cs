@@ -18,6 +18,8 @@ namespace KillChain.Input
         public event Action AltFirePressed;
         public event Action MeleePressed;
         public event Action SlamPressed;
+        public event Action SlidePressed;
+        public event Action SlideReleased;
 
         public void SetHorizontalInput(float value)
         {
@@ -62,6 +64,16 @@ namespace KillChain.Input
         public void OnSlamPressed()
         {
             SlamPressed?.Invoke();
+        }
+
+        public void OnSlidePressed()
+        {
+            SlidePressed?.Invoke();
+        }
+
+        public void OnSlideReleased()
+        {
+            SlideReleased?.Invoke();
         }
     }
 }

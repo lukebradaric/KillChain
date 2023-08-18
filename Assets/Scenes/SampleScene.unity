@@ -5069,6 +5069,109 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1872309005 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1779755403413120462, guid: c93ac1b47395c114fa0d69176d5b6e67,
+    type: 3}
+  m_PrefabInstance: {fileID: 2608208508730249988}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1872309006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872309005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9726a9ab24030f4b8c5efe564a0388a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entryState:
+    rid: 4680664287582879750
+  _moveState:
+    rid: 4680664287582879749
+  _airState:
+    rid: 4680664287582879746
+  _dashState:
+    rid: 4680664287582879747
+  _slamState:
+    rid: 4680664287582879748
+  _slideState:
+    rid: 4680664287582879751
+  _gameInput: {fileID: 11400000, guid: 14fc59887e528844cb79fb8429e8b9bf, type: 2}
+  _playerData: {fileID: 11400000, guid: 0e1197ef0cd670a45b0e3a1bc27eb8a1, type: 2}
+  _rigidbody: {fileID: 2608208508730249992}
+  _lookTransform: {fileID: 2608208508730249989}
+  _playerWeapon: {fileID: 2608208508730249990}
+  _playerGroundCheck: {fileID: 2608208508730249991}
+  _currentState:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 4680664287582879746
+      type: {class: PlayerAirState, ns: KillChain.Player.States, asm: KillChain.Player}
+      data:
+        _gameInput: {fileID: 0}
+        _playerData: {fileID: 0}
+        _rigidbody: {fileID: 0}
+        _lookTransform: {fileID: 0}
+        _playerWeapon: {fileID: 0}
+        _playerStateMachine: {fileID: 0}
+        _playerGroundCheck: {fileID: 0}
+    - rid: 4680664287582879747
+      type: {class: PlayerDashState, ns: KillChain.Player.States, asm: KillChain.Player}
+      data:
+        _gameInput: {fileID: 0}
+        _playerData: {fileID: 0}
+        _rigidbody: {fileID: 0}
+        _lookTransform: {fileID: 0}
+        _playerWeapon: {fileID: 0}
+        _playerStateMachine: {fileID: 0}
+        _playerGroundCheck: {fileID: 0}
+    - rid: 4680664287582879748
+      type: {class: PlayerSlamState, ns: KillChain.Player.States, asm: KillChain.Player}
+      data:
+        _gameInput: {fileID: 0}
+        _playerData: {fileID: 0}
+        _rigidbody: {fileID: 0}
+        _lookTransform: {fileID: 0}
+        _playerWeapon: {fileID: 0}
+        _playerStateMachine: {fileID: 0}
+        _playerGroundCheck: {fileID: 0}
+    - rid: 4680664287582879749
+      type: {class: PlayerMoveState, ns: KillChain.Player.States, asm: KillChain.Player}
+      data:
+        _gameInput: {fileID: 0}
+        _playerData: {fileID: 0}
+        _rigidbody: {fileID: 0}
+        _lookTransform: {fileID: 0}
+        _playerWeapon: {fileID: 0}
+        _playerStateMachine: {fileID: 0}
+        _playerGroundCheck: {fileID: 0}
+    - rid: 4680664287582879750
+      type: {class: PlayerMoveState, ns: KillChain.Player.States, asm: KillChain.Player}
+      data:
+        _gameInput: {fileID: 0}
+        _playerData: {fileID: 0}
+        _rigidbody: {fileID: 0}
+        _lookTransform: {fileID: 0}
+        _playerWeapon: {fileID: 0}
+        _playerStateMachine: {fileID: 0}
+        _playerGroundCheck: {fileID: 0}
+    - rid: 4680664287582879751
+      type: {class: PlayerSlideState, ns: KillChain.Player.States, asm: KillChain.Player}
+      data:
+        _gameInput: {fileID: 0}
+        _playerData: {fileID: 0}
+        _rigidbody: {fileID: 0}
+        _lookTransform: {fileID: 0}
+        _playerWeapon: {fileID: 0}
+        _playerStateMachine: {fileID: 0}
+        _playerGroundCheck: {fileID: 0}
 --- !u!1 &1898417600
 GameObject:
   m_ObjectHideFlags: 0
@@ -6106,6 +6209,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 2456443446110144337, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: m_Drag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660861669225979911, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: managedReferences[-2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660861669225979911, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _exampleAbstract.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660861669225979911, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _exampleAbstract.Array.data[0]
+      value: 4680664287582879744
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660861669225979911, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _exampleAbstract.Array.data[1]
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660861669225979911, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: managedReferences[4680664287582879744]
+      value: KillChain.Player KillChain.Player.States.ExampleDerived
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660861669225979911, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: managedReferences[4680664287582879744].text
+      value: Text
+      objectReference: {fileID: 0}
     - target: {fileID: 3079430048673656752, guid: c93ac1b47395c114fa0d69176d5b6e67,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6156,11 +6294,56 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5011505479135121499, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1779755403413120462, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1872309006}
   m_SourcePrefab: {fileID: 100100000, guid: c93ac1b47395c114fa0d69176d5b6e67, type: 3}
+--- !u!4 &2608208508730249989 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6155790429443038959, guid: c93ac1b47395c114fa0d69176d5b6e67,
+    type: 3}
+  m_PrefabInstance: {fileID: 2608208508730249988}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2608208508730249990 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3408718295929874816, guid: c93ac1b47395c114fa0d69176d5b6e67,
+    type: 3}
+  m_PrefabInstance: {fileID: 2608208508730249988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872309005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 037097d6f4180124fa061f9497314372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2608208508730249991 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8870669896043274936, guid: c93ac1b47395c114fa0d69176d5b6e67,
+    type: 3}
+  m_PrefabInstance: {fileID: 2608208508730249988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872309005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8823a9e3dd0c6e4f862460106407339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &2608208508730249992 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 2456443446110144337, guid: c93ac1b47395c114fa0d69176d5b6e67,
+    type: 3}
+  m_PrefabInstance: {fileID: 2608208508730249988}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

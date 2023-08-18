@@ -29,6 +29,8 @@ namespace KillChain.Player
 
         public Observable<PlayerWeaponState> State { get; private set; } = new Observable<PlayerWeaponState>(PlayerWeaponState.Idle);
 
+        public IChainable CurrentChainable => _currentChainable;
+
         private IChainable _currentChainable = null;
         private IPullable _currentPullable = null;
         private IDestroyable _currentDestroyable = null;
@@ -58,12 +60,12 @@ namespace KillChain.Player
 
         private void FirePressedHandler()
         {
-            // If player already attached, enter dash state
-            if (State.Value == PlayerWeaponState.Attach)
-            {
-                State.Value = PlayerWeaponState.Dash;
-                return;
-            }
+            //// If player already attached, enter dash state
+            //if (State.Value == PlayerWeaponState.Attach)
+            //{
+            //    State.Value = PlayerWeaponState.Dash;
+            //    return;
+            //}
 
             // Raycast to check if player hit a chainable object
             RaycastHit hit;

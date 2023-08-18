@@ -1,5 +1,7 @@
 ﻿using KillChain.Audio;
 using KillChain.Core.Events;
+using KillChain.Player.States;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace KillChain.Player

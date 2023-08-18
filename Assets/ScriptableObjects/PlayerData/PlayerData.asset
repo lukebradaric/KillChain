@@ -15,12 +15,13 @@ MonoBehaviour:
   _moveSpeed: 120
   _maxSpeed: 10
   _maxAirSpeed: 12
-  _jumpForce: 12
-  _airSpeedMultiplier: 0.25
+  _jumpForce: 10
+  _airSpeedMultiplier: 0.4
   _groundDrag: 10
   _airDrag: 0
   _horizontalSensitivity: 16
   _verticalSensitivity: 16
+  _slideSpeed: 20
   _slamDamage: 1
   _slamSpeed: -45
   _maxTargetDistance: 100
