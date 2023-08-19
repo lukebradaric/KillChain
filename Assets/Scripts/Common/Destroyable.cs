@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace KillChain
+namespace KillChain.Common
 {
     public class Destroyable : MonoBehaviour, IDamageable, IDestroyable
     {

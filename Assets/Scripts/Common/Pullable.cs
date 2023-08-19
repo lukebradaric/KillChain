@@ -1,7 +1,7 @@
 ﻿using KillChain.Core;
 using UnityEngine;
 
-namespace KillChain
+namespace KillChain.Common
 {
     [RequireComponent(typeof(Rigidbody))]
     public class Pullable : MonoBehaviour, IPullable

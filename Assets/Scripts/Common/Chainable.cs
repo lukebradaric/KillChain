@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using KillChain.Core;
 
-namespace KillChain
+namespace KillChain.Common
 {
     public class Chainable : MonoBehaviour, IChainable
     {
