@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KillChain.Bootstrap
+namespace KillChain.Core.Bootstrap
 {
     public class AutoBootstrapAttribute : Attribute { }
 }

@@ -2,7 +2,7 @@
 using System.Reflection;
 using UnityEngine;
 
-namespace KillChain.Bootstrap
+namespace KillChain.Core.Bootstrap
 {
     public static class Bootstrapper
     {

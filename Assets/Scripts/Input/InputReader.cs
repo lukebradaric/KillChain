@@ -1,4 +1,4 @@
-using KillChain.Bootstrap;
+using KillChain.Core.Bootstrap;
 using UnityEngine;
 
 namespace KillChain.Input
