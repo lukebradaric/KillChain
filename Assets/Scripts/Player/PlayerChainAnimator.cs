@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using KillChain.Core;
+using UnityEngine;
 
 namespace KillChain.Player
 {

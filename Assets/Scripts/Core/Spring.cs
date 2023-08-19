@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace KillChain.Player
+namespace KillChain.Core
 {
     public class Spring
     {
