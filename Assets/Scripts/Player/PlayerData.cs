@@ -65,6 +65,9 @@ namespace KillChain.Player
         [Header("Slide")]
         [SerializeField] private float _slideSpeed;
         public float SlideSpeed => _slideSpeed;
+
+        [SerializeField] private float _slideDownwardsForce;
+        public float SlideDownwardsForce => _slideDownwardsForce;
         #endregion
 
         #region Slam
@@ -105,6 +108,10 @@ namespace KillChain.Player
         [Tooltip("Speed while dashing to chained target.")]
         [SerializeField] private float _dashSpeed;
         public float DashSpeed => _dashSpeed;
+
+        [Tooltip("Upwards force applied to the player when releasing from a dash.")]
+        [SerializeField] private float _dashReleaseUpwardForce;
+        public float DashReleaseUpwardForce => _dashReleaseUpwardForce;
 
         [Tooltip("Speed applied to player after reaching dash target. (Non-damageables)")]
         [SerializeField] private float _dashReboundSpeed;

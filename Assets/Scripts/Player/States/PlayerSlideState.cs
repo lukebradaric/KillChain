@@ -25,6 +25,7 @@ namespace KillChain.Player.States
         {
             Vector3 slideVelocity = _slideDirection * _player.Data.SlideSpeed;
             _player.Rigidbody.SetVelocity(slideVelocity.x, _player.Rigidbody.velocity.y, slideVelocity.z);
+            _player.Rigidbody.AddForce(Vector3.down * _player.Data.SlideDownwardsForce);
         }
 
         public override void Update() { }
@@ -32,6 +33,11 @@ namespace KillChain.Player.States
         private void SlideReleasedHandler()
         {
             _player.StateMachine.ChangeState(_player.StateMachine.MoveState);
+        }
+
+        private void GetGroundNormal()
+        {
+
         }
     }
 }

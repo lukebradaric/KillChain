@@ -13,8 +13,10 @@ namespace KillChain.Input
 
         public event Action JumpPressed;
         public event Action FirePressed;
+        public event Action FireReleased;
         // TODO: Rename alt fire (Right click)
         public event Action AltFirePressed;
+        public event Action AltFireReleased;
         public event Action MeleePressed;
         public event Action SlamPressed;
         public event Action SlidePressed;
@@ -40,6 +42,11 @@ namespace KillChain.Input
             JumpPressed?.Invoke();
         }
 
+        public void OnFireReleased()
+        {
+            FireReleased?.Invoke();
+        }
+
         public void OnFirePressed()
         {
             FirePressed?.Invoke();
@@ -48,6 +55,11 @@ namespace KillChain.Input
         public void OnAltFirePressed()
         {
             AltFirePressed?.Invoke();
+        }
+
+        public void OnAltFireReleased()
+        {
+            AltFireReleased?.Invoke();
         }
 
         public void OnMeleePressed()

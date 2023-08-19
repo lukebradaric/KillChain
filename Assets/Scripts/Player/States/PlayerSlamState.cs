@@ -34,7 +34,7 @@ namespace KillChain.Player.States
 
             _player.Rigidbody.SetVelocityY(_player.Data.SlamSpeed);
 
-            if (_player.GroundCheck.Found())
+            if (_player.GroundCheck.IsFound())
             {
                 Slam();
 

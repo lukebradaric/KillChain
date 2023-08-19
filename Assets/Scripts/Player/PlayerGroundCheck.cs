@@ -9,9 +9,14 @@ public class PlayerGroundCheck : MonoBehaviour
     [SerializeField] private float _checkDistance;
     [SerializeField] private LayerMask _groundLayerMask;
 
+    private bool _found;
     private bool _disabled;
 
-    // TODO : refactor this
+    private void FixedUpdate()
+    {
+        _found = Physics.Raycast(transform.position, Vector3.down, (_playerHeight * 0.5f) + _checkDistance, _groundLayerMask);
+    }
+
     public void Disable(float time)
     {
         StartCoroutine(TempDisableCoroutine(time));
@@ -24,10 +29,19 @@ public class PlayerGroundCheck : MonoBehaviour
         _disabled = false;
     }
 
-    public bool Found()
+    public bool IsFound()
     {
-        if (_disabled) return false;
+        if (_disabled)
+        {
+            return false;
+        }
 
-        return Physics.Raycast(transform.position, Vector3.down, (_playerHeight * 0.5f) + _checkDistance, _groundLayerMask);
+        return _found;
+    }
+
+    public float GetGroundAngle()
+    {
+        Physics.Raycast(transform.position, Vector3.down, out var raycastHit, (_playerHeight * 0.5f) + _checkDistance, _groundLayerMask);
+        return Vector3.Angle(raycastHit.normal, Vector3.down);
     }
 }

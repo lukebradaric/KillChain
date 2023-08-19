@@ -23,7 +23,7 @@ namespace KillChain.Player.States
         {
             base.Move();
 
-            if(!_player.GroundCheck.Found())
+            if(!_player.GroundCheck.IsFound())
                 _player.StateMachine.ChangeState(_player.StateMachine.AirState);
         }
 

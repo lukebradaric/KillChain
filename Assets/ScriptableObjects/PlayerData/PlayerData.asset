@@ -21,9 +21,10 @@ MonoBehaviour:
   _fallForce: 30
   _groundDrag: 10
   _airDrag: 2
-  _horizontalSensitivity: 0.7
-  _verticalSensitivity: 0.7
+  _horizontalSensitivity: 1.4
+  _verticalSensitivity: 1.4
   _slideSpeed: 30
+  _slideDownwardsForce: 100
   _slamDamage: 1
   _slamSpeed: -50
   _slamHitBoxSize: {x: 4, y: 1, z: 4}
@@ -31,6 +32,7 @@ MonoBehaviour:
   _maxChainDelayTime: 0.75
   _dashDamage: 1
   _dashSpeed: 40
+  _dashReleaseUpwardForce: 11
   _dashReboundSpeed: 12.5
   _dashReboundUpwardForce: 27.5
   _dashDamageSpeedMultiplier: 0.75

@@ -10,11 +10,13 @@ namespace KillChain.Player.States
         public override void Enter()
         {
             _player.GameInput.SlamPressed += SlamPressedHandler;
+            _player.GameInput.FireReleased += FireReleasedHandler;
         }
 
         public override void Exit()
         {
             _player.GameInput.SlamPressed -= SlamPressedHandler;
+            _player.GameInput.FireReleased -= FireReleasedHandler;
         }
 
         public override void FixedUpdate()
@@ -51,12 +53,19 @@ namespace KillChain.Player.States
         private void SlamPressedHandler()
         {
             // If player is dashing while still on ground, return
-            if (_player.GroundCheck.Found())
+            if (_player.GroundCheck.IsFound())
             {
                 return;
             }
 
             _player.StateMachine.ChangeState(_player.StateMachine.SlamState);
+        }
+
+        private void FireReleasedHandler()
+        {
+            _player.Rigidbody.AddForce(Vector3.up * _player.Data.DashReleaseUpwardForce, ForceMode.Impulse);
+            _player.Chain.ForceIdleState();
+            _player.StateMachine.ChangeState(_player.StateMachine.AirState);
         }
     }
 }

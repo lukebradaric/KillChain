@@ -25,7 +25,7 @@ namespace KillChain.Player.States
             _player.Rigidbody.AddForce(Vector3.down * _player.Data.FallForce);
 
             // If no ground check found, return
-            if (!_player.GroundCheck.Found())
+            if (!_player.GroundCheck.IsFound())
             {
                 return;
             }

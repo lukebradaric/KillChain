@@ -19,43 +19,42 @@ namespace KillChain.Player
         public IChainTarget LookTarget { get; private set; } = null;
         public IChainTarget Target { get; private set; } = null;
 
+        // Was the fire key released
+        private bool _fireReleased = false;
+        private bool _altFireReleased = false;
+
+        private Coroutine _dashDelayCoroutine;
+        private Coroutine _pullDelayCoroutine;
+
         private void OnEnable()
         {
             _player.GameInput.FirePressed += FirePressedHandler;
+            _player.GameInput.FireReleased += FireReleasedHandler;
             _player.GameInput.AltFirePressed += AltFirePressedHandler;
+            _player.GameInput.AltFireReleased += AltFireReleasedHandler;
         }
 
         private void OnDisable()
         {
             _player.GameInput.FirePressed -= FirePressedHandler;
+            _player.GameInput.FireReleased += FireReleasedHandler;
             _player.GameInput.AltFirePressed -= AltFirePressedHandler;
+            _player.GameInput.AltFireReleased += AltFireReleasedHandler;
         }
 
         private void FixedUpdate()
         {
-            if (TryGetTarget<IChainTarget>(out IChainTarget chainTarget))
-            {
-                LookTarget = chainTarget;
-            }
-            else
-            {
-                LookTarget = null;
-            }
+            UpdateLookTarget();
 
-            // If target being pulled is within pull stop range, stop pull
-            if (CurrentState.Value == PlayerChainState.Pull && Target.IsPullable)
-            {
-                if (Vector3.Distance(_player.transform.position, Target.Transform.position) < _player.Data.PullStopDistance)
-                {
-                    Target.StopPull();
-                    Target = null;
-                    CurrentState.Value = PlayerChainState.Idle;
-                }
-            }
+            UpdatePullState();
+
+            UpdateLineOfSightCheck();
         }
 
         private void FirePressedHandler()
         {
+            _fireReleased = false;
+
             if (!CanEnterNewChainState())
             {
                 return;
@@ -63,11 +62,18 @@ namespace KillChain.Player
 
             SetTarget(LookTarget);
 
-            StartCoroutine(DashDelayCoroutine());
+            _dashDelayCoroutine = StartCoroutine(DashDelayCoroutine());
+        }
+
+        private void FireReleasedHandler()
+        {
+            _fireReleased = true;
         }
 
         private void AltFirePressedHandler()
         {
+            _altFireReleased = false;
+
             if (!CanEnterNewChainState())
             {
                 return;
@@ -80,7 +86,13 @@ namespace KillChain.Player
 
             SetTarget(LookTarget);
 
-            StartCoroutine(PullDelayCoroutine());
+            _pullDelayCoroutine = StartCoroutine(PullDelayCoroutine());
+        }
+
+        private void AltFireReleasedHandler()
+        {
+            _altFireReleased = true;
+            StopPullState();
         }
 
         private void TargetDestroyedHandler()
@@ -107,6 +119,14 @@ namespace KillChain.Player
             yield return new WaitForSeconds(CalculateStateChangeDelay());
             CurrentState.Value = PlayerChainState.Dash;
 
+            // If the fire key was released before reaching dash state, cancel state change and go to idle
+            if (_fireReleased)
+            {
+                ForceIdleState();
+                _fireReleased = false;
+                yield break;
+            }
+
             // TODO: Invoke event instead of directly changing player state
             _player.StateMachine.ChangeState(_player.StateMachine.DashState);
         }
@@ -116,6 +136,14 @@ namespace KillChain.Player
             CurrentState.Value = PlayerChainState.Throw;
             yield return new WaitForSeconds(CalculateStateChangeDelay());
             CurrentState.Value = PlayerChainState.Pull;
+
+            // If alt fire key was released before reaching pull state, cancel state change and go to idle
+            if (_altFireReleased)
+            {
+                ForceIdleState();
+                _altFireReleased = false;
+                yield break;
+            }
 
             Target.StartPull(_player.transform, _player.Data.PullSpeed);
         }
@@ -134,16 +162,12 @@ namespace KillChain.Player
             return true;
         }
 
-        private bool IsChainTargetInLineOfSight(IChainTarget chainTarget = null)
+        private bool IsTargetInLineOfSight(IChainTarget chainTarget)
         {
             if (chainTarget == null)
             {
-                if (LookTarget == null)
-                {
-                    return false;
-                }
-
-                chainTarget = LookTarget;
+                Debug.LogWarning("Target provided was null.");
+                return false;
             }
 
             Physics.Raycast(_player.CameraTransform.position, (chainTarget.Transform.position - _player.CameraTransform.position).normalized, out RaycastHit hit, _player.Data.MaxChainDistance, _breakLayerMask);
@@ -168,12 +192,102 @@ namespace KillChain.Player
                 return false;
             }
 
-            if (!IsChainTargetInLineOfSight())
+            if (!IsTargetInLineOfSight(LookTarget))
             {
                 return false;
             }
 
             return true;
+        }
+
+        private void UpdateLineOfSightCheck()
+        {
+            if (Target == null)
+            {
+                return;
+            }
+
+            if (IsTargetInLineOfSight(Target))
+            {
+                return;
+            }
+
+            // Chain Break Event
+
+            // If line of sight broken while throwing
+            if (CurrentState.Value == PlayerChainState.Throw)
+            {
+                if (_dashDelayCoroutine != null)
+                {
+                    StopCoroutine(_dashDelayCoroutine);
+                }
+
+                if (_pullDelayCoroutine != null)
+                {
+                    StopCoroutine(_pullDelayCoroutine);
+                }
+
+                ForceIdleState();
+            }
+
+            // If line of sight broken while pulling
+            if (CurrentState.Value == PlayerChainState.Pull)
+            {
+                StopPullState();
+                return;
+            }
+
+            // If line of sight broken while dashing
+            if (CurrentState.Value == PlayerChainState.Dash)
+            {
+                if (_player.GroundCheck.IsFound())
+                {
+                    _player.StateMachine.ChangeState(_player.StateMachine.AirState);
+                }
+                else
+                {
+                    _player.StateMachine.ChangeState(_player.StateMachine.MoveState);
+                }
+
+                ForceIdleState();
+            }
+        }
+
+        private void UpdateLookTarget()
+        {
+            if (TryGetTarget<IChainTarget>(out IChainTarget chainTarget))
+            {
+                LookTarget = chainTarget;
+            }
+            else
+            {
+                LookTarget = null;
+            }
+        }
+
+        private void UpdatePullState()
+        {
+            // If target being pulled is within pull stop range, stop pull
+            if (CurrentState.Value == PlayerChainState.Pull && Target.IsPullable)
+            {
+                if (Vector3.Distance(_player.transform.position, Target.Transform.position) < _player.Data.PullStopDistance)
+                {
+                    StopPullState();
+                }
+            }
+        }
+
+        private void StopPullState()
+        {
+            if (CurrentState.Value != PlayerChainState.Pull)
+            {
+                return;
+            }
+
+            _altFireReleased = false;
+
+            Target.StopPull();
+            ForceIdleState();
         }
 
         public void ForceIdleState()

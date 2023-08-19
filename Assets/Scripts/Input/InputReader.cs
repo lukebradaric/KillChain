@@ -26,7 +26,11 @@ namespace KillChain.Input
 
             if (UnityEngine.Input.GetKeyDown(KeyCode.Mouse0)) _gameInput.OnFirePressed();
 
+            if (UnityEngine.Input.GetKeyUp(KeyCode.Mouse0)) _gameInput.OnFireReleased();
+
             if (UnityEngine.Input.GetKeyDown(KeyCode.Mouse1)) _gameInput.OnAltFirePressed();
+
+            if (UnityEngine.Input.GetKeyUp(KeyCode.Mouse1)) _gameInput.OnAltFireReleased();
 
             if (UnityEngine.Input.GetKeyDown(KeyCode.F)) _gameInput.OnMeleePressed();
 
