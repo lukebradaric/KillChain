@@ -19,8 +19,8 @@ MonoBehaviour:
   _fallForce: 30
   _groundDrag: 10
   _airDrag: 2
-  _horizontalSensitivity: 16
-  _verticalSensitivity: 16
+  _horizontalSensitivity: 0.7
+  _verticalSensitivity: 0.7
   _slideSpeed: 20
   _slamDamage: 1
   _slamSpeed: -50
@@ -35,7 +35,7 @@ MonoBehaviour:
   _dashDamageUpwardForce: 30
   _dashStopDistance: 4.5
   _pullSpeed: 40
-  _pullStopDistance: 3
+  _pullStopDistance: 2.5
   _meleeDamage: 1
   _meleeCooldown: 0.6
   _meleeLength: 2.5

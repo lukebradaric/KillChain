@@ -9,18 +9,25 @@ namespace KillChain.Common
     {
         [Space]
         [Header("Settings")]
+        [Tooltip("Can the player dash to this chain target?")]
         [SerializeField] private bool _isDashable;
+        [Tooltip("Can the player pull this chain target?")]
         [SerializeField] private bool _isPullable;
+        [Tooltip("Will the player get a speed boost when reaching this target?")]
+        [SerializeField] private bool _isBoostable;
 
         [Space]
         [Header("Components")]
         [ShowIf(nameof(_isPullable))]
         [SerializeField] private Rigidbody _rigidbody;
 
-        bool IChainTarget.IsDashable { get => _isDashable; }
-        bool IChainTarget.IsPullable { get => _isPullable; }
+        public bool IsDashable => _isDashable;
+        public bool IsPullable => _isPullable;
+        public bool IsBoostable => _isBoostable;
 
         Transform IChainTarget.Transform { get => this.transform; }
+
+        public event Action Destroyed;
 
         private Transform _pullTargetTransform = null;
         private float _pullSpeed = 0;
@@ -35,6 +42,7 @@ namespace KillChain.Common
         {
             _pullTargetTransform = null;
             _pullSpeed = 0;
+            _rigidbody.velocity = Vector3.zero;
         }
 
         private void FixedUpdate()
@@ -45,6 +53,11 @@ namespace KillChain.Common
             }
 
             _rigidbody.velocity = (_pullTargetTransform.position - transform.position).normalized * _pullSpeed;
+        }
+
+        private void OnDestroy()
+        {
+            Destroyed?.Invoke();
         }
     }
 }

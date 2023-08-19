@@ -21,28 +21,29 @@ namespace KillChain.Player.States
 
         public override void FixedUpdate()
         {
-            _player.Rigidbody.SetVelocity((_player.Chain.ChainTarget.Transform.position - _player.StateMachine.transform.position).normalized * _player.Data.DashSpeed);
+            _player.Rigidbody.SetVelocity((_player.Chain.Target.Transform.position - _player.StateMachine.transform.position).normalized * _player.Data.DashSpeed);
 
-            if (Vector3.Distance(_player.StateMachine.transform.position, _player.Chain.ChainTarget.Transform.position) < _player.Data.DashStopDistance)
+            if (Vector3.Distance(_player.StateMachine.transform.position, _player.Chain.Target.Transform.position) < _player.Data.DashStopDistance)
             {
-                if (_player.Chain.ChainTarget.Transform.TryGetComponent<IDamageable>(out var damageable))
+                if (_player.Chain.Target.Transform.TryGetComponent<IDamageable>(out var damageable))
                 {
                     damageable.Damage(_player.Data.DashDamage);
                     _player.Rigidbody.SetVelocity(_player.Rigidbody.velocity * _player.Data.DashDamageSpeedMultiplier);
                     _player.Rigidbody.SetVelocityY(_player.Data.DashDamageUpwardForce);
                 }
-                // TODO: Check for boostable chainable targets here, and then boost player
-                //else if( THE CHAINABLE IS A BOOSTABLE )
+                else if (_player.Chain.Target.IsBoostable)
+                {
+                    // Boost Event
+                    _player.Rigidbody.SetVelocity(_player.Rigidbody.velocity * _player.Data.BoostSpeedMultiplier);
+                }
                 else
                 {
-                    //_player.Rigidbody.SetVelocity(_player.Rigidbody.velocity * _player.Data.BoostSpeedMultiplier);
                     _player.Rigidbody.SetVelocity(-_player.Rigidbody.velocity.normalized * _player.Data.DashReboundSpeed);
                     _player.Rigidbody.SetVelocityY(_player.Data.DashDamageUpwardForce);
                 }
 
                 //  TODO : Invoke event here instead of directly setting chain target and state?
-                _player.Chain.ChainTarget = null;
-                _player.Chain.CurrentState.Value = PlayerChainState.Idle;
+                _player.Chain.ForceIdleState();
                 _player.StateMachine.ChangeState(_player.StateMachine.AirState);
             }
         }
@@ -56,6 +57,12 @@ namespace KillChain.Player.States
 
         private void SlamPressedHandler()
         {
+            // If player is dashing while still on ground, return
+            if (_player.GroundCheck.Found())
+            {
+                return;
+            }
+
             _player.StateMachine.ChangeState(_player.StateMachine.SlamState);
         }
     }

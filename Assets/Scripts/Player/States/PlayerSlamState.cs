@@ -17,7 +17,14 @@ namespace KillChain.Player.States
         [SerializeField] private GameObject _slamParticlePrefab;
         [SerializeField] private LayerMask _slamLayerMask;
 
-        public override void Enter() { }
+        public override void Enter()
+        {
+            // If player was dashing when they entered slam, force the chain to go idle
+            if (_player.Chain.CurrentState.Value == PlayerChainState.Dash)
+            {
+                _player.Chain.ForceIdleState();
+            }
+        }
 
         public override void Exit() { }
 

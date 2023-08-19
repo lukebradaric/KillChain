@@ -16,8 +16,8 @@ namespace KillChain.Player
         public Observable<PlayerChainState> CurrentState { get; private set; } = new Observable<PlayerChainState>(PlayerChainState.Idle);
 
         // TODO : Rework chainable, to be single script instead of multiple interfaces
-        public IChainTarget LookChainTarget = null;
-        public IChainTarget ChainTarget = null;
+        public IChainTarget LookTarget { get; private set; } = null;
+        public IChainTarget Target { get; private set; } = null;
 
         private void OnEnable()
         {
@@ -33,26 +33,27 @@ namespace KillChain.Player
 
         private void FixedUpdate()
         {
-            if(ChainTarget == null && CurrentState.Value != PlayerChainState.Idle)
+            if (Target == null && CurrentState.Value != PlayerChainState.Idle)
             {
                 CurrentState.Value = PlayerChainState.Idle;
             }
 
             if (TryGetTarget<IChainTarget>(out IChainTarget chainTarget))
             {
-                LookChainTarget = chainTarget;
+                LookTarget = chainTarget;
             }
             else
             {
-                LookChainTarget = null;
+                LookTarget = null;
             }
 
-            if (CurrentState.Value == PlayerChainState.Pull && ChainTarget.IsPullable)
+            // If target being pulled is within pull stop range, stop pull
+            if (CurrentState.Value == PlayerChainState.Pull && Target.IsPullable)
             {
-                if (Vector3.Distance(_player.transform.position, ChainTarget.Transform.position) < _player.Data.PullStopDistance)
+                if (Vector3.Distance(_player.transform.position, Target.Transform.position) < _player.Data.PullStopDistance)
                 {
-                    ChainTarget.StopPull();
-                    ChainTarget = null;
+                    Target.StopPull();
+                    Target = null;
                     CurrentState.Value = PlayerChainState.Idle;
                 }
             }
@@ -60,38 +61,67 @@ namespace KillChain.Player
 
         private void FirePressedHandler()
         {
-            if (LookChainTarget == null)
+            if (CurrentState.Value != PlayerChainState.Idle)
             {
                 return;
             }
 
-            if (!ChainTargetInLineOfSight())
+            if (LookTarget == null)
             {
                 return;
             }
 
-            ChainTarget = LookChainTarget;
+            if (!IsChainTargetInLineOfSight())
+            {
+                return;
+            }
 
-            Debug.Log($"Chain Dashing: {ChainTarget.Transform.gameObject.name}");
+            SetTarget(LookTarget);
+
+            Debug.Log($"Chain Dashing: {Target.Transform.gameObject.name}");
             StartCoroutine(DashDelayCoroutine());
         }
 
         private void AltFirePressedHandler()
         {
-            if (LookChainTarget == null || !LookChainTarget.IsPullable)
+            if (CurrentState.Value != PlayerChainState.Idle)
             {
                 return;
             }
 
-            if (!ChainTargetInLineOfSight())
+            if (LookTarget == null || !LookTarget.IsPullable)
             {
                 return;
             }
 
-            ChainTarget = LookChainTarget;
+            if (!IsChainTargetInLineOfSight())
+            {
+                return;
+            }
 
-            Debug.Log($"Chain Pulling: {ChainTarget.Transform.gameObject.name}");
+            SetTarget(LookTarget);
+
+            Debug.Log($"Chain Pulling: {Target.Transform.gameObject.name}");
             StartCoroutine(PullDelayCoroutine());
+        }
+
+        // Change state and unsubscribe from events when chain target is destroyed
+        private void TargetDestroyedHandler()
+        {
+            if (Target == null)
+            {
+                return;
+            }
+
+            Target.Destroyed -= TargetDestroyedHandler;
+            CurrentState.Value = PlayerChainState.Idle;
+            Target = null;
+        }
+
+        private void SetTarget(IChainTarget chainTarget)
+        {
+            Target = chainTarget;
+            Target.Destroyed += TargetDestroyedHandler;
         }
 
         private IEnumerator DashDelayCoroutine()
@@ -110,10 +140,10 @@ namespace KillChain.Player
             yield return new WaitForSeconds(CalculateStateChangeDelay());
             CurrentState.Value = PlayerChainState.Pull;
 
-            ChainTarget.StartPull(_player.transform, _player.Data.PullSpeed);
+            Target.StartPull(_player.transform, _player.Data.PullSpeed);
         }
 
-        public bool TryGetTarget<T>(out T ChainTarget)
+        private bool TryGetTarget<T>(out T ChainTarget)
         {
             ChainTarget = default(T);
             Physics.Raycast(_player.CameraTransform.position, _player.CameraTransform.forward, out RaycastHit hit, _player.Data.MaxChainDistance, _targetLayerMask);
@@ -127,16 +157,16 @@ namespace KillChain.Player
             return true;
         }
 
-        public bool ChainTargetInLineOfSight(IChainTarget chainTarget = null)
+        private bool IsChainTargetInLineOfSight(IChainTarget chainTarget = null)
         {
             if (chainTarget == null)
             {
-                if (LookChainTarget == null)
+                if (LookTarget == null)
                 {
                     return false;
                 }
 
-                chainTarget = LookChainTarget;
+                chainTarget = LookTarget;
             }
 
             Physics.Raycast(_player.CameraTransform.position, (chainTarget.Transform.position - _player.CameraTransform.position).normalized, out RaycastHit hit, _player.Data.MaxChainDistance, _breakLayerMask);
@@ -144,9 +174,15 @@ namespace KillChain.Player
             return hit.transform == chainTarget.Transform;
         }
 
-        public float CalculateStateChangeDelay()
+        private float CalculateStateChangeDelay()
         {
-            return _player.Data.MaxChainDelayTime / (_player.Data.MaxChainDistance / Vector3.Distance(_player.transform.position, ChainTarget.Transform.position));
+            return _player.Data.MaxChainDelayTime / (_player.Data.MaxChainDistance / Vector3.Distance(_player.transform.position, Target.Transform.position));
+        }
+
+        public void ForceIdleState()
+        {
+            CurrentState.Value = PlayerChainState.Idle;
+            Target = null;
         }
     }
 }

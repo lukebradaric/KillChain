@@ -7,8 +7,11 @@ namespace KillChain.Core
     {
         public bool IsDashable { get; }
         public bool IsPullable { get; }
+        public bool IsBoostable { get; }
 
         public Transform Transform { get; }
+
+        public event Action Destroyed;
 
         public void StartPull(Transform transform, float speed);
         public void StopPull();

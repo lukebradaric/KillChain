@@ -27,7 +27,7 @@ namespace KillChain.Player
 
         private void LateUpdate()
         {
-            if (_player.Chain.ChainTarget == null)
+            if (_player.Chain.Target == null)
             {
                 _currentGrapplePosition = _player.ChainStartTransform.position;
                 _spring.Reset();
@@ -48,7 +48,7 @@ namespace KillChain.Player
             _spring.SetStrength(_strength);
             _spring.Update(Time.deltaTime / _duration);
 
-            Vector3 _currentChainablePosition = _player.Chain.ChainTarget.Transform.position;
+            Vector3 _currentChainablePosition = _player.Chain.Target.Transform.position;
             Vector3 _chainStartPosition = _player.ChainStartTransform.position;
             Vector3 up = Quaternion.LookRotation((_currentChainablePosition - _chainStartPosition).normalized) * Vector3.up;
 

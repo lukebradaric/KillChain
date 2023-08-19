@@ -23,8 +23,8 @@ public class PlayerCameraController : MonoBehaviour
 
     private void Update()
     {
-        _rotation.y += _gameInput.MouseHorizontal * _playerData.HorizontalSensitivity * Time.deltaTime * 1000;
-        _rotation.x -= _gameInput.MouseVertical * _playerData.VerticalSensitivity * Time.deltaTime * 1000;
+        _rotation.y += _gameInput.MouseHorizontal * _playerData.HorizontalSensitivity;
+        _rotation.x -= _gameInput.MouseVertical * _playerData.VerticalSensitivity;
 
         _rotation.x = Mathf.Clamp(_rotation.x, -90f, 90f);
 
