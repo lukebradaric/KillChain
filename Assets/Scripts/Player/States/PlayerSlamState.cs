@@ -14,7 +14,6 @@ namespace KillChain.Player.States
 
         [Space]
         [Header("Components")]
-        [SerializeField] private Transform _slamHitboxTransform;
         [SerializeField] private GameObject _slamParticlePrefab;
         [SerializeField] private LayerMask _slamLayerMask;
 
@@ -40,16 +39,16 @@ namespace KillChain.Player.States
 
         public override void OnDrawGizmos()
         {
-            Gizmos.DrawWireCube(_slamHitboxTransform.position, new Vector3(5, 1, 5));
+            Gizmos.DrawWireCube(_player.SlamHitboxTransform.position, _player.Data.SlamHitboxSize);
         }
 
         private void Slam()
         {
             _playerSlamEventChannel?.Invoke();
             //IsSlamming.Value = false;
-            GameObject.Instantiate(_slamParticlePrefab, _slamHitboxTransform.position, Quaternion.identity);
+            GameObject.Instantiate(_slamParticlePrefab, _player.SlamHitboxTransform.position, Quaternion.identity);
 
-            Collider[] colliders = Physics.OverlapBox(_slamHitboxTransform.position, new Vector3(5, 1, 5), Quaternion.identity, _slamLayerMask);
+            Collider[] colliders = Physics.OverlapBox(_player.SlamHitboxTransform.position, _player.Data.SlamHitboxSize, Quaternion.identity, _slamLayerMask);
             foreach (Collider collider in colliders)
             {
                 if (collider.TryGetComponent<IDamageable>(out var damageable))

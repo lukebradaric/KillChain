@@ -13,6 +13,7 @@ namespace KillChain.Player
         [SerializeField] private float _waveCount;
         [SerializeField] private float _waveHeight;
         [SerializeField] private float _duration;
+        [SerializeField] private float _speed;
         [SerializeField] private AnimationCurve _affectCurve;
 
         private Spring _spring = new Spring();
@@ -25,7 +26,7 @@ namespace KillChain.Player
 
         private void LateUpdate()
         {
-            if (_player.Weapon.CurrentChainable == null)
+            if (_player.Chain.Target == null)
             {
                 _currentGrapplePosition = _player.ChainStartTransform.position;
                 _spring.Reset();
@@ -46,11 +47,11 @@ namespace KillChain.Player
             _spring.SetStrength(_strength);
             _spring.Update(Time.deltaTime / _duration);
 
-            Vector3 _currentChainablePosition = _player.Weapon.CurrentChainable.Transform.position;
+            Vector3 _currentChainablePosition = _player.Chain.Target.Transform.position;
             Vector3 _chainStartPosition = _player.ChainStartTransform.position;
             Vector3 up = Quaternion.LookRotation((_currentChainablePosition - _chainStartPosition).normalized) * Vector3.up;
 
-            _currentGrapplePosition = Vector3.Lerp(_currentGrapplePosition, _currentChainablePosition, Time.deltaTime * 12f);
+            _currentGrapplePosition = Vector3.Lerp(_currentGrapplePosition, _currentChainablePosition, Time.deltaTime * _speed);
 
             for (int i = 0; i < _quality + 1; i++)
             {

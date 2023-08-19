@@ -69,14 +69,22 @@ namespace KillChain.Player
         [Tooltip("Speed player will move downwards when slamming.")]
         [SerializeField] private float _slamSpeed;
         public float SlamSpeed => _slamSpeed;
+
+        [Tooltip("Size of the slam hitbox when impacting the ground.")]
+        [SerializeField] private Vector3 _slamHitboxSize;
+        public Vector3 SlamHitboxSize => _slamHitboxSize;
         #endregion
 
-        #region Weapon
+        #region Chain
         [Space]
-        [Header("Weapon")]
+        [Header("Chain")]
         [Tooltip("Max distance player can chain to target from.")]
-        [SerializeField] private float _maxTargetDistance;
-        public float MaxTargetDistance => _maxTargetDistance;
+        [SerializeField] private float _maxChainDistance;
+        public float MaxChainDistance => _maxChainDistance;
+
+        [Tooltip("The max time the chain takes to attach to a target.")]
+        [SerializeField] private float _maxChainDelayTime;
+        public float MaxChainDelayTime => _maxChainDelayTime;
         #endregion
 
         #region Dash

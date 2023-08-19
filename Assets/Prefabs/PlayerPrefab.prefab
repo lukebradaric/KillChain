@@ -42,8 +42,10 @@ GameObject:
   - component: {fileID: 3079430048673656752}
   - component: {fileID: 6833774285229245568}
   - component: {fileID: 2456443446110144337}
+  - component: {fileID: 8342270360812556671}
   - component: {fileID: 625749523232385088}
-  - component: {fileID: 3408718295929874816}
+  - component: {fileID: 2324370108722099282}
+  - component: {fileID: 789511292880664334}
   - component: {fileID: 5542292963663981009}
   - component: {fileID: 8870669896043274936}
   - component: {fileID: 2660861669225979911}
@@ -126,6 +128,87 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &8342270360812556671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779755403413120462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c79ca368759bb394da39c9cfafb06ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 75f8bd5a45bd9bc4faea5c78f292092f, type: 2}
+    - {fileID: 11400000, guid: 0e1197ef0cd670a45b0e3a1bc27eb8a1, type: 2}
+    - {fileID: 11400000, guid: 14fc59887e528844cb79fb8429e8b9bf, type: 2}
+    - {fileID: 625749523232385088}
+    - {fileID: 2324370108722099282}
+    - {fileID: 5542292963663981009}
+    - {fileID: 8870669896043274936}
+    - {fileID: 2660861669225979911}
+    - {fileID: 2456443446110144337}
+    - {fileID: 6155790429443038959}
+    - {fileID: 3007691377960450610}
+    - {fileID: 3812578432656400726}
+    - {fileID: 6850727706767053909}
+    - {fileID: 6492077887681930288}
+    - {fileID: 2151001308562280512}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: TimeManager
+      Entry: 10
+      Data: 0
+    - Name: Data
+      Entry: 10
+      Data: 1
+    - Name: GameInput
+      Entry: 10
+      Data: 2
+    - Name: StateMachine
+      Entry: 10
+      Data: 3
+    - Name: Chain
+      Entry: 10
+      Data: 4
+    - Name: Melee
+      Entry: 10
+      Data: 5
+    - Name: GroundCheck
+      Entry: 10
+      Data: 6
+    - Name: Audio
+      Entry: 10
+      Data: 7
+    - Name: Rigidbody
+      Entry: 10
+      Data: 8
+    - Name: LookTransform
+      Entry: 10
+      Data: 9
+    - Name: CameraTransform
+      Entry: 10
+      Data: 10
+    - Name: MeleeHitboxTransform
+      Entry: 10
+      Data: 11
+    - Name: SlamHitboxTransform
+      Entry: 10
+      Data: 12
+    - Name: ChainStartTransform
+      Entry: 10
+      Data: 13
+    - Name: ChainLineRenderer
+      Entry: 10
+      Data: 14
 --- !u!114 &625749523232385088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,8 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9726a9ab24030f4b8c5efe564a0388a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _entryState:
-    rid: 4680664287582879750
+  _player: {fileID: 0}
   _moveState:
     rid: 4680664287582879749
   _airState:
@@ -149,13 +231,7 @@ MonoBehaviour:
   _slamState:
     rid: 4680664287582879748
   _slideState:
-    rid: 4680664287582879751
-  _gameInput: {fileID: 11400000, guid: 14fc59887e528844cb79fb8429e8b9bf, type: 2}
-  _playerData: {fileID: 11400000, guid: 0e1197ef0cd670a45b0e3a1bc27eb8a1, type: 2}
-  _rigidbody: {fileID: 2456443446110144337}
-  _lookTransform: {fileID: 6155790429443038959}
-  _playerWeapon: {fileID: 3408718295929874816}
-  _playerGroundCheck: {fileID: 8870669896043274936}
+    rid: 4680664308711161857
   _currentState:
     rid: -2
   references:
@@ -165,34 +241,13 @@ MonoBehaviour:
       type: {class: , ns: , asm: }
     - rid: 4680664287582879746
       type: {class: PlayerAirState, ns: KillChain.Player.States, asm: KillChain.Player}
-      data:
-        _gameInput: {fileID: 0}
-        _playerData: {fileID: 0}
-        _rigidbody: {fileID: 0}
-        _lookTransform: {fileID: 0}
-        _playerWeapon: {fileID: 0}
-        _playerStateMachine: {fileID: 0}
-        _playerGroundCheck: {fileID: 0}
+      data: 
     - rid: 4680664287582879747
       type: {class: PlayerDashState, ns: KillChain.Player.States, asm: KillChain.Player}
-      data:
-        _gameInput: {fileID: 0}
-        _playerData: {fileID: 0}
-        _rigidbody: {fileID: 0}
-        _lookTransform: {fileID: 0}
-        _playerWeapon: {fileID: 0}
-        _playerStateMachine: {fileID: 0}
-        _playerGroundCheck: {fileID: 0}
+      data: 
     - rid: 4680664287582879748
       type: {class: PlayerSlamState, ns: KillChain.Player.States, asm: KillChain.Player}
       data:
-        _gameInput: {fileID: 0}
-        _playerData: {fileID: 0}
-        _rigidbody: {fileID: 0}
-        _lookTransform: {fileID: 0}
-        _playerWeapon: {fileID: 0}
-        _playerStateMachine: {fileID: 0}
-        _playerGroundCheck: {fileID: 0}
         _playerSlamEventChannel: {fileID: 11400000, guid: 9cbfebb5eddaa834fab1d0b0f0d2cb2a,
           type: 2}
         _slamHitboxTransform: {fileID: 6850727706767053909}
@@ -203,35 +258,11 @@ MonoBehaviour:
           m_Bits: 64
     - rid: 4680664287582879749
       type: {class: PlayerMoveState, ns: KillChain.Player.States, asm: KillChain.Player}
-      data:
-        _gameInput: {fileID: 0}
-        _playerData: {fileID: 0}
-        _rigidbody: {fileID: 0}
-        _lookTransform: {fileID: 0}
-        _playerWeapon: {fileID: 0}
-        _playerStateMachine: {fileID: 0}
-        _playerGroundCheck: {fileID: 0}
-    - rid: 4680664287582879750
-      type: {class: PlayerMoveState, ns: KillChain.Player.States, asm: KillChain.Player}
-      data:
-        _gameInput: {fileID: 0}
-        _playerData: {fileID: 0}
-        _rigidbody: {fileID: 0}
-        _lookTransform: {fileID: 0}
-        _playerWeapon: {fileID: 0}
-        _playerStateMachine: {fileID: 0}
-        _playerGroundCheck: {fileID: 0}
-    - rid: 4680664287582879751
+      data: 
+    - rid: 4680664308711161857
       type: {class: PlayerSlideState, ns: KillChain.Player.States, asm: KillChain.Player}
-      data:
-        _gameInput: {fileID: 0}
-        _playerData: {fileID: 0}
-        _rigidbody: {fileID: 0}
-        _lookTransform: {fileID: 0}
-        _playerWeapon: {fileID: 0}
-        _playerStateMachine: {fileID: 0}
-        _playerGroundCheck: {fileID: 0}
---- !u!114 &3408718295929874816
+      data: 
+--- !u!114 &2324370108722099282
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -240,23 +271,61 @@ MonoBehaviour:
   m_GameObject: {fileID: 1779755403413120462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 037097d6f4180124fa061f9497314372, type: 3}
+  m_Script: {fileID: 11500000, guid: 74fa83d5aaf16d149905d90e71efef8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerChainBrokeEventChannel: {fileID: 11400000, guid: d861d8f33c54766449854310e1a5744e,
-    type: 2}
-  _gameInput: {fileID: 11400000, guid: 14fc59887e528844cb79fb8429e8b9bf, type: 2}
-  _playerData: {fileID: 11400000, guid: 0e1197ef0cd670a45b0e3a1bc27eb8a1, type: 2}
-  _rigidbody: {fileID: 2456443446110144337}
-  _cameraTransform: {fileID: 3007691377960450610}
-  _chainStartTransform: {fileID: 6492077887681930288}
-  _chainLineRenderer: {fileID: 2151001308562280512}
-  _chainableLayerMask:
+  _player: {fileID: 0}
+  _targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  _chainBreakLayerMask:
+  _breakLayerMask:
     serializedVersion: 2
     m_Bits: 73
+--- !u!114 &789511292880664334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779755403413120462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab9403fe3dd26341b4368463b77f4fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 8342270360812556671}
+  _quality: 25
+  _damper: 20
+  _strength: 1100
+  _velocity: 12.5
+  _waveCount: 3
+  _waveHeight: 1.25
+  _duration: 1
+  _speed: 10
+  _affectCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 3.4278674
+      outSlope: 3.4278674
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.040853295
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &5542292963663981009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,17 +338,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20826400019091c4c8b75227e850b404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 0}
   _playerMeleeEventChannel: {fileID: 11400000, guid: fecbc33209c89a04a96963c8ddde4477,
     type: 2}
   _playerMeleeCooldownStartedEventChannel: {fileID: 11400000, guid: 1860cbc0001cce74a9cd91b20991dfca,
     type: 2}
   _playerParryEventChannel: {fileID: 11400000, guid: 29e957d2a561779499d8627162023431,
     type: 2}
-  _gameInput: {fileID: 11400000, guid: 14fc59887e528844cb79fb8429e8b9bf, type: 2}
-  _playerData: {fileID: 11400000, guid: 0e1197ef0cd670a45b0e3a1bc27eb8a1, type: 2}
-  _timeManager: {fileID: 11400000, guid: 75f8bd5a45bd9bc4faea5c78f292092f, type: 2}
-  _cameraTransform: {fileID: 3007691377960450610}
-  _hitboxTransform: {fileID: 3812578432656400726}
   _parryParticlePrefab: {fileID: 4726059673932196062, guid: 520e0c2db39e70d49819d7fff4b29c21,
     type: 3}
   _meleeLayerMask:
@@ -314,6 +379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8885bf433fb561946a10e0efbfd1052a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 0}
   _playerChainBrokeEventChannel: {fileID: 11400000, guid: d861d8f33c54766449854310e1a5744e,
     type: 2}
   _playerMeleeEventChannel: {fileID: 11400000, guid: fecbc33209c89a04a96963c8ddde4477,
@@ -322,7 +388,6 @@ MonoBehaviour:
     type: 2}
   _playerSlamEventChannel: {fileID: 11400000, guid: 9cbfebb5eddaa834fab1d0b0f0d2cb2a,
     type: 2}
-  _playerWeapon: {fileID: 3408718295929874816}
   _playerChainAttachAudioAsset: {fileID: 11400000, guid: d2f697bd0d8454043bda90dc7d25a494,
     type: 2}
   _playerChainBreakAudioAsset: {fileID: 11400000, guid: eb2029f23a4e6a7429886ec31b5e2211,
@@ -454,18 +519,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _handImage: {fileID: 6299993793383843141}
-  _playerWeapon: {fileID: 3408718295929874816}
+  _playerChain: {fileID: 2324370108722099282}
   _handSprites:
   - state: 0
     sprite: {fileID: 21300000, guid: 14747cfaf5b1a4f418835741a849160c, type: 3}
   - state: 1
-    sprite: {fileID: 21300000, guid: c8255e6ee54a9484898cdfd8f8073ec2, type: 3}
-  - state: 2
-    sprite: {fileID: 21300000, guid: c8255e6ee54a9484898cdfd8f8073ec2, type: 3}
-  - state: 3
-    sprite: {fileID: 21300000, guid: d1e295d94883bed448475f3921bd0093, type: 3}
-  - state: 4
     sprite: {fileID: 21300000, guid: 00d45b406367d9a4dbd04c21b877ab73, type: 3}
+  - state: 2
+    sprite: {fileID: 21300000, guid: d1e295d94883bed448475f3921bd0093, type: 3}
+  - state: 3
+    sprite: {fileID: 21300000, guid: c8255e6ee54a9484898cdfd8f8073ec2, type: 3}
 --- !u!114 &2440974739382114691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -867,7 +930,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6848689547150655038}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

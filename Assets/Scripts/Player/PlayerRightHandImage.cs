@@ -5,9 +5,9 @@ using UnityEngine.UI;
 namespace KillChain.Player
 {
     [System.Serializable]
-    internal class PlayerWeaponStateSprite
+    internal class PlayerChainStateSprites
     {
-        public PlayerWeaponState state;
+        public PlayerChainState state;
         public Sprite sprite;
     }
 
@@ -16,13 +16,13 @@ namespace KillChain.Player
         [Space]
         [Header("Components")]
         [SerializeField] private Image _handImage;
-        [SerializeField] private PlayerWeapon _playerWeapon;
+        [SerializeField] private PlayerChain _playerChain;
 
         [Space]
         [Header("Settings")]
-        [SerializeField] private List<PlayerWeaponStateSprite> _handSprites = new List<PlayerWeaponStateSprite>();
+        [SerializeField] private List<PlayerChainStateSprites> _handSprites = new List<PlayerChainStateSprites>();
         // Dictionary of the sprite for each weapon state
-        private Dictionary<PlayerWeaponState, Sprite> _handSpritesDictionary = new Dictionary<PlayerWeaponState, Sprite>();
+        private Dictionary<PlayerChainState, Sprite> _handSpritesDictionary = new Dictionary<PlayerChainState, Sprite>();
 
         private void Awake()
         {
@@ -34,17 +34,17 @@ namespace KillChain.Player
 
         private void OnEnable()
         {
-            _playerWeapon.State.ValueChanged += StateChangedHandler;
+            _playerChain.CurrentState.ValueChanged += StateChangedHandler;
         }
 
         private void OnDisable()
         {
-            _playerWeapon.State.ValueChanged -= StateChangedHandler;
+            _playerChain.CurrentState.ValueChanged -= StateChangedHandler;
         }
 
-        private void StateChangedHandler(PlayerWeaponState playerWeaponState)
+        private void StateChangedHandler(PlayerChainState playerChainState)
         {
-            _handImage.sprite = _handSpritesDictionary[playerWeaponState];
+            _handImage.sprite = _handSpritesDictionary[playerChainState];
         }
     }
 }
