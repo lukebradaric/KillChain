@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 120
   _jumpForce: 22
+  _jumpBufferTime: 0.15
+  _jumpWaitTime: 0.2
   _boostSpeedMultiplier: 2
   _airSpeedMultiplier: 0.32
   _fallForce: 30
@@ -21,10 +23,10 @@ MonoBehaviour:
   _airDrag: 2
   _horizontalSensitivity: 0.7
   _verticalSensitivity: 0.7
-  _slideSpeed: 20
+  _slideSpeed: 30
   _slamDamage: 1
   _slamSpeed: -50
-  _slamHitboxSize: {x: 4, y: 0.75, z: 4}
+  _slamHitBoxSize: {x: 4, y: 1, z: 4}
   _maxChainDistance: 100
   _maxChainDelayTime: 0.75
   _dashDamage: 1

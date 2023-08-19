@@ -22,10 +22,9 @@ namespace KillChain.Player.States
 
         [Space]
         [Header("DEBUG")]
-        // TODO : Remove [SerializeField]
-        [SerializeReference] private PlayerState _currentState;
+        [SerializeField] private string _currentStateName;
 
-        public Type CurrentStateType => _currentState.GetType();
+        public PlayerState CurrentState { get; private set; }
 
         private void Start()
         {
@@ -34,25 +33,27 @@ namespace KillChain.Player.States
 
         public void ChangeState(PlayerState _newState)
         {
-            _currentState?.Exit();
-            _currentState = _newState;
-            _currentState?.SetPlayer(_player);
-            _currentState?.Enter();
+            CurrentState?.Exit();
+            CurrentState = _newState;
+            CurrentState?.SetPlayer(_player);
+            CurrentState?.Enter();
         }
 
         private void Update()
         {
-            _currentState?.Update();
+            CurrentState?.Update();
+
+            _currentStateName = CurrentState.GetType().Name;
         }
 
         private void FixedUpdate()
         {
-            _currentState?.FixedUpdate();
+            CurrentState?.FixedUpdate();
         }
 
         private void OnDestroy()
         {
-            _currentState.Exit();
+            CurrentState.Exit();
         }
     }
 }

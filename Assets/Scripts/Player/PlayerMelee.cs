@@ -42,8 +42,8 @@ namespace KillChain.Player
 
             StartCoroutine(MeleeCooldownCoroutine());
 
-            Collider[] colliders = Physics.OverlapCapsule(_player.MeleeHitboxTransform.position,
-                _player.MeleeHitboxTransform.position + _player.CameraTransform.forward * _player.Data.MeleeLength,
+            Collider[] colliders = Physics.OverlapCapsule(_player.MeleeHitBoxTransform.position,
+                _player.MeleeHitBoxTransform.position + _player.CameraTransform.forward * _player.Data.MeleeLength,
                 _player.Data.MeleeRadius,
                 _meleeLayerMask);
 
@@ -84,8 +84,8 @@ namespace KillChain.Player
                 return;
             }
 
-            GizmosExtras.DrawWireCapsule(_player.MeleeHitboxTransform.position,
-                _player.MeleeHitboxTransform.position + _player.CameraTransform.forward * _player.Data.MeleeLength,
+            GizmosExtras.DrawWireCapsule(_player.MeleeHitBoxTransform.position,
+                _player.MeleeHitBoxTransform.position + _player.CameraTransform.forward * _player.Data.MeleeLength,
                 _player.Data.MeleeRadius);
         }
 

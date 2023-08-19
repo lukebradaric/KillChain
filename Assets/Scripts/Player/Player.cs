@@ -24,6 +24,7 @@ namespace KillChain.Player
         [OdinSerialize] public PlayerChain Chain { get; private set; }
         [OdinSerialize] public PlayerMelee Melee { get; private set; }
         [OdinSerialize] public PlayerGroundCheck GroundCheck { get; private set; }
+        [OdinSerialize] public PlayerJumpBuffer JumpBuffer { get; private set; }
         [OdinSerialize] public PlayerAudio Audio { get; private set; }
 
         [PropertySpace]
@@ -31,8 +32,8 @@ namespace KillChain.Player
         [OdinSerialize] public Rigidbody Rigidbody { get; private set; }
         [OdinSerialize] public Transform LookTransform { get; private set; }
         [OdinSerialize] public Transform CameraTransform { get; private set; }
-        [OdinSerialize] public Transform MeleeHitboxTransform { get; private set; }
-        [OdinSerialize] public Transform SlamHitboxTransform { get; private set; }
+        [OdinSerialize] public Transform MeleeHitBoxTransform { get; private set; }
+        [OdinSerialize] public Transform SlamHitBoxTransform { get; private set; }
         [OdinSerialize] public Transform ChainStartTransform { get; private set; }
         [OdinSerialize] public LineRenderer ChainLineRenderer { get; private set; }
     }

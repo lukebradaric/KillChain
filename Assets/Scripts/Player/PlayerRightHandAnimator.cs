@@ -24,7 +24,7 @@ namespace KillChain.Player
 
         private void Update()
         {
-            if (_playerStateMachine.CurrentStateType == typeof(PlayerMoveState) && _gameInput.MoveInput.magnitude > 0)
+            if (_playerStateMachine.CurrentState == _playerStateMachine.MoveState && _gameInput.MoveInput.magnitude > 0)
             {
                 PlayMoveAnimation();
             }

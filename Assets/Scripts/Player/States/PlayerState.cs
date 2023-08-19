@@ -1,4 +1,4 @@
-﻿using KillChain.Input;
+﻿using KillChain.Core.Extensions;
 using UnityEngine;
 
 namespace KillChain.Player.States
@@ -21,6 +21,13 @@ namespace KillChain.Player.States
             // Movement
             Vector3 moveDirection = (_player.LookTransform.forward * _player.GameInput.MoveInput.y + _player.LookTransform.right * _player.GameInput.MoveInput.x).normalized;
             _player.Rigidbody.AddForce(moveDirection * _player.Data.MoveSpeed * velocityMultiplier);
+        }
+
+        protected void Jump()
+        {
+            _player.GroundCheck.Disable(_player.Data.JumpWaitTime);
+            _player.Rigidbody.SetVelocityY(_player.Data.JumpForce);
+            _player.StateMachine.ChangeState(_player.StateMachine.AirState);
         }
     }
 }

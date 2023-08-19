@@ -9,13 +9,11 @@ namespace KillChain.Player.States
     {
         public override void Enter()
         {
-            _player.GameInput.FirePressed += FirePressedHandler;
             _player.GameInput.SlamPressed += SlamPressedHandler;
         }
 
         public override void Exit()
         {
-            _player.GameInput.FirePressed -= FirePressedHandler;
             _player.GameInput.SlamPressed -= SlamPressedHandler;
         }
 
@@ -49,11 +47,6 @@ namespace KillChain.Player.States
         }
 
         public override void Update() { }
-
-        private void FirePressedHandler()
-        {
-            _player.StateMachine.ChangeState(_player.StateMachine.AirState);
-        }
 
         private void SlamPressedHandler()
         {

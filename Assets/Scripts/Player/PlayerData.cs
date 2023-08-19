@@ -16,6 +16,14 @@ namespace KillChain.Player
         [SerializeField] private float _jumpForce;
         public float JumpForce => _jumpForce;
 
+        [Tooltip("The time a jump will still trigger after the player has pressed jump.")]
+        [SerializeField] private float _jumpBufferTime;
+        public float JumpBufferTime => _jumpBufferTime;
+
+        [Tooltip("The time after jumping the player must wait to be grounded again.")]
+        [SerializeField] private float _jumpWaitTime;
+        public float JumpWaitTime => _jumpWaitTime;
+
         [Tooltip("Value multiplied by player velocity when going through boost")]
         [SerializeField] private float _boostSpeedMultiplier;
         public float BoostSpeedMultiplier => _boostSpeedMultiplier;
@@ -70,9 +78,9 @@ namespace KillChain.Player
         [SerializeField] private float _slamSpeed;
         public float SlamSpeed => _slamSpeed;
 
-        [Tooltip("Size of the slam hitbox when impacting the ground.")]
-        [SerializeField] private Vector3 _slamHitboxSize;
-        public Vector3 SlamHitboxSize => _slamHitboxSize;
+        [Tooltip("Size of the slam HitBox when impacting the ground.")]
+        [SerializeField] private Vector3 _slamHitBoxSize;
+        public Vector3 SlamHitBoxSize => _slamHitBoxSize;
         #endregion
 
         #region Chain
@@ -142,11 +150,11 @@ namespace KillChain.Player
         [SerializeField] private float _meleeCooldown;
         public float MeleeCooldown => _meleeCooldown;
 
-        [Tooltip("Length of melee capsule hitbox.")]
+        [Tooltip("Length of melee capsule HitBox.")]
         [SerializeField] private float _meleeLength;
         public float MeleeLength => _meleeLength;
 
-        [Tooltip("Radius of melee capsule hitbox.")]
+        [Tooltip("Radius of melee capsule HitBox.")]
         [SerializeField] private float _meleeRadius;
         public float MeleeRadius => _meleeRadius;
         #endregion

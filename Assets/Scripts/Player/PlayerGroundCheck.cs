@@ -12,15 +12,15 @@ public class PlayerGroundCheck : MonoBehaviour
     private bool _disabled;
 
     // TODO : refactor this
-    public void TempDisable()
+    public void Disable(float time)
     {
-        StartCoroutine(TempDisableCoroutine());
+        StartCoroutine(TempDisableCoroutine(time));
     }
 
-    private IEnumerator TempDisableCoroutine()
+    private IEnumerator TempDisableCoroutine(float time)
     {
         _disabled = true;
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(time);
         _disabled = false;
     }
 

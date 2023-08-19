@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace KillChain.Player.States
 {
@@ -7,7 +8,6 @@ namespace KillChain.Player.States
     {
         public override void Enter()
         {
-            //_player.GameInput.FirePressed += FirePressedHandler;
             _player.GameInput.SlamPressed += SlamPressedHandler;
 
             _player.Rigidbody.drag = _player.Data.AirDrag;
@@ -15,7 +15,6 @@ namespace KillChain.Player.States
 
         public override void Exit()
         {
-            //_player.GameInput.FirePressed -= FirePressedHandler;
             _player.GameInput.SlamPressed -= SlamPressedHandler;
         }
 
@@ -25,24 +24,27 @@ namespace KillChain.Player.States
 
             _player.Rigidbody.AddForce(Vector3.down * _player.Data.FallForce);
 
-            if (_player.GroundCheck.Found())
+            // If no ground check found, return
+            if (!_player.GroundCheck.Found())
             {
-                _player.StateMachine.ChangeState(_player.StateMachine.MoveState);
+                return;
             }
+
+            if (_player.JumpBuffer.Enabled)
+            {
+                this.Jump();
+                _player.JumpBuffer.Consume();
+                return;
+            }
+
+            // If ground check and no jump buffer, enter move state
+            _player.StateMachine.ChangeState(_player.StateMachine.MoveState);
         }
 
         public override void Update() { }
 
-        //private void FirePressedHandler()
-        //{
-        //    // If player left clicked while chained to enemy, enter dashing state
-        //    if (_player.Weapon.State.Value != PlayerWeaponState.Attach)
-        //        return;
 
-        //    _player.StateMachine.ChangeState(_player.StateMachine.ThrowState);
-        //}
-
-        protected virtual void SlamPressedHandler()
+        private void SlamPressedHandler()
         {
             _player.StateMachine.ChangeState(_player.StateMachine.SlamState);
         }

@@ -22,7 +22,7 @@ namespace KillChain.Camera
         private void Update()
         {
             // Calculate new FOV, default if grounded
-            float newCameraFov = _playerStateMachine.CurrentStateType == typeof(PlayerMoveState) ? _defaultCameraFov :
+            float newCameraFov = _playerStateMachine.CurrentState == _playerStateMachine.MoveState ? _defaultCameraFov :
                 _defaultCameraFov + (_cameraData.MaxFovIncrease / (_cameraData.MaxVelocityFovChange / _rigidbody.velocity.magnitude));
 
             // Clamp FOV value

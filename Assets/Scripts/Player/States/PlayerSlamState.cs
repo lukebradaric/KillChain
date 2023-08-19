@@ -38,6 +38,13 @@ namespace KillChain.Player.States
             {
                 Slam();
 
+                if (_player.JumpBuffer.Enabled)
+                {
+                    this.Jump();
+                    _player.JumpBuffer.Consume();
+                    return;
+                }
+
                 _player.StateMachine.ChangeState(_player.StateMachine.MoveState);
             }
         }
@@ -46,16 +53,16 @@ namespace KillChain.Player.States
 
         public override void OnDrawGizmos()
         {
-            Gizmos.DrawWireCube(_player.SlamHitboxTransform.position, _player.Data.SlamHitboxSize);
+            Gizmos.DrawWireCube(_player.SlamHitBoxTransform.position, _player.Data.SlamHitBoxSize);
         }
 
         private void Slam()
         {
             _playerSlamEventChannel?.Invoke();
             //IsSlamming.Value = false;
-            GameObject.Instantiate(_slamParticlePrefab, _player.SlamHitboxTransform.position, Quaternion.identity);
+            GameObject.Instantiate(_slamParticlePrefab, _player.SlamHitBoxTransform.position, Quaternion.identity);
 
-            Collider[] colliders = Physics.OverlapBox(_player.SlamHitboxTransform.position, _player.Data.SlamHitboxSize, Quaternion.identity, _slamLayerMask);
+            Collider[] colliders = Physics.OverlapBox(_player.SlamHitBoxTransform.position, _player.Data.SlamHitBoxSize, Quaternion.identity, _slamLayerMask);
             foreach (Collider collider in colliders)
             {
                 if (collider.TryGetComponent<IDamageable>(out var damageable))
