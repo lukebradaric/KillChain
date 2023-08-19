@@ -21,11 +21,11 @@ namespace KillChain.Player.States
 
         public override void FixedUpdate()
         {
-            _player.Rigidbody.SetVelocity((_player.Chain.Target.Transform.position - _player.StateMachine.transform.position).normalized * _player.Data.DashSpeed);
+            _player.Rigidbody.SetVelocity((_player.Chain.ChainTarget.Transform.position - _player.StateMachine.transform.position).normalized * _player.Data.DashSpeed);
 
-            if (Vector3.Distance(_player.StateMachine.transform.position, _player.Chain.Target.Transform.position) < _player.Data.DashStopDistance)
+            if (Vector3.Distance(_player.StateMachine.transform.position, _player.Chain.ChainTarget.Transform.position) < _player.Data.DashStopDistance)
             {
-                if (_player.Chain.Target.Transform.TryGetComponent<IDamageable>(out var damageable))
+                if (_player.Chain.ChainTarget.Transform.TryGetComponent<IDamageable>(out var damageable))
                 {
                     damageable.Damage(_player.Data.DashDamage);
                     _player.Rigidbody.SetVelocity(_player.Rigidbody.velocity * _player.Data.DashDamageSpeedMultiplier);
@@ -40,7 +40,8 @@ namespace KillChain.Player.States
                     _player.Rigidbody.SetVelocityY(_player.Data.DashDamageUpwardForce);
                 }
 
-                _player.Chain.Target = null;
+                //  TODO : Invoke event here instead of directly setting chain target and state?
+                _player.Chain.ChainTarget = null;
                 _player.Chain.CurrentState.Value = PlayerChainState.Idle;
                 _player.StateMachine.ChangeState(_player.StateMachine.AirState);
             }

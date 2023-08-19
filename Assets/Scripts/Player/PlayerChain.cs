@@ -16,9 +16,8 @@ namespace KillChain.Player
         public Observable<PlayerChainState> CurrentState { get; private set; } = new Observable<PlayerChainState>(PlayerChainState.Idle);
 
         // TODO : Rework chainable, to be single script instead of multiple interfaces
-        public IChainable Target;
-        public IChainable LookTarget;
-        public IPullable _currentPullable;
+        public IChainTarget LookChainTarget = null;
+        public IChainTarget ChainTarget = null;
 
         private void OnEnable()
         {
@@ -34,22 +33,26 @@ namespace KillChain.Player
 
         private void FixedUpdate()
         {
-            if (TryGetTarget<IChainable>(out IChainable chainable))
+            if(ChainTarget == null && CurrentState.Value != PlayerChainState.Idle)
             {
-                LookTarget = chainable;
+                CurrentState.Value = PlayerChainState.Idle;
+            }
+
+            if (TryGetTarget<IChainTarget>(out IChainTarget chainTarget))
+            {
+                LookChainTarget = chainTarget;
             }
             else
             {
-                LookTarget = null;
+                LookChainTarget = null;
             }
 
-            if (CurrentState.Value == PlayerChainState.Pull)
+            if (CurrentState.Value == PlayerChainState.Pull && ChainTarget.IsPullable)
             {
-                if (Vector3.Distance(_player.transform.position, _currentPullable.Transform.position) < _player.Data.PullStopDistance)
+                if (Vector3.Distance(_player.transform.position, ChainTarget.Transform.position) < _player.Data.PullStopDistance)
                 {
-                    _currentPullable.Stop();
-                    _currentPullable = null;
-                    Target = null;
+                    ChainTarget.StopPull();
+                    ChainTarget = null;
                     CurrentState.Value = PlayerChainState.Idle;
                 }
             }
@@ -57,7 +60,7 @@ namespace KillChain.Player
 
         private void FirePressedHandler()
         {
-            if (LookTarget == null)
+            if (LookChainTarget == null)
             {
                 return;
             }
@@ -67,15 +70,15 @@ namespace KillChain.Player
                 return;
             }
 
-            Target = LookTarget;
+            ChainTarget = LookChainTarget;
 
-            Debug.Log($"Chain Dashing: {Target.Transform.gameObject.name}");
+            Debug.Log($"Chain Dashing: {ChainTarget.Transform.gameObject.name}");
             StartCoroutine(DashDelayCoroutine());
         }
 
         private void AltFirePressedHandler()
         {
-            if (LookTarget == null || !LookTarget.Transform.TryGetComponent<IPullable>(out IPullable pullable))
+            if (LookChainTarget == null || !LookChainTarget.IsPullable)
             {
                 return;
             }
@@ -85,10 +88,9 @@ namespace KillChain.Player
                 return;
             }
 
-            Target = LookTarget;
-            _currentPullable = pullable;
+            ChainTarget = LookChainTarget;
 
-            Debug.Log($"Chain Pulling: {Target.Transform.gameObject.name}");
+            Debug.Log($"Chain Pulling: {ChainTarget.Transform.gameObject.name}");
             StartCoroutine(PullDelayCoroutine());
         }
 
@@ -108,12 +110,12 @@ namespace KillChain.Player
             yield return new WaitForSeconds(CalculateStateChangeDelay());
             CurrentState.Value = PlayerChainState.Pull;
 
-            _currentPullable.Pull(_player.transform, _player.Data.PullSpeed);
+            ChainTarget.StartPull(_player.transform, _player.Data.PullSpeed);
         }
 
-        public bool TryGetTarget<T>(out T target)
+        public bool TryGetTarget<T>(out T ChainTarget)
         {
-            target = default(T);
+            ChainTarget = default(T);
             Physics.Raycast(_player.CameraTransform.position, _player.CameraTransform.forward, out RaycastHit hit, _player.Data.MaxChainDistance, _targetLayerMask);
 
             if (hit.collider == null || !hit.collider.TryGetComponent<T>(out T tar))
@@ -121,30 +123,30 @@ namespace KillChain.Player
                 return false;
             }
 
-            target = tar;
+            ChainTarget = tar;
             return true;
         }
 
-        public bool ChainTargetInLineOfSight(IChainable chainable = null)
+        public bool ChainTargetInLineOfSight(IChainTarget chainTarget = null)
         {
-            if (chainable == null)
+            if (chainTarget == null)
             {
-                if (LookTarget == null)
+                if (LookChainTarget == null)
                 {
                     return false;
                 }
 
-                chainable = LookTarget;
+                chainTarget = LookChainTarget;
             }
 
-            Physics.Raycast(_player.CameraTransform.position, (chainable.Transform.position - _player.CameraTransform.position).normalized, out RaycastHit hit, _player.Data.MaxChainDistance, _breakLayerMask);
+            Physics.Raycast(_player.CameraTransform.position, (chainTarget.Transform.position - _player.CameraTransform.position).normalized, out RaycastHit hit, _player.Data.MaxChainDistance, _breakLayerMask);
 
-            return hit.transform == chainable.Transform;
+            return hit.transform == chainTarget.Transform;
         }
 
         public float CalculateStateChangeDelay()
         {
-            return _player.Data.MaxChainDelayTime / (_player.Data.MaxChainDistance / Vector3.Distance(_player.transform.position, Target.Transform.position));
+            return _player.Data.MaxChainDelayTime / (_player.Data.MaxChainDistance / Vector3.Distance(_player.transform.position, ChainTarget.Transform.position));
         }
     }
 }
