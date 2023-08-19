@@ -1,7 +1,4 @@
-﻿using KillChain.Input;
-using Sirenix.OdinInspector;
-using Sirenix.Serialization;
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace KillChain.Player.States

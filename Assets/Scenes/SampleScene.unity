@@ -6675,10 +6675,35 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 625749523232385088, guid: c93ac1b47395c114fa0d69176d5b6e67,
         type: 3}
+      propertyPath: _slideState
+      value: 4680664308711161857
+      objectReference: {fileID: 0}
+    - target: {fileID: 625749523232385088, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _throwState
+      value: 4680664308711161858
+      objectReference: {fileID: 0}
+    - target: {fileID: 625749523232385088, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 625749523232385088, guid: c93ac1b47395c114fa0d69176d5b6e67,
         type: 3}
+    - target: {fileID: 625749523232385088, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: managedReferences[4680664308711161856]
+      value: KillChain.Player KillChain.Player.States.PlayerAirState
+      objectReference: {fileID: 0}
+    - target: {fileID: 625749523232385088, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: managedReferences[4680664308711161857]
+      value: KillChain.Player KillChain.Player.States.PlayerSlideState
+      objectReference: {fileID: 0}
+    - target: {fileID: 625749523232385088, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: managedReferences[4680664308711161858]
+      value: KillChain.Player KillChain.Player.States.PlayerThrowState
+      objectReference: {fileID: 0}
     - target: {fileID: 625749523232385088, guid: c93ac1b47395c114fa0d69176d5b6e67,
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.size
@@ -6713,6 +6738,26 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[5]
       value: '"path":"Rigidbody","value":$eref:5'
+      objectReference: {fileID: 0}
+    - target: {fileID: 625749523232385088, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: managedReferences[4680664287582879747]._maxDelayTime
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 625749523232385088, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: managedReferences[4680664308711161858]._maxDelayTime
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 625749523232385088, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: managedReferences[4680664287582879747]._dashDelayTime
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 625749523232385088, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: managedReferences[4680664287582879747]._chainDashAudioSource
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 625749523232385088, guid: c93ac1b47395c114fa0d69176d5b6e67,
         type: 3}
@@ -6755,6 +6800,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151001308562280512, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3079430048673656752, guid: c93ac1b47395c114fa0d69176d5b6e67,
         type: 3}
@@ -6806,6 +6856,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8308646648334923379, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _handSprites.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8308646648334923379, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _handSprites.Array.data[1].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 00d45b406367d9a4dbd04c21b877ab73,
+        type: 3}
+    - target: {fileID: 8308646648334923379, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _handSprites.Array.data[2].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c8255e6ee54a9484898cdfd8f8073ec2,
+        type: 3}
+    - target: {fileID: 8308646648334923379, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      propertyPath: _handSprites.Array.data[3].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d1e295d94883bed448475f3921bd0093,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6814,6 +6887,14 @@ PrefabInstance:
         type: 3}
       insertIndex: 3
       addedObject: {fileID: 2608208508730249997}
+    - targetCorrespondingSourceObject: {fileID: 1779755403413120462, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2608208508730249998}
+    - targetCorrespondingSourceObject: {fileID: 1779755403413120462, guid: c93ac1b47395c114fa0d69176d5b6e67,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2608208508730249999}
   m_SourcePrefab: {fileID: 100100000, guid: c93ac1b47395c114fa0d69176d5b6e67, type: 3}
 --- !u!4 &2608208508730249989 stripped
 Transform:
@@ -6952,6 +7033,70 @@ MonoBehaviour:
     - Name: ChainLineRenderer
       Entry: 10
       Data: 13
+--- !u!114 &2608208508730249998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872309005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab9403fe3dd26341b4368463b77f4fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 2608208508730249997}
+  _quality: 25
+  _damper: 20
+  _strength: 1100
+  _velocity: 12.5
+  _waveCount: 3
+  _waveHeight: 1.25
+  _duration: 1
+  _affectCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 3.4278674
+      outSlope: 3.4278674
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.040853295
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &2608208508730249999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872309005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74fa83d5aaf16d149905d90e71efef8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 0}
+  _chainTargetLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _chainBreakLayerMask:
+    serializedVersion: 2
+    m_Bits: 73
+  _maxDelayTime: 0.75
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

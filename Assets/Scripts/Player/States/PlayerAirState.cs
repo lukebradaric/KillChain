@@ -7,7 +7,7 @@ namespace KillChain.Player.States
     {
         public override void Enter()
         {
-            _player.GameInput.FirePressed += FirePressedHandler;
+            //_player.GameInput.FirePressed += FirePressedHandler;
             _player.GameInput.SlamPressed += SlamPressedHandler;
 
             _player.Rigidbody.drag = _player.Data.AirDrag;
@@ -15,7 +15,7 @@ namespace KillChain.Player.States
 
         public override void Exit()
         {
-            _player.GameInput.FirePressed -= FirePressedHandler;
+            //_player.GameInput.FirePressed -= FirePressedHandler;
             _player.GameInput.SlamPressed -= SlamPressedHandler;
         }
 
@@ -33,14 +33,14 @@ namespace KillChain.Player.States
 
         public override void Update() { }
 
-        private void FirePressedHandler()
-        {
-            // If player left clicked while chained to enemy, enter dashing state
-            if (_player.Weapon.State.Value != PlayerWeaponState.Attach)
-                return;
+        //private void FirePressedHandler()
+        //{
+        //    // If player left clicked while chained to enemy, enter dashing state
+        //    if (_player.Weapon.State.Value != PlayerWeaponState.Attach)
+        //        return;
 
-            _player.StateMachine.ChangeState(_player.StateMachine.DashState);
-        }
+        //    _player.StateMachine.ChangeState(_player.StateMachine.ThrowState);
+        //}
 
         protected virtual void SlamPressedHandler()
         {

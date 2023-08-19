@@ -79,6 +79,11 @@ namespace KillChain.Player
 
         private void OnDrawGizmos()
         {
+            if (!_player)
+            {
+                return;
+            }
+
             GizmosExtras.DrawWireCapsule(_player.MeleeHitboxTransform.position,
                 _player.MeleeHitboxTransform.position + _player.CameraTransform.forward * _player.Data.MeleeLength,
                 _player.Data.MeleeRadius);

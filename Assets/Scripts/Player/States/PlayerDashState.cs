@@ -40,8 +40,9 @@ namespace KillChain.Player.States
                     _player.Rigidbody.SetVelocityY(_player.Data.DashDamageUpwardForce);
                 }
 
-                _player.StateMachine.ChangeState(_player.StateMachine.AirState);
+                _player.Weapon.CurrentChainable = null;
                 _player.Weapon.State.Value = PlayerWeaponState.Idle;
+                _player.StateMachine.ChangeState(_player.StateMachine.AirState);
             }
         }
 
