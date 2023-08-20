@@ -51,6 +51,15 @@ namespace KillChain.Player.States
             CurrentState?.FixedUpdate();
         }
 
+        private void OnDrawGizmos()
+        {
+            _moveState.OnDrawGizmos();
+            _airState.OnDrawGizmos();
+            _dashState.OnDrawGizmos();
+            _slamState.OnDrawGizmos();
+            _slideState.OnDrawGizmos();
+        }
+
         private void OnDestroy()
         {
             CurrentState.Exit();

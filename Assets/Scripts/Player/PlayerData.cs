@@ -82,8 +82,13 @@ namespace KillChain.Player
         public float SlamSpeed => _slamSpeed;
 
         [Tooltip("Size of the slam HitBox when impacting the ground.")]
-        [SerializeField] private Vector3 _slamHitBoxSize;
-        public Vector3 SlamHitBoxSize => _slamHitBoxSize;
+        [SerializeField] private Vector3 _slamGroundHitBoxSize;
+        public Vector3 SlamGroundHitBoxSize => _slamGroundHitBoxSize;
+
+        [Tooltip("Size of the slam HitBox while slamming down.")]
+        [SerializeField] private Vector3 _slamAirHitBoxSize;
+        public Vector3 SlamAirHitBoxSize => _slamAirHitBoxSize;
+
         #endregion
 
         #region Chain

@@ -1,4 +1,5 @@
-﻿using KillChain.Core;
+﻿using Codice.CM.Common.Tree.Partial;
+using KillChain.Core;
 using KillChain.Core.Events;
 using KillChain.Core.Extensions;
 using UnityEngine;
@@ -34,6 +35,8 @@ namespace KillChain.Player.States
 
             _player.Rigidbody.SetVelocityY(_player.Data.SlamSpeed);
 
+            SlamDamage(_player.Data.SlamAirHitBoxSize);
+
             if (_player.GroundCheck.IsFound())
             {
                 Slam();
@@ -53,7 +56,20 @@ namespace KillChain.Player.States
 
         public override void OnDrawGizmos()
         {
-            Gizmos.DrawWireCube(_player.SlamHitBoxTransform.position, _player.Data.SlamHitBoxSize);
+            if (!_player)
+            {
+                return;
+            }
+
+            if (_player.GroundCheck.IsFound())
+            {
+                Gizmos.DrawWireCube(_player.SlamHitBoxTransform.position, _player.Data.SlamGroundHitBoxSize);
+            }
+            else
+            {
+                Gizmos.DrawWireCube(_player.SlamHitBoxTransform.position, _player.Data.SlamAirHitBoxSize);
+            }
+
         }
 
         private void Slam()
@@ -62,7 +78,12 @@ namespace KillChain.Player.States
             //IsSlamming.Value = false;
             GameObject.Instantiate(_slamParticlePrefab, _player.SlamHitBoxTransform.position, Quaternion.identity);
 
-            Collider[] colliders = Physics.OverlapBox(_player.SlamHitBoxTransform.position, _player.Data.SlamHitBoxSize, Quaternion.identity, _slamLayerMask);
+            SlamDamage(_player.Data.SlamGroundHitBoxSize);
+        }
+
+        private void SlamDamage(Vector3 slamHitBoxSize)
+        {
+            Collider[] colliders = Physics.OverlapBox(_player.SlamHitBoxTransform.position, slamHitBoxSize, Quaternion.identity, _slamLayerMask);
             foreach (Collider collider in colliders)
             {
                 if (collider.TryGetComponent<IDamageable>(out var damageable))
