@@ -60,6 +60,11 @@ namespace KillChain.Player
                 return;
             }
 
+            if (!LookTarget.IsDashable)
+            {
+                return;
+            }
+
             SetTarget(LookTarget);
 
             _dashDelayCoroutine = StartCoroutine(DashDelayCoroutine());
