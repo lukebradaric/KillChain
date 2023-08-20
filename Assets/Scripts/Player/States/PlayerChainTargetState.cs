@@ -13,7 +13,17 @@
             _player.Chain.TargetDestroyed -= TargetDestroyedHandler;
         }
 
-        public override void FixedUpdate() { }
+        public override void FixedUpdate()
+        {
+            if (this.IsTargetInLineOfSight(_player.Chain.Target))
+            {
+                return;
+            }
+
+            // Chain Broke Event
+
+            _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.IdleState);
+        }
 
         private void TargetDestroyedHandler()
         {

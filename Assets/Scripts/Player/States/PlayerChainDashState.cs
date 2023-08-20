@@ -16,7 +16,10 @@
             _player.GameInput.FireReleased -= FireReleasedHandler;
         }
 
-        public override void FixedUpdate() { }
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+        }
 
         private void FireReleasedHandler()
         {

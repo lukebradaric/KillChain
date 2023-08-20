@@ -22,7 +22,10 @@ namespace KillChain.Player.States
             _player.StopCoroutine(_delayCoroutine);
         }
 
-        public override void FixedUpdate() { }
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+        }
 
         protected abstract void ChangeState();
 

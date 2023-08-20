@@ -16,22 +16,24 @@ namespace KillChain.Player.States
         {
             base.Exit();
             _player.GameInput.AltFireReleased -= AltFireReleasedHandler;
+
+            // Stop pulling when exiting state
+            _player.Chain.Target?.StopPull();
+            _player.Chain.Target = null;
         }
 
         public override void FixedUpdate()
         {
-            if (Vector3.Distance(_player.transform.position, _player.Chain.Target.Transform.position) < _player.Data.PullStopDistance)
+            base.FixedUpdate();
+
+            if (_player.Chain.Target != null && Vector3.Distance(_player.transform.position, _player.Chain.Target.Transform.position) < _player.Data.PullStopDistance)
             {
-                _player.Chain.Target.StopPull();
-                _player.Chain.Target = null;
                 _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.IdleState);
             }
         }
 
         private void AltFireReleasedHandler()
         {
-            _player.Chain.Target.StopPull();
-            _player.Chain.Target = null;
             _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.IdleState);
         }
     }

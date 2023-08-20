@@ -36,6 +36,9 @@ namespace KillChain.Player.States
                 Vector3.Distance(_player.CameraTransform.position, chainTarget.Transform.position),
                 _player.Data.ChainBreakLayerMask);
 
+            if (raycastHit.collider != null)
+                Debug.Log(raycastHit.collider.gameObject.name);
+
             // If we hit nothing, or we hit our target, return true
             return raycastHit.collider == null || raycastHit.transform == chainTarget.Transform;
         }
