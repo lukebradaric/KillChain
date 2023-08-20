@@ -43,7 +43,7 @@ namespace KillChain.Player.States
             }
 
             _player.Chain.Target = _lookTarget;
-            _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.ThrowDashState);
+            _stateMachine.ChangeState(_stateMachine.ThrowDashState);
         }
 
         private void AltFirePressedHandler()
@@ -64,7 +64,7 @@ namespace KillChain.Player.States
             }
 
             _player.Chain.Target = _lookTarget;
-            _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.ThrowPullState);
+            _stateMachine.ChangeState(_stateMachine.ThrowPullState);
         }
 
         private void UpdateLookTarget()

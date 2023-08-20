@@ -35,7 +35,7 @@ namespace KillChain.Player.States
 
             if (_cancelChange)
             {
-                _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.IdleState);
+                _stateMachine.ChangeState(_stateMachine.IdleState);
                 yield break;
             }
 

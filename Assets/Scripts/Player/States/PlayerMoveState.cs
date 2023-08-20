@@ -26,7 +26,7 @@ namespace KillChain.Player.States
 
             if (!_player.GroundCheck.IsFound())
             {
-                _player.StateMachine.ChangeState(_player.StateMachine.AirState);
+                _stateMachine.ChangeState(_stateMachine.AirState);
                 return;
             }
 
@@ -55,7 +55,7 @@ namespace KillChain.Player.States
 
         private void SlidePressedHandler()
         {
-            _player.StateMachine.ChangeState(_player.StateMachine.SlideState);
+            _stateMachine.ChangeState(_stateMachine.SlideState);
         }
     }
 }

@@ -16,13 +16,6 @@ namespace KillChain.Player.States
         [SerializeReference] public PlayerChainState DashState;
         [SerializeReference] public PlayerChainState PullState;
 
-        // TOOD : Improve how debugging is done with state machines
-        public string currentState;
-        private void Update()
-        {
-            currentState = CurrentState.GetType().Name;
-        }
-
         private void Start()
         {
             ChangeState(IdleState);

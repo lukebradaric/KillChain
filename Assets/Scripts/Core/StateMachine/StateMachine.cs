@@ -18,10 +18,17 @@ namespace KillChain.Core.StateMachine
             }
 
             CurrentState?.Exit();
+
             PreviousState = CurrentState;
+
             CurrentState = newState;
+
+            CurrentState.SetStateMachine(this);
+
             OnStateChanging(newState);
+
             CurrentState?.Enter();
+
             StateChanged?.Invoke(CurrentState);
         }
 

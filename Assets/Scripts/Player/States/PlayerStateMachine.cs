@@ -22,15 +22,6 @@ namespace KillChain.Player.States
         [SerializeReference] private PlayerState _slideState;
         public PlayerState SlideState => _slideState;
 
-        // TODO : Improve debuggign
-        [Space]
-        [Header("DEBUG")]
-        [SerializeField] private string _currentStateName;
-        private void Update()
-        {
-            _currentStateName = CurrentState.GetType().Name;
-        }
-
         private void Start()
         {
             ChangeState(_moveState);

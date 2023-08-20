@@ -30,7 +30,7 @@ namespace KillChain.Player.States
 
         private void SlideReleasedHandler()
         {
-            _player.StateMachine.ChangeState(_player.StateMachine.MoveState);
+            _stateMachine.ChangeState(_stateMachine.MoveState);
         }
     }
 }

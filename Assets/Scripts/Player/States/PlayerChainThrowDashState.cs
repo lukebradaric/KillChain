@@ -19,7 +19,7 @@
 
         protected override void ChangeState()
         {
-            _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.DashState);
+            _stateMachine.ChangeState(_stateMachine.DashState);
         }
 
         private void FirePressedHandler()

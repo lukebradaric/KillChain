@@ -10,6 +10,8 @@ namespace KillChain.Player.States
         public void SetPlayer(Player player) => _player = player;
         protected Player _player;
 
+        new protected PlayerStateMachine _stateMachine => (PlayerStateMachine)base._stateMachine;
+
         protected Vector3 GetMoveDirection()
         {
             return (_player.LookTransform.forward * _player.GameInput.MoveInput.y + _player.LookTransform.right * _player.GameInput.MoveInput.x).normalized;
@@ -41,7 +43,7 @@ namespace KillChain.Player.States
         {
             _player.GroundCheck.Disable(_player.Data.JumpWaitTime);
             _player.Rigidbody.SetVelocityY(_player.Data.JumpForce);
-            _player.StateMachine.ChangeState(_player.StateMachine.AirState);
+            _stateMachine.ChangeState(_stateMachine.AirState);
         }
     }
 }

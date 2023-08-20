@@ -20,7 +20,7 @@ namespace KillChain.Player.States
         public override void Enter()
         {
             // If player was dashing, change chain to idle state
-            if (_player.StateMachine.PreviousState == _player.StateMachine.DashState)
+            if (_stateMachine.PreviousState == _stateMachine.DashState)
             {
                 _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.IdleState);
             }
@@ -47,7 +47,7 @@ namespace KillChain.Player.States
                     return;
                 }
 
-                _player.StateMachine.ChangeState(_player.StateMachine.MoveState);
+                _stateMachine.ChangeState(_stateMachine.MoveState);
             }
         }
 

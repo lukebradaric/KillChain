@@ -10,6 +10,8 @@ namespace KillChain.Player.States
         public void SetPlayer(Player player) => _player = player;
         protected Player _player;
 
+        new protected PlayerChainStateMachine _stateMachine => (PlayerChainStateMachine)base._stateMachine;
+
         protected virtual IChainTarget GetLookTarget()
         {
             // If hit nothing, return null

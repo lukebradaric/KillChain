@@ -25,7 +25,7 @@
         {
             _player.Chain.Target = null;
 
-            _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.IdleState);
+            _stateMachine.ChangeState(_stateMachine.IdleState);
         }
     }
 }

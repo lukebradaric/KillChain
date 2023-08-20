@@ -28,13 +28,13 @@ namespace KillChain.Player.States
 
             if (_player.Chain.Target != null && Vector3.Distance(_player.transform.position, _player.Chain.Target.Transform.position) < _player.Data.PullStopDistance)
             {
-                _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.IdleState);
+                _stateMachine.ChangeState(_stateMachine.IdleState);
             }
         }
 
         private void AltFireReleasedHandler()
         {
-            _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.IdleState);
+            _stateMachine.ChangeState(_stateMachine.IdleState);
         }
     }
 }

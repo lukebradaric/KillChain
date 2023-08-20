@@ -22,12 +22,12 @@
 
             // Chain Broke Event
 
-            _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.IdleState);
+            _stateMachine.ChangeState(_stateMachine.IdleState);
         }
 
         private void TargetDestroyedHandler()
         {
-            _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.IdleState);
+            _stateMachine.ChangeState(_stateMachine.IdleState);
         }
     }
 }

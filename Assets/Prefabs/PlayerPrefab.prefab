@@ -44,10 +44,12 @@ GameObject:
   - component: {fileID: 2456443446110144337}
   - component: {fileID: 8342270360812556671}
   - component: {fileID: 625749523232385088}
-  - component: {fileID: 2324370108722099282}
+  - component: {fileID: 5505247989807106271}
+  - component: {fileID: 2538153903387798411}
   - component: {fileID: 789511292880664334}
   - component: {fileID: 5542292963663981009}
   - component: {fileID: 8870669896043274936}
+  - component: {fileID: 4616879351484802924}
   - component: {fileID: 2660861669225979911}
   m_Layer: 0
   m_Name: PlayerPrefab
@@ -148,9 +150,11 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 0e1197ef0cd670a45b0e3a1bc27eb8a1, type: 2}
     - {fileID: 11400000, guid: 14fc59887e528844cb79fb8429e8b9bf, type: 2}
     - {fileID: 625749523232385088}
-    - {fileID: 2324370108722099282}
+    - {fileID: 5505247989807106271}
+    - {fileID: 2538153903387798411}
     - {fileID: 5542292963663981009}
     - {fileID: 8870669896043274936}
+    - {fileID: 4616879351484802924}
     - {fileID: 2660861669225979911}
     - {fileID: 2456443446110144337}
     - {fileID: 6155790429443038959}
@@ -176,39 +180,45 @@ MonoBehaviour:
     - Name: StateMachine
       Entry: 10
       Data: 3
-    - Name: Chain
+    - Name: ChainStateMachine
       Entry: 10
       Data: 4
-    - Name: Melee
+    - Name: Chain
       Entry: 10
       Data: 5
-    - Name: GroundCheck
+    - Name: Melee
       Entry: 10
       Data: 6
-    - Name: Audio
+    - Name: GroundCheck
       Entry: 10
       Data: 7
-    - Name: Rigidbody
+    - Name: JumpBuffer
       Entry: 10
       Data: 8
-    - Name: LookTransform
+    - Name: Audio
       Entry: 10
       Data: 9
-    - Name: CameraTransform
+    - Name: Rigidbody
       Entry: 10
       Data: 10
-    - Name: MeleeHitboxTransform
+    - Name: LookTransform
       Entry: 10
       Data: 11
-    - Name: SlamHitboxTransform
+    - Name: CameraTransform
       Entry: 10
       Data: 12
-    - Name: ChainStartTransform
+    - Name: MeleeHitBoxTransform
       Entry: 10
       Data: 13
-    - Name: ChainLineRenderer
+    - Name: SlamHitBoxTransform
       Entry: 10
       Data: 14
+    - Name: ChainStartTransform
+      Entry: 10
+      Data: 15
+    - Name: ChainLineRenderer
+      Entry: 10
+      Data: 16
 --- !u!114 &625749523232385088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9726a9ab24030f4b8c5efe564a0388a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
+  _player: {fileID: 8342270360812556671}
   _moveState:
     rid: 4680664287582879749
   _airState:
@@ -232,13 +242,10 @@ MonoBehaviour:
     rid: 4680664287582879748
   _slideState:
     rid: 4680664308711161857
-  _currentState:
-    rid: -2
+  _currentStateName: None
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
     - rid: 4680664287582879746
       type: {class: PlayerAirState, ns: KillChain.Player.States, asm: KillChain.Player}
       data: 
@@ -250,7 +257,6 @@ MonoBehaviour:
       data:
         _playerSlamEventChannel: {fileID: 11400000, guid: 9cbfebb5eddaa834fab1d0b0f0d2cb2a,
           type: 2}
-        _slamHitboxTransform: {fileID: 6850727706767053909}
         _slamParticlePrefab: {fileID: 4424802336641811218, guid: c47b455a3c3769a40aef3b26e0a587e7,
           type: 3}
         _slamLayerMask:
@@ -262,7 +268,49 @@ MonoBehaviour:
     - rid: 4680664308711161857
       type: {class: PlayerSlideState, ns: KillChain.Player.States, asm: KillChain.Player}
       data: 
---- !u!114 &2324370108722099282
+--- !u!114 &5505247989807106271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779755403413120462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac34abe72e133b4e9ddeb1ff864d285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 8342270360812556671}
+  IdleState:
+    rid: 4680664352349224960
+  ThrowDashState:
+    rid: 4680664352349224961
+  ThrowPullState:
+    rid: 4680664352349224962
+  DashState:
+    rid: 4680664352349224963
+  PullState:
+    rid: 4680664352349224965
+  currentState: 
+  references:
+    version: 2
+    RefIds:
+    - rid: 4680664352349224960
+      type: {class: PlayerChainIdleState, ns: KillChain.Player.States, asm: KillChain.Player}
+      data: 
+    - rid: 4680664352349224961
+      type: {class: PlayerChainThrowDashState, ns: KillChain.Player.States, asm: KillChain.Player}
+      data: 
+    - rid: 4680664352349224962
+      type: {class: PlayerChainThrowPullState, ns: KillChain.Player.States, asm: KillChain.Player}
+      data: 
+    - rid: 4680664352349224963
+      type: {class: PlayerChainDashState, ns: KillChain.Player.States, asm: KillChain.Player}
+      data: 
+    - rid: 4680664352349224965
+      type: {class: PlayerChainPullState, ns: KillChain.Player.States, asm: KillChain.Player}
+      data: 
+--- !u!114 &2538153903387798411
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -274,13 +322,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74fa83d5aaf16d149905d90e71efef8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
-  _targetLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  _breakLayerMask:
-    serializedVersion: 2
-    m_Bits: 73
+  _player: {fileID: 8342270360812556671}
+  debugTarget: 
 --- !u!114 &789511292880664334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,6 +410,19 @@ MonoBehaviour:
   _groundLayerMask:
     serializedVersion: 2
     m_Bits: 8
+--- !u!114 &4616879351484802924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779755403413120462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327321b6c19e7f842a047f3c68830da9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 8342270360812556671}
 --- !u!114 &2660861669225979911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,7 +464,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6850727706767053909}
   m_Layer: 0
-  m_Name: SlamHitboxTransform
+  m_Name: SlamHitBoxTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -518,17 +574,101 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240a07e4631c6954199eb941c7ee2a7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 21300000, guid: 14747cfaf5b1a4f418835741a849160c, type: 3}
+    - {fileID: 21300000, guid: 00d45b406367d9a4dbd04c21b877ab73, type: 3}
+    - {fileID: 21300000, guid: d1e295d94883bed448475f3921bd0093, type: 3}
+    - {fileID: 21300000, guid: c8255e6ee54a9484898cdfd8f8073ec2, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _handSpritesDictionary
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: PlayerChainIdleState
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: PlayerChainThrowDashState
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: PlayerChainThrowPullState
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: PlayerChainDashState
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: PlayerChainPullState
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   _handImage: {fileID: 6299993793383843141}
-  _playerChain: {fileID: 2324370108722099282}
-  _handSprites:
-  - state: 0
-    sprite: {fileID: 21300000, guid: 14747cfaf5b1a4f418835741a849160c, type: 3}
-  - state: 1
-    sprite: {fileID: 21300000, guid: 00d45b406367d9a4dbd04c21b877ab73, type: 3}
-  - state: 2
-    sprite: {fileID: 21300000, guid: d1e295d94883bed448475f3921bd0093, type: 3}
-  - state: 3
-    sprite: {fileID: 21300000, guid: c8255e6ee54a9484898cdfd8f8073ec2, type: 3}
+  _player: {fileID: 8342270360812556671}
 --- !u!114 &2440974739382114691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,7 +733,7 @@ Camera:
   m_GameObject: {fileID: 3328750551858837960}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2

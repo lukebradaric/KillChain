@@ -30,18 +30,6 @@ namespace KillChain.Player
             }
         }
 
-        // TODO : Improve debuggign
-        public string debugTarget;
-        private void Update()
-        {
-            if (_target == null)
-            {
-                debugTarget = "null";
-                return;
-            }
-            debugTarget = _target.Transform.name;
-        }
-
         public event Action TargetDestroyed;
 
         private void TargetDestroyedHandler()

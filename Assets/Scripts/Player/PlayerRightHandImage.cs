@@ -1,6 +1,5 @@
 ﻿using KillChain.Core.StateMachine;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;

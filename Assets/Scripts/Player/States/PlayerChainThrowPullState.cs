@@ -19,7 +19,7 @@
 
         protected override void ChangeState()
         {
-            _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.PullState);
+            _stateMachine.ChangeState(_stateMachine.PullState);
         }
 
         private void AltFirePressedHandler()

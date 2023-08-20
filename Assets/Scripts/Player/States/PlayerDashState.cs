@@ -23,9 +23,9 @@ namespace KillChain.Player.States
 
         public override void FixedUpdate()
         {
-            _player.Rigidbody.SetVelocity((_player.Chain.Target.Transform.position - _player.StateMachine.transform.position).normalized * _player.Data.DashSpeed);
+            _player.Rigidbody.SetVelocity((_player.Chain.Target.Transform.position - _stateMachine.transform.position).normalized * _player.Data.DashSpeed);
 
-            if (Vector3.Distance(_player.StateMachine.transform.position, _player.Chain.Target.Transform.position) < _player.Data.DashStopDistance)
+            if (Vector3.Distance(_stateMachine.transform.position, _player.Chain.Target.Transform.position) < _player.Data.DashStopDistance)
             {
                 if (_player.Chain.Target.Transform.TryGetComponent<IDamageable>(out var damageable))
                 {
@@ -46,7 +46,7 @@ namespace KillChain.Player.States
 
                 _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.IdleState);
                 // TODO : Check if grounded and pick air or move state
-                _player.StateMachine.ChangeState(_player.StateMachine.AirState);
+                _stateMachine.ChangeState(_stateMachine.AirState);
             }
         }
 
@@ -58,7 +58,7 @@ namespace KillChain.Player.States
                 return;
             }
 
-            _player.StateMachine.ChangeState(_player.StateMachine.SlamState);
+            _stateMachine.ChangeState(_stateMachine.SlamState);
         }
 
         private void FireReleasedHandler()
@@ -66,13 +66,13 @@ namespace KillChain.Player.States
             _player.Rigidbody.AddForce(Vector3.up * _player.Data.DashReleaseUpwardForce, ForceMode.Impulse);
 
             // TODO : Check grounded and switch to either air or move state
-            _player.StateMachine.ChangeState(_player.StateMachine.AirState);
+            _stateMachine.ChangeState(_stateMachine.AirState);
         }
 
         private void TargetDestroyedHandler()
         {
             // TODO : Check if grounded and pick air or move state
-            _player.StateMachine.ChangeState(_player.StateMachine.AirState);
+            _stateMachine.ChangeState(_stateMachine.AirState);
         }
     }
 }

@@ -38,12 +38,12 @@ namespace KillChain.Player.States
             }
 
             // If ground check and no jump buffer, enter move state
-            _player.StateMachine.ChangeState(_player.StateMachine.MoveState);
+            _stateMachine.ChangeState(_stateMachine.MoveState);
         }
 
         private void SlamPressedHandler()
         {
-            _player.StateMachine.ChangeState(_player.StateMachine.SlamState);
+            _stateMachine.ChangeState(_stateMachine.SlamState);
         }
     }
 }
