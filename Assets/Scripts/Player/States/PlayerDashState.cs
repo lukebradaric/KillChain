@@ -11,12 +11,14 @@ namespace KillChain.Player.States
         {
             _player.GameInput.SlamPressed += SlamPressedHandler;
             _player.GameInput.FireReleased += FireReleasedHandler;
+            _player.Chain.TargetDestroyed += TargetDestroyedHandler;
         }
 
         public override void Exit()
         {
             _player.GameInput.SlamPressed -= SlamPressedHandler;
             _player.GameInput.FireReleased -= FireReleasedHandler;
+            _player.Chain.TargetDestroyed -= TargetDestroyedHandler;
         }
 
         public override void FixedUpdate()
@@ -42,13 +44,11 @@ namespace KillChain.Player.States
                     _player.Rigidbody.SetVelocityY(_player.Data.DashDamageUpwardForce);
                 }
 
-                //  TODO : Invoke event here instead of directly setting chain target and state?
-                _player.Chain.ForceIdleState();
+                _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.IdleState);
+                // TODO : Check if grounded and pick air or move state
                 _player.StateMachine.ChangeState(_player.StateMachine.AirState);
             }
         }
-
-        public override void Update() { }
 
         private void SlamPressedHandler()
         {
@@ -64,7 +64,14 @@ namespace KillChain.Player.States
         private void FireReleasedHandler()
         {
             _player.Rigidbody.AddForce(Vector3.up * _player.Data.DashReleaseUpwardForce, ForceMode.Impulse);
-            _player.Chain.ForceIdleState();
+
+            // TODO : Check grounded and switch to either air or move state
+            _player.StateMachine.ChangeState(_player.StateMachine.AirState);
+        }
+
+        private void TargetDestroyedHandler()
+        {
+            // TODO : Check if grounded and pick air or move state
             _player.StateMachine.ChangeState(_player.StateMachine.AirState);
         }
     }

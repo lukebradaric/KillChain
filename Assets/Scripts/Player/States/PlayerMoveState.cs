@@ -48,8 +48,6 @@ namespace KillChain.Player.States
             _player.Rigidbody.AddForce(Vector3.down * _player.Data.DownwardsForce);
         }
 
-        public override void Update() { }
-
         private void JumpPressedHandler()
         {
             this.Jump();

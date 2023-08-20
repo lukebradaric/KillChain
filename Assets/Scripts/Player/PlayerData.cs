@@ -118,6 +118,14 @@ namespace KillChain.Player
         [Tooltip("The max time the chain takes to attach to a target.")]
         [SerializeField] private float _maxChainDelayTime;
         public float MaxChainDelayTime => _maxChainDelayTime;
+
+        [Tooltip("Layermask of valid chain targets.")]
+        [SerializeField] private LayerMask _chainTargetLayerMask;
+        public LayerMask ChainTargetLayerMask => _chainTargetLayerMask;
+
+        [Tooltip("Layermask of objects that break chain line of sight.")]
+        [SerializeField] private LayerMask _chainBreakLayerMask;
+        public LayerMask ChainBreakLayerMask => _chainBreakLayerMask;
         #endregion
 
         #region Dash

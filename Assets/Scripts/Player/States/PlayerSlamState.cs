@@ -19,10 +19,10 @@ namespace KillChain.Player.States
 
         public override void Enter()
         {
-            // If player was dashing when they entered slam, force the chain to go idle
-            if (_player.Chain.CurrentState.Value == PlayerChainState.Dash)
+            // If player was dashing, change chain to idle state
+            if (_player.StateMachine.PreviousState == _player.StateMachine.DashState)
             {
-                _player.Chain.ForceIdleState();
+                _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.IdleState);
             }
         }
 
@@ -50,8 +50,6 @@ namespace KillChain.Player.States
                 _player.StateMachine.ChangeState(_player.StateMachine.MoveState);
             }
         }
-
-        public override void Update() { }
 
         public override void OnDrawGizmos()
         {

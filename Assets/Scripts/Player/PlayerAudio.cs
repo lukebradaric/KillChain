@@ -23,7 +23,7 @@ namespace KillChain.Player
 
         private void OnEnable()
         {
-            _player.Chain.CurrentState.ValueChanged += StateChangedHandler;
+            //_player.Chain.CurrentState.ValueChanged += StateChangedHandler;
             _playerChainBrokeEventChannel.Event += PlayerChainBrokeHandler;
             _playerMeleeEventChannel.Event += PlayerMeleeHandler;
             _playerParryEventChannel.Event += PlayerParryHandler;
@@ -32,17 +32,17 @@ namespace KillChain.Player
 
         private void OnDisable()
         {
-            _player.Chain.CurrentState.ValueChanged -= StateChangedHandler;
+            //_player.Chain.CurrentState.ValueChanged -= StateChangedHandler;
             _playerChainBrokeEventChannel.Event -= PlayerChainBrokeHandler;
             _playerMeleeEventChannel.Event -= PlayerMeleeHandler;
             _playerParryEventChannel.Event -= PlayerParryHandler;
             _playerSlamEventChannel.Event += PlayerSlamHandler;
         }
 
-        private void StateChangedHandler(PlayerChainState state)
-        {
-            if (state == PlayerChainState.Throw) _playerChainAttachAudioAsset?.Play();
-        }
+        //private void StateChangedHandler(PlayerChainStateEnum state)
+        //{
+        //    if (state == PlayerChainStateEnum.Throw) _playerChainAttachAudioAsset?.Play();
+        //}
 
         private void PlayerChainBrokeHandler() => _playerChainBreakAudioAsset?.Play();
 

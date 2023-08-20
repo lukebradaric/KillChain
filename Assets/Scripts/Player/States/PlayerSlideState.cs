@@ -28,16 +28,9 @@ namespace KillChain.Player.States
             _player.Rigidbody.AddForce(Vector3.down * _player.Data.SlideDownwardsForce);
         }
 
-        public override void Update() { }
-
         private void SlideReleasedHandler()
         {
             _player.StateMachine.ChangeState(_player.StateMachine.MoveState);
-        }
-
-        private void GetGroundNormal()
-        {
-
         }
     }
 }

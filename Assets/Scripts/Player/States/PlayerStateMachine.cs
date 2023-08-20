@@ -1,11 +1,13 @@
-﻿using System;
+﻿using KillChain.Core.StateMachine;
 using UnityEngine;
 
 namespace KillChain.Player.States
 {
-    public class PlayerStateMachine : PlayerMonoBehaviour
+    public class PlayerStateMachine : StateMachine
     {
-        // TODO : Refactor component references and passing to other substates
+        [Space]
+        [Header("Components")]
+        [SerializeField] private Player _player;
 
         [Space]
         [Header("States")]
@@ -20,50 +22,25 @@ namespace KillChain.Player.States
         [SerializeReference] private PlayerState _slideState;
         public PlayerState SlideState => _slideState;
 
+        // TODO : Improve debuggign
         [Space]
         [Header("DEBUG")]
         [SerializeField] private string _currentStateName;
-
-        public PlayerState CurrentState { get; private set; }
+        private void Update()
+        {
+            _currentStateName = CurrentState.GetType().Name;
+        }
 
         private void Start()
         {
             ChangeState(_moveState);
         }
 
-        public void ChangeState(PlayerState _newState)
+        protected override void OnStateChanging(State newState)
         {
-            CurrentState?.Exit();
-            CurrentState = _newState;
-            CurrentState?.SetPlayer(_player);
-            CurrentState?.Enter();
+            ((PlayerState)newState)?.SetPlayer(_player);
         }
 
-        private void Update()
-        {
-            CurrentState?.Update();
-
-            _currentStateName = CurrentState.GetType().Name;
-        }
-
-        private void FixedUpdate()
-        {
-            CurrentState?.FixedUpdate();
-        }
-
-        private void OnDrawGizmos()
-        {
-            _moveState.OnDrawGizmos();
-            _airState.OnDrawGizmos();
-            _dashState.OnDrawGizmos();
-            _slamState.OnDrawGizmos();
-            _slideState.OnDrawGizmos();
-        }
-
-        private void OnDestroy()
-        {
-            CurrentState.Exit();
-        }
     }
 }
 

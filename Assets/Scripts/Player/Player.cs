@@ -21,6 +21,7 @@ namespace KillChain.Player
         [PropertySpace]
         [Title("Components")]
         [OdinSerialize] public PlayerStateMachine StateMachine { get; private set; }
+        [OdinSerialize] public PlayerChainStateMachine ChainStateMachine { get; private set; }
         [OdinSerialize] public PlayerChain Chain { get; private set; }
         [OdinSerialize] public PlayerMelee Melee { get; private set; }
         [OdinSerialize] public PlayerGroundCheck GroundCheck { get; private set; }
@@ -38,4 +39,3 @@ namespace KillChain.Player
         [OdinSerialize] public LineRenderer ChainLineRenderer { get; private set; }
     }
 }
-

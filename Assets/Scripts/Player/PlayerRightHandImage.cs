@@ -1,50 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using KillChain.Core.StateMachine;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace KillChain.Player
 {
-    [System.Serializable]
-    internal class PlayerChainStateSprites
-    {
-        public PlayerChainState state;
-        public Sprite sprite;
-    }
-
-    public class PlayerRightHandImage : MonoBehaviour
+    public class PlayerRightHandImage : SerializedMonoBehaviour
     {
         [Space]
         [Header("Components")]
         [SerializeField] private Image _handImage;
-        [SerializeField] private PlayerChain _playerChain;
+        [SerializeField] private Player _player;
 
         [Space]
         [Header("Settings")]
-        [SerializeField] private List<PlayerChainStateSprites> _handSprites = new List<PlayerChainStateSprites>();
-        // Dictionary of the sprite for each weapon state
-        private Dictionary<PlayerChainState, Sprite> _handSpritesDictionary = new Dictionary<PlayerChainState, Sprite>();
-
-        private void Awake()
-        {
-            foreach (var handSprite in _handSprites)
-            {
-                _handSpritesDictionary.Add(handSprite.state, handSprite.sprite);
-            }
-        }
+        [SerializeField] private Dictionary<string, Sprite> _handSpritesDictionary = new Dictionary<string, Sprite>();
 
         private void OnEnable()
         {
-            _playerChain.CurrentState.ValueChanged += StateChangedHandler;
+            _player.ChainStateMachine.StateChanged += StateChangedHandler;
         }
 
         private void OnDisable()
         {
-            _playerChain.CurrentState.ValueChanged -= StateChangedHandler;
+            _player.ChainStateMachine.StateChanged -= StateChangedHandler;
         }
 
-        private void StateChangedHandler(PlayerChainState playerChainState)
+        private void StateChangedHandler(State state)
         {
-            _handImage.sprite = _handSpritesDictionary[playerChainState];
+            _handImage.sprite = _handSpritesDictionary[state.GetType().Name];
         }
     }
 }

@@ -1,20 +1,14 @@
 ﻿using KillChain.Core.Extensions;
+using KillChain.Core.StateMachine;
 using UnityEngine;
 
 namespace KillChain.Player.States
 {
     [System.Serializable]
-    public abstract class PlayerState
+    public abstract class PlayerState : State
     {
         public void SetPlayer(Player player) => _player = player;
         protected Player _player;
-
-        public abstract void Enter();
-        public abstract void Update();
-        public abstract void FixedUpdate();
-        public abstract void Exit();
-
-        public virtual void OnDrawGizmos() { }
 
         protected Vector3 GetMoveDirection()
         {
@@ -33,7 +27,7 @@ namespace KillChain.Player.States
                 {
                     return;
                 }
-                // If ground angle greater than min, project movedirection on plane
+                // If ground angle greater than min, 
                 else if (_player.GroundCheck.GetGroundAngle() > _player.Data.MinGroundAngle)
                 {
                     moveDirection = Vector3.ProjectOnPlane(moveDirection, _player.GroundCheck.GetGroundNormal());

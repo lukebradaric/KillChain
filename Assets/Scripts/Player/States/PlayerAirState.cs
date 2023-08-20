@@ -41,9 +41,6 @@ namespace KillChain.Player.States
             _player.StateMachine.ChangeState(_player.StateMachine.MoveState);
         }
 
-        public override void Update() { }
-
-
         private void SlamPressedHandler()
         {
             _player.StateMachine.ChangeState(_player.StateMachine.SlamState);
