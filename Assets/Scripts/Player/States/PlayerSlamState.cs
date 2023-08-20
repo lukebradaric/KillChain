@@ -74,9 +74,7 @@ namespace KillChain.Player.States
         private void Slam()
         {
             _playerSlamEventChannel?.Invoke();
-            //IsSlamming.Value = false;
             GameObject.Instantiate(_slamParticlePrefab, _player.SlamHitBoxTransform.position, Quaternion.identity);
-
             SlamDamage(_player.Data.SlamGroundHitBoxSize);
         }
 

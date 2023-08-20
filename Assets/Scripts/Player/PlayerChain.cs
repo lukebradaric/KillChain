@@ -1,6 +1,5 @@
 ﻿using KillChain.Core;
 using KillChain.Core.Generics;
-using KillChain.Player.States;
 using System.Collections;
 using UnityEngine;
 
@@ -10,8 +9,11 @@ namespace KillChain.Player
     {
         [Space]
         [Header("Settings")]
+        [Tooltip("Layermask of objects that can be targeted.")]
         [SerializeField] private LayerMask _targetLayerMask;
+        [Tooltip("Layermask of objects that will break")]
         [SerializeField] private LayerMask _breakLayerMask;
+        [SerializeField] private LayerMask _lineOfSightLayerMask;
 
         public Observable<PlayerChainState> CurrentState { get; private set; } = new Observable<PlayerChainState>(PlayerChainState.Idle);
 
@@ -167,7 +169,7 @@ namespace KillChain.Player
             return true;
         }
 
-        private bool IsTargetInLineOfSight(IChainTarget chainTarget)
+        private bool IsTargetInLineOfSight(IChainTarget chainTarget, LayerMask layerMask, bool nullIsValid)
         {
             if (chainTarget == null)
             {
@@ -175,9 +177,18 @@ namespace KillChain.Player
                 return false;
             }
 
-            Physics.Raycast(_player.CameraTransform.position, (chainTarget.Transform.position - _player.CameraTransform.position).normalized, out RaycastHit hit, _player.Data.MaxChainDistance, _breakLayerMask);
+            Physics.Raycast(_player.CameraTransform.position,
+                (chainTarget.Transform.position - _player.CameraTransform.position).normalized,
+                out RaycastHit raycastHit,
+                Vector3.Distance(_player.CameraTransform.position, chainTarget.Transform.position),
+                layerMask);
 
-            return hit.transform == chainTarget.Transform;
+            if (nullIsValid && raycastHit.transform == null)
+            {
+                return true;
+            }
+
+            return raycastHit.transform == chainTarget.Transform;
         }
 
         private float CalculateStateChangeDelay()
@@ -197,7 +208,7 @@ namespace KillChain.Player
                 return false;
             }
 
-            if (!IsTargetInLineOfSight(LookTarget))
+            if (!IsTargetInLineOfSight(LookTarget, _lineOfSightLayerMask, false))
             {
                 return false;
             }
@@ -212,7 +223,7 @@ namespace KillChain.Player
                 return;
             }
 
-            if (IsTargetInLineOfSight(Target))
+            if (IsTargetInLineOfSight(Target, _breakLayerMask, true))
             {
                 return;
             }
@@ -247,11 +258,11 @@ namespace KillChain.Player
             {
                 if (_player.GroundCheck.IsFound())
                 {
-                    _player.StateMachine.ChangeState(_player.StateMachine.AirState);
+                    _player.StateMachine.ChangeState(_player.StateMachine.MoveState);
                 }
                 else
                 {
-                    _player.StateMachine.ChangeState(_player.StateMachine.MoveState);
+                    _player.StateMachine.ChangeState(_player.StateMachine.AirState);
                 }
 
                 ForceIdleState();
@@ -273,12 +284,9 @@ namespace KillChain.Player
         private void UpdatePullState()
         {
             // If target being pulled is within pull stop range, stop pull
-            if (CurrentState.Value == PlayerChainState.Pull && Target.IsPullable)
+            if (CurrentState.Value == PlayerChainState.Pull && Vector3.Distance(_player.transform.position, Target.Transform.position) < _player.Data.PullStopDistance)
             {
-                if (Vector3.Distance(_player.transform.position, Target.Transform.position) < _player.Data.PullStopDistance)
-                {
-                    StopPullState();
-                }
+                StopPullState();
             }
         }
 
@@ -297,6 +305,11 @@ namespace KillChain.Player
 
         public void ForceIdleState()
         {
+            if (Target.IsPullable)
+            {
+                Target.StopPull();
+            }
+
             CurrentState.Value = PlayerChainState.Idle;
             Target = null;
         }

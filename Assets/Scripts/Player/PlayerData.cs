@@ -12,6 +12,22 @@ namespace KillChain.Player
         [SerializeField] private float _moveSpeed;
         public float MoveSpeed => _moveSpeed;
 
+        [Tooltip("Downwards force constantly applied to player while on ground.")]
+        [SerializeField] private float _downwardsForce;
+        public float DownwardsForce => _downwardsForce;
+
+        [Tooltip("Minimum angle of ground before angled forces are applied.")]
+        [SerializeField] private float _minGroundAngle;
+        public float MinGroundAngle => _minGroundAngle;
+
+        [Tooltip("Max angle of ground where movement is allowed.")]
+        [SerializeField] private float _maxGroundAngle;
+        public float MaxGroundAngle => _maxGroundAngle;
+        #endregion
+
+        #region Jump
+        [Space]
+        [Header("Jump")]
         [Tooltip("Force applied upwards when jumping.")]
         [SerializeField] private float _jumpForce;
         public float JumpForce => _jumpForce;
@@ -23,15 +39,16 @@ namespace KillChain.Player
         [Tooltip("The time after jumping the player must wait to be grounded again.")]
         [SerializeField] private float _jumpWaitTime;
         public float JumpWaitTime => _jumpWaitTime;
+        #endregion
 
-        [Tooltip("Value multiplied by player velocity when going through boost")]
-        [SerializeField] private float _boostSpeedMultiplier;
-        public float BoostSpeedMultiplier => _boostSpeedMultiplier;
-
+        #region Air
+        [Space]
+        [Header("Air")]
         [Tooltip("Movement speed multiplier while in air.")]
         [SerializeField] private float _airSpeedMultiplier;
         public float AirSpeedMultiplier => _airSpeedMultiplier;
 
+        [Tooltip("Force applied while falling.")]
         [SerializeField] private float _fallForce;
         public float FallForce => _fallForce;
         #endregion
@@ -113,6 +130,10 @@ namespace KillChain.Player
         [Tooltip("Speed while dashing to chained target.")]
         [SerializeField] private float _dashSpeed;
         public float DashSpeed => _dashSpeed;
+
+        [Tooltip("Value multiplied by player velocity when going through boost")]
+        [SerializeField] private float _dashBoostSpeedMultiplier;
+        public float DashBoostSpeedMultiplier => _dashBoostSpeedMultiplier;
 
         [Tooltip("Upwards force applied to the player when releasing from a dash.")]
         [SerializeField] private float _dashReleaseUpwardForce;

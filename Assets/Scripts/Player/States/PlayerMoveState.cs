@@ -1,10 +1,11 @@
-﻿using KillChain.Core.Extensions;
+﻿using UnityEngine;
 
 namespace KillChain.Player.States
 {
     [System.Serializable]
     public class PlayerMoveState : PlayerState
     {
+
         public override void Enter()
         {
             _player.GameInput.JumpPressed += JumpPressedHandler;
@@ -23,8 +24,28 @@ namespace KillChain.Player.States
         {
             base.Move();
 
-            if(!_player.GroundCheck.IsFound())
+            if (!_player.GroundCheck.IsFound())
+            {
                 _player.StateMachine.ChangeState(_player.StateMachine.AirState);
+                return;
+            }
+
+            // If ground angle greater than max, apply downwards force
+            if(_player.GroundCheck.GetGroundAngle() > _player.Data.MaxGroundAngle)
+            {
+                _player.Rigidbody.AddForce(Vector3.down * _player.Data.DownwardsForce);
+                return;
+            }
+
+            // If ground angle greater than min, apply force against plane
+            if (_player.GroundCheck.GetGroundAngle() > _player.Data.MinGroundAngle)
+            {
+                _player.Rigidbody.AddForce(-_player.GroundCheck.GetGroundNormal() * _player.Data.DownwardsForce);
+                return;
+            }
+
+            // Apply regular downwards force
+            _player.Rigidbody.AddForce(Vector3.down * _player.Data.DownwardsForce);
         }
 
         public override void Update() { }

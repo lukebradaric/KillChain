@@ -34,7 +34,7 @@ namespace KillChain.Player.States
                 else if (_player.Chain.Target.IsBoostable)
                 {
                     // Boost Event
-                    _player.Rigidbody.SetVelocity(_player.Rigidbody.velocity * _player.Data.BoostSpeedMultiplier);
+                    _player.Rigidbody.SetVelocity(_player.Rigidbody.velocity * _player.Data.DashBoostSpeedMultiplier);
                 }
                 else
                 {

@@ -16,10 +16,30 @@ namespace KillChain.Player.States
 
         public virtual void OnDrawGizmos() { }
 
+        protected Vector3 GetMoveDirection()
+        {
+            return (_player.LookTransform.forward * _player.GameInput.MoveInput.y + _player.LookTransform.right * _player.GameInput.MoveInput.x).normalized;
+        }
+
         protected void Move(float velocityMultiplier = 1f)
         {
-            // Movement
-            Vector3 moveDirection = (_player.LookTransform.forward * _player.GameInput.MoveInput.y + _player.LookTransform.right * _player.GameInput.MoveInput.x).normalized;
+            Vector3 moveDirection = GetMoveDirection();
+
+            // If ground angle greater than max, project movement direction on plane
+            if (_player.GroundCheck.IsFound())
+            {
+                // If ground angle greater than max, don't move
+                if (_player.GroundCheck.GetGroundAngle() > _player.Data.MaxGroundAngle)
+                {
+                    return;
+                }
+                // If ground angle greater than min, project movedirection on plane
+                else if (_player.GroundCheck.GetGroundAngle() > _player.Data.MinGroundAngle)
+                {
+                    moveDirection = Vector3.ProjectOnPlane(moveDirection, _player.GroundCheck.GetGroundNormal());
+                }
+            }
+
             _player.Rigidbody.AddForce(moveDirection * _player.Data.MoveSpeed * velocityMultiplier);
         }
 

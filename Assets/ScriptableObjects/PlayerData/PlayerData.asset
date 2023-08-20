@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   _moveSpeed: 120
+  _downwardsForce: 100
+  _minGroundAngle: 5
+  _maxGroundAngle: 35
   _jumpForce: 22
   _jumpBufferTime: 0.15
   _jumpWaitTime: 0.2
-  _boostSpeedMultiplier: 2
   _airSpeedMultiplier: 0.32
   _fallForce: 30
   _groundDrag: 10
@@ -33,6 +35,7 @@ MonoBehaviour:
   _maxChainDelayTime: 0.75
   _dashDamage: 1
   _dashSpeed: 40
+  _dashBoostSpeedMultiplier: 2
   _dashReleaseUpwardForce: 11
   _dashReboundSpeed: 12.5
   _dashReboundUpwardForce: 27.5
