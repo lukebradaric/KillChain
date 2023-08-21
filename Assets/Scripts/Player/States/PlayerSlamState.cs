@@ -1,5 +1,4 @@
 ﻿using KillChain.Core;
-using KillChain.Core.Events;
 using KillChain.Core.Extensions;
 using UnityEngine;
 
@@ -8,10 +7,6 @@ namespace KillChain.Player.States
     [System.Serializable]
     public class PlayerSlamState : PlayerState
     {
-        [Space]
-        [Header("EventChannels")]
-        [SerializeField] private VoidEventChannel _playerSlamEventChannel;
-
         [Space]
         [Header("Components")]
         [SerializeField] private GameObject _slamParticlePrefab;
@@ -70,7 +65,7 @@ namespace KillChain.Player.States
 
         private void Slam()
         {
-            _playerSlamEventChannel?.Invoke();
+            _player.SlamEventChannel?.Invoke();
             GameObject.Instantiate(_slamParticlePrefab, _player.SlamHitBoxTransform.position, Quaternion.identity);
             SlamDamage(_player.Data.SlamGroundHitBoxSize);
         }

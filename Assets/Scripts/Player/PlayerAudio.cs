@@ -1,5 +1,4 @@
 ﻿using KillChain.Audio;
-using KillChain.Core.Events;
 using UnityEngine;
 
 namespace KillChain.Player
@@ -7,15 +6,8 @@ namespace KillChain.Player
     public class PlayerAudio : PlayerMonoBehaviour
     {
         [Space]
-        [Header("EventChannels")]
-        [SerializeField] private VoidEventChannel _playerChainBrokeEventChannel;
-        [SerializeField] private VoidEventChannel _playerMeleeEventChannel;
-        [SerializeField] private VoidEventChannel _playerParryEventChannel;
-        [SerializeField] private VoidEventChannel _playerSlamEventChannel;
-
-        [Space]
         [Header("Audio")]
-        [SerializeField] private AudioAsset _playerChainAttachAudioAsset;
+        [SerializeField] private AudioAsset _playerChainThrowAudioAsset;
         [SerializeField] private AudioAsset _playerChainBreakAudioAsset;
         [SerializeField] private AudioAsset _playerMeleeAudioAsset;
         [SerializeField] private AudioAsset _playerParryAudioAsset;
@@ -23,26 +15,23 @@ namespace KillChain.Player
 
         private void OnEnable()
         {
-            //_player.Chain.CurrentState.ValueChanged += StateChangedHandler;
-            _playerChainBrokeEventChannel.Event += PlayerChainBrokeHandler;
-            _playerMeleeEventChannel.Event += PlayerMeleeHandler;
-            _playerParryEventChannel.Event += PlayerParryHandler;
-            _playerSlamEventChannel.Event += PlayerSlamHandler;
+            _player.ChainThrowEventChannel.Event += PlayerChainThrowEventHandler;
+            _player.ChainBreakEventChannel.Event += PlayerChainBrokeHandler;
+            _player.MeleeEventChannel.Event += PlayerMeleeHandler;
+            _player.ParryEventChannel.Event += PlayerParryHandler;
+            _player.SlamEventChannel.Event += PlayerSlamHandler;
         }
 
         private void OnDisable()
         {
-            //_player.Chain.CurrentState.ValueChanged -= StateChangedHandler;
-            _playerChainBrokeEventChannel.Event -= PlayerChainBrokeHandler;
-            _playerMeleeEventChannel.Event -= PlayerMeleeHandler;
-            _playerParryEventChannel.Event -= PlayerParryHandler;
-            _playerSlamEventChannel.Event += PlayerSlamHandler;
+            _player.ChainThrowEventChannel.Event -= PlayerChainThrowEventHandler;
+            _player.ChainBreakEventChannel.Event -= PlayerChainBrokeHandler;
+            _player.MeleeEventChannel.Event -= PlayerMeleeHandler;
+            _player.ParryEventChannel.Event -= PlayerParryHandler;
+            _player.SlamEventChannel.Event -= PlayerSlamHandler;
         }
 
-        //private void StateChangedHandler(PlayerChainStateEnum state)
-        //{
-        //    if (state == PlayerChainStateEnum.Throw) _playerChainAttachAudioAsset?.Play();
-        //}
+        private void PlayerChainThrowEventHandler() => _playerChainThrowAudioAsset?.Play();
 
         private void PlayerChainBrokeHandler() => _playerChainBreakAudioAsset?.Play();
 

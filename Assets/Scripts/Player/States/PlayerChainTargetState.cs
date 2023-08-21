@@ -20,8 +20,7 @@
                 return;
             }
 
-            // Chain Broke Event
-
+            _player.ChainBreakEventChannel?.Invoke();
             _stateMachine.ChangeState(_stateMachine.IdleState);
         }
 

@@ -1,6 +1,5 @@
 ﻿using KillChain.Core;
 using KillChain.Core.Gizmos;
-using KillChain.Core.Events;
 using System.Collections;
 using UnityEngine;
 
@@ -8,12 +7,6 @@ namespace KillChain.Player
 {
     public class PlayerMelee : PlayerMonoBehaviour
     {
-        [Space]
-        [Header("EventChannels")]
-        [SerializeField] private VoidEventChannel _playerMeleeEventChannel;
-        [SerializeField] private FloatEventChannel _playerMeleeCooldownStartedEventChannel;
-        [SerializeField] private VoidEventChannel _playerParryEventChannel;
-
         [Space]
         [Header("Components")]
         [SerializeField] private GameObject _parryParticlePrefab;
@@ -34,7 +27,7 @@ namespace KillChain.Player
         {
             if (!CanMelee) return;
 
-            _playerMeleeEventChannel.Invoke();
+            _player.MeleeEventChannel.Invoke();
 
             StartCoroutine(MeleeCooldownCoroutine());
 
@@ -58,7 +51,7 @@ namespace KillChain.Player
                 if (collider.TryGetComponent<IParryable>(out var parryable))
                 {
                     parryable.Parry(_player.Data.ParryVelocityMultiplier);
-                    _playerParryEventChannel?.Invoke();
+                    _player.ParryEventChannel?.Invoke();
                     Instantiate(_parryParticlePrefab, collider.transform.position, Quaternion.identity);
                     _player.TimeManager.TimeStop(_player.Data.ParryTimeStopDuration);
                 }
@@ -68,7 +61,7 @@ namespace KillChain.Player
         private IEnumerator MeleeCooldownCoroutine()
         {
             CanMelee = false;
-            _playerMeleeCooldownStartedEventChannel.Invoke(_player.Data.MeleeCooldown);
+            _player.MeleeCooldownStartedEventChannel.Invoke(_player.Data.MeleeCooldown);
             yield return new WaitForSeconds(_player.Data.MeleeCooldown);
             CanMelee = true;
         }

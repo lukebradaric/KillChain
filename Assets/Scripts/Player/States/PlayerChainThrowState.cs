@@ -13,6 +13,7 @@ namespace KillChain.Player.States
         {
             base.Enter();
             _delayCoroutine = _player.StartCoroutine(DelayCoroutine());
+            _player.ChainThrowEventChannel?.Invoke();
         }
 
         public override void Exit()
@@ -39,6 +40,7 @@ namespace KillChain.Player.States
                 yield break;
             }
 
+            _player.ChainHitEventChannel?.Invoke();
             ChangeState();
         }
 

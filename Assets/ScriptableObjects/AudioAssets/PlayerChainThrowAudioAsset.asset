@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d5f25bafb598c2408428c6614970844, type: 3}
-  m_Name: PlayerChainAttachAudioAsset
+  m_Name: PlayerChainThrowAudioAsset
   m_EditorClassIdentifier: 
   _audioClip: {fileID: 8300000, guid: 339f109c2f848ae4faad39b92e42e920, type: 3}
   _audioMixerGroup: {fileID: 9193141407088665785, guid: c479711c8dc0b3c4486efd0ad8483939,

@@ -1,4 +1,5 @@
-﻿using KillChain.Core.Managers;
+﻿using KillChain.Core.Events;
+using KillChain.Core.Managers;
 using KillChain.Input;
 using KillChain.Player.States;
 using Sirenix.OdinInspector;
@@ -9,6 +10,16 @@ namespace KillChain.Player
 {
     public class Player : SerializedMonoBehaviour
     {
+        [PropertySpace]
+        [Title("EventChannels")]
+        [OdinSerialize] public VoidEventChannel SlamEventChannel { get; private set; }
+        [OdinSerialize] public VoidEventChannel ChainThrowEventChannel { get; private set; }
+        [OdinSerialize] public VoidEventChannel ChainHitEventChannel { get; private set; }
+        [OdinSerialize] public VoidEventChannel ChainBreakEventChannel { get; private set; }
+        [OdinSerialize] public VoidEventChannel ParryEventChannel { get; private set; }
+        [OdinSerialize] public VoidEventChannel MeleeEventChannel { get; private set; }
+        [OdinSerialize] public FloatEventChannel MeleeCooldownStartedEventChannel { get; private set; }
+
         [PropertySpace]
         [Title("Managers")]
         [OdinSerialize] public TimeManager TimeManager { get; private set; }
