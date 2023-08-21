@@ -4,17 +4,12 @@ using UnityEngine;
 
 public class PlayerGroundCheck : PlayerMonoBehaviour
 {
-    [Space]
-    [Header("Settings")]
-    [SerializeField] private float _checkDistance;
-    [SerializeField] private LayerMask _groundLayerMask;
-
     private bool _found;
     private bool _disabled;
 
     private void FixedUpdate()
     {
-        _found = Physics.Raycast(transform.position, Vector3.down, (_player.Data.Height * 0.5f) + _checkDistance, _groundLayerMask);
+        _found = Physics.Raycast(transform.position, Vector3.down, (_player.Data.Height * 0.5f) + _player.Data.GroundCheckDistance, _player.Data.GroundCheckLayerMask);
     }
 
     public void Disable(float time)
@@ -41,13 +36,13 @@ public class PlayerGroundCheck : PlayerMonoBehaviour
 
     public float GetGroundAngle()
     {
-        Physics.Raycast(transform.position, Vector3.down, out var raycastHit, (_player.Data.Height * 0.5f) + _checkDistance, _groundLayerMask);
+        Physics.Raycast(transform.position, Vector3.down, out var raycastHit, (_player.Data.Height * 0.5f) + _player.Data.GroundCheckDistance, _player.Data.GroundCheckLayerMask);
         return Mathf.Abs(180 - Vector3.Angle(raycastHit.normal, Vector3.down));
     }
 
     public Vector3 GetGroundNormal()
     {
-        Physics.Raycast(transform.position, Vector3.down, out var raycastHit, (_player.Data.Height * 0.5f) + _checkDistance, _groundLayerMask);
+        Physics.Raycast(transform.position, Vector3.down, out var raycastHit, (_player.Data.Height * 0.5f) + _player.Data.GroundCheckDistance, _player.Data.GroundCheckLayerMask);
         return raycastHit.normal;
     }
 }

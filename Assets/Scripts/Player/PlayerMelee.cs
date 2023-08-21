@@ -18,10 +18,6 @@ namespace KillChain.Player
         [Header("Components")]
         [SerializeField] private GameObject _parryParticlePrefab;
 
-        [Space]
-        [Header("Settings")]
-        [SerializeField] private LayerMask _meleeLayerMask;
-
         public bool CanMelee { get; private set; } = true;
 
         private void OnEnable()
@@ -45,7 +41,7 @@ namespace KillChain.Player
             Collider[] colliders = Physics.OverlapCapsule(_player.MeleeHitBoxTransform.position,
                 _player.MeleeHitBoxTransform.position + _player.CameraTransform.forward * _player.Data.MeleeLength,
                 _player.Data.MeleeRadius,
-                _meleeLayerMask);
+                _player.Data.MeleeLayerMask);
 
             if (colliders.Length == 0)
                 return;

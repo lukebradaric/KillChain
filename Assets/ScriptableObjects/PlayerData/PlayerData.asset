@@ -12,16 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a94811848ef0a124d83f69ce535342d8, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
+  _height: 2
   _moveSpeed: 120
   _downwardsForce: 100
   _minGroundAngle: 5
   _maxGroundAngle: 35
-  _height: 2
+  _groundCheckDistance: 0.3
+  _groundCheckLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
   _jumpForce: 22
   _jumpBufferTime: 0.15
   _jumpWaitTime: 0.2
   _airSpeedMultiplier: 0.32
-  _fallForce: 30
+  _airFallForce: 30
   _groundDrag: 10
   _airDrag: 2
   _horizontalSensitivity: 0.7
@@ -32,6 +36,9 @@ MonoBehaviour:
   _slamSpeed: -50
   _slamGroundHitBoxSize: {x: 4, y: 1, z: 4}
   _slamAirHitBoxSize: {x: 1, y: 0.5, z: 1}
+  _slamLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
   _maxChainDistance: 100
   _maxChainDelayTime: 0.75
   _chainTargetLayerMask:
@@ -56,5 +63,8 @@ MonoBehaviour:
   _meleeCooldown: 0.6
   _meleeLength: 2.5
   _meleeRadius: 0.5
+  _meleeLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
   _parryTimeStopDuration: 0.1
   _parryVelocityMultiplier: 2.5

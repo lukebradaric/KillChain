@@ -22,7 +22,7 @@ namespace KillChain.Player.States
         {
             base.Move(_player.Data.AirSpeedMultiplier);
 
-            _player.Rigidbody.AddForce(Vector3.down * _player.Data.FallForce);
+            _player.Rigidbody.AddForce(Vector3.down * _player.Data.AirFallForce);
 
             // If no ground check found, return
             if (!_player.GroundCheck.IsFound())

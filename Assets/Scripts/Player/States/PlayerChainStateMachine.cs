@@ -6,7 +6,9 @@ namespace KillChain.Player.States
     public class PlayerChainStateMachine : StateMachine
     {
         // TODO : Improve how references are passed
-        public Player _player;
+        [Space]
+        [Header("Components")]
+        [SerializeField] private Player _player;
 
         [Space]
         [Header("States")]
@@ -21,10 +23,9 @@ namespace KillChain.Player.States
             ChangeState(IdleState);
         }
 
-
         protected override void OnStateChanging(State newState)
         {
-            ((PlayerChainState)newState).SetPlayer(_player);
+            ((PlayerChainState)newState)?.SetPlayer(_player);
         }
     }
 }

@@ -5,6 +5,14 @@ namespace KillChain.Player
     [CreateAssetMenu(menuName = "KillChain/PlayerData")]
     public class PlayerData : ScriptableObject
     {
+        #region Common
+        [Space]
+        [Header("Common")]
+        [Tooltip("Default player capsule height.")]
+        [SerializeField] private float _height;
+        public float Height => _height;
+        #endregion
+
         #region Movement
         [Space]
         [Header("Movement")]
@@ -15,7 +23,11 @@ namespace KillChain.Player
         [Tooltip("Downwards force constantly applied to player while on ground.")]
         [SerializeField] private float _downwardsForce;
         public float DownwardsForce => _downwardsForce;
+        #endregion
 
+        #region Slope Movement
+        [Space]
+        [Header("Slope Movement")]
         [Tooltip("Minimum angle of ground before angled forces are applied.")]
         [SerializeField] private float _minGroundAngle;
         public float MinGroundAngle => _minGroundAngle;
@@ -23,10 +35,18 @@ namespace KillChain.Player
         [Tooltip("Max angle of ground where movement is allowed.")]
         [SerializeField] private float _maxGroundAngle;
         public float MaxGroundAngle => _maxGroundAngle;
+        #endregion
 
-        [Tooltip("Default player capsule height.")]
-        [SerializeField] private float _height;
-        public float Height => _height;
+        #region Ground Check
+        [Space]
+        [Header("Ground Check")]
+        [Tooltip("Distance of ground check ray.")]
+        [SerializeField] private float _groundCheckDistance;
+        public float GroundCheckDistance => _groundCheckDistance;
+
+        [Tooltip("LayerMask of ground check.")]
+        [SerializeField] private LayerMask _groundCheckLayerMask;
+        public LayerMask GroundCheckLayerMask => _groundCheckLayerMask;
         #endregion
 
         #region Jump
@@ -53,8 +73,8 @@ namespace KillChain.Player
         public float AirSpeedMultiplier => _airSpeedMultiplier;
 
         [Tooltip("Force applied while falling.")]
-        [SerializeField] private float _fallForce;
-        public float FallForce => _fallForce;
+        [SerializeField] private float _airFallForce;
+        public float AirFallForce => _airFallForce;
         #endregion
 
         #region Drag
@@ -110,6 +130,9 @@ namespace KillChain.Player
         [SerializeField] private Vector3 _slamAirHitBoxSize;
         public Vector3 SlamAirHitBoxSize => _slamAirHitBoxSize;
 
+        [Tooltip("LayerMask of slam HitBox.")]
+        [SerializeField] private LayerMask _slamLayerMask;
+        public LayerMask SlamLayerMask => _slamLayerMask;
         #endregion
 
         #region Chain
@@ -132,9 +155,9 @@ namespace KillChain.Player
         public LayerMask ChainBreakLayerMask => _chainBreakLayerMask;
         #endregion
 
-        #region Dash
+        #region Chain Dash
         [Space]
-        [Header("Dash")]
+        [Header("Chain Dash")]
         [Tooltip("Height of the player capsule while dashing.")]
         [SerializeField] private float _dashHeight;
         public float DashHeight => _dashHeight;
@@ -176,9 +199,9 @@ namespace KillChain.Player
         public float DashStopDistance => _dashStopDistance;
         #endregion
 
-        #region Pull
+        #region Chain Pull
         [Space]
-        [Header("Pull")]
+        [Header("Chain Pull")]
         [Tooltip("Speed chained targets are pulled.")]
         [SerializeField] private float _pullSpeed;
         public float PullSpeed => _pullSpeed;
@@ -206,6 +229,10 @@ namespace KillChain.Player
         [Tooltip("Radius of melee capsule HitBox.")]
         [SerializeField] private float _meleeRadius;
         public float MeleeRadius => _meleeRadius;
+
+        [Tooltip("LayerMask of melee capsule HitBox.")]
+        [SerializeField] private LayerMask _meleeLayerMask;
+        public LayerMask MeleeLayerMask => _meleeLayerMask;
         #endregion
 
         #region Parry

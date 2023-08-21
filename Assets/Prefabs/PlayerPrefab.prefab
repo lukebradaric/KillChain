@@ -156,6 +156,7 @@ MonoBehaviour:
     - {fileID: 8870669896043274936}
     - {fileID: 4616879351484802924}
     - {fileID: 2660861669225979911}
+    - {fileID: 6833774285229245568}
     - {fileID: 2456443446110144337}
     - {fileID: 6155790429443038959}
     - {fileID: 3007691377960450610}
@@ -198,27 +199,30 @@ MonoBehaviour:
     - Name: Audio
       Entry: 10
       Data: 9
-    - Name: Rigidbody
+    - Name: CapsuleCollider
       Entry: 10
       Data: 10
-    - Name: LookTransform
+    - Name: Rigidbody
       Entry: 10
       Data: 11
-    - Name: CameraTransform
+    - Name: LookTransform
       Entry: 10
       Data: 12
-    - Name: MeleeHitBoxTransform
+    - Name: CameraTransform
       Entry: 10
       Data: 13
-    - Name: SlamHitBoxTransform
+    - Name: MeleeHitBoxTransform
       Entry: 10
       Data: 14
-    - Name: ChainStartTransform
+    - Name: SlamHitBoxTransform
       Entry: 10
       Data: 15
-    - Name: ChainLineRenderer
+    - Name: ChainStartTransform
       Entry: 10
       Data: 16
+    - Name: ChainLineRenderer
+      Entry: 10
+      Data: 17
 --- !u!114 &625749523232385088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,7 +246,6 @@ MonoBehaviour:
     rid: 4680664287582879748
   _slideState:
     rid: 4680664308711161857
-  _currentStateName: None
   references:
     version: 2
     RefIds:
@@ -291,7 +294,6 @@ MonoBehaviour:
     rid: 4680664352349224963
   PullState:
     rid: 4680664352349224965
-  currentState: 
   references:
     version: 2
     RefIds:
@@ -323,7 +325,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 8342270360812556671}
-  debugTarget: 
 --- !u!114 &789511292880664334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,11 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8823a9e3dd0c6e4f862460106407339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerHeight: 2
-  _checkDistance: 0.3
-  _groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
+  _player: {fileID: 0}
 --- !u!114 &4616879351484802924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1287,7 +1284,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3057609811908315569
 Transform:
   m_ObjectHideFlags: 0

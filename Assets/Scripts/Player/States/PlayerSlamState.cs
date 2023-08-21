@@ -15,7 +15,6 @@ namespace KillChain.Player.States
         [Space]
         [Header("Components")]
         [SerializeField] private GameObject _slamParticlePrefab;
-        [SerializeField] private LayerMask _slamLayerMask;
 
         public override void Enter()
         {
@@ -78,7 +77,7 @@ namespace KillChain.Player.States
 
         private void SlamDamage(Vector3 slamHitBoxSize)
         {
-            Collider[] colliders = Physics.OverlapBox(_player.SlamHitBoxTransform.position, slamHitBoxSize, Quaternion.identity, _slamLayerMask);
+            Collider[] colliders = Physics.OverlapBox(_player.SlamHitBoxTransform.position, slamHitBoxSize, Quaternion.identity, _player.Data.SlamLayerMask);
             foreach (Collider collider in colliders)
             {
                 if (collider.TryGetComponent<IDamageable>(out var damageable))
