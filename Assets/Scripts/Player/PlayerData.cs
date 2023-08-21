@@ -23,6 +23,10 @@ namespace KillChain.Player
         [Tooltip("Max angle of ground where movement is allowed.")]
         [SerializeField] private float _maxGroundAngle;
         public float MaxGroundAngle => _maxGroundAngle;
+
+        [Tooltip("Default player capsule height.")]
+        [SerializeField] private float _height;
+        public float Height => _height;
         #endregion
 
         #region Jump
@@ -131,6 +135,10 @@ namespace KillChain.Player
         #region Dash
         [Space]
         [Header("Dash")]
+        [Tooltip("Height of the player capsule while dashing.")]
+        [SerializeField] private float _dashHeight;
+        public float DashHeight => _dashHeight;
+
         [Tooltip("Damage of dash ability.")]
         [SerializeField] private int _dashDamage;
         public int DashDamage => _dashDamage;

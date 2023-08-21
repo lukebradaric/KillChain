@@ -16,6 +16,7 @@ MonoBehaviour:
   _downwardsForce: 100
   _minGroundAngle: 5
   _maxGroundAngle: 35
+  _height: 2
   _jumpForce: 22
   _jumpBufferTime: 0.15
   _jumpWaitTime: 0.2
@@ -39,6 +40,7 @@ MonoBehaviour:
   _chainBreakLayerMask:
     serializedVersion: 2
     m_Bits: 9
+  _dashHeight: 1
   _dashDamage: 1
   _dashSpeed: 40
   _dashBoostSpeedMultiplier: 2

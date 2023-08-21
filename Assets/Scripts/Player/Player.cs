@@ -30,6 +30,7 @@ namespace KillChain.Player
 
         [PropertySpace]
         [Title("Unity Components")]
+        [OdinSerialize] public CapsuleCollider CapsuleCollider { get; private set; }
         [OdinSerialize] public Rigidbody Rigidbody { get; private set; }
         [OdinSerialize] public Transform LookTransform { get; private set; }
         [OdinSerialize] public Transform CameraTransform { get; private set; }

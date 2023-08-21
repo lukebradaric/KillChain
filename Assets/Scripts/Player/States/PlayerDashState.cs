@@ -12,6 +12,7 @@ namespace KillChain.Player.States
             _player.GameInput.SlamPressed += SlamPressedHandler;
             _player.GameInput.FireReleased += FireReleasedHandler;
             _player.Chain.TargetDestroyed += TargetDestroyedHandler;
+            _player.CapsuleCollider.height = _player.Data.DashHeight;
         }
 
         public override void Exit()
@@ -19,6 +20,7 @@ namespace KillChain.Player.States
             _player.GameInput.SlamPressed -= SlamPressedHandler;
             _player.GameInput.FireReleased -= FireReleasedHandler;
             _player.Chain.TargetDestroyed -= TargetDestroyedHandler;
+            _player.CapsuleCollider.height = _player.Data.Height;
         }
 
         public override void FixedUpdate()
