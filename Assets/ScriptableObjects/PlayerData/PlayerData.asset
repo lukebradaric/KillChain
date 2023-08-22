@@ -19,7 +19,7 @@ MonoBehaviour:
   _moveSpeed: 120
   _downwardsForce: 100
   _minGroundAngle: 5
-  _maxGroundAngle: 35
+  _maxGroundAngle: 30
   _groundCheckDistance: 0.3
   _groundCheckLayerMask:
     serializedVersion: 2
@@ -93,7 +93,7 @@ MonoBehaviour:
   _slamLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  _maxChainDistance: 100
+  _maxChainDistance: 75
   _maxChainDelayTime: 0.75
   _chainTargetLayerMask:
     serializedVersion: 2

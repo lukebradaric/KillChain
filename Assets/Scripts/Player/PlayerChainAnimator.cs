@@ -7,12 +7,14 @@ namespace KillChain.Player
     {
         [Space]
         [Header("Settings")]
+        //[SerializeField] private float _minTargetDistance;
         [SerializeField] private int _quality;
         [SerializeField] private float _damper;
         [SerializeField] private float _strength;
         [SerializeField] private float _velocity;
         [SerializeField] private float _waveCount;
         [SerializeField] private float _waveHeight;
+        [SerializeField] private float _minWaveWidth;
         [SerializeField] private float _duration;
         [SerializeField] private float _speed;
         [SerializeField] private AnimationCurve _affectCurve;
@@ -38,6 +40,11 @@ namespace KillChain.Player
                 return;
             }
 
+            // Calculations for affecting the animation based on target distance
+            float targetDistance = Vector3.Distance(_player.transform.position, _player.Chain.Target.Transform.position);
+            float multiplier = 1 / (_player.Data.MaxChainDistance / targetDistance);
+            float waveHeight = Mathf.Clamp(this._waveHeight * multiplier, _minWaveWidth, _waveHeight);
+
             if (_player.ChainLineRenderer.positionCount == 0)
             {
                 _spring.SetVelocity(_velocity);
@@ -57,7 +64,7 @@ namespace KillChain.Player
             for (int i = 0; i < _quality + 1; i++)
             {
                 float delta = i / (float)_quality;
-                var offset = up * _waveHeight * Mathf.Sin(delta * _waveCount * Mathf.PI) * _spring.Value * _affectCurve.Evaluate(delta);
+                var offset = up * waveHeight * Mathf.Sin(delta * _waveCount * Mathf.PI) * _spring.Value * _affectCurve.Evaluate(delta);
 
                 _player.ChainLineRenderer.SetPosition(i, Vector3.Lerp(_chainStartPosition, _currentGrapplePosition, delta) + offset);
             }
