@@ -158,6 +158,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 69675581}
 --- !u!54 &69675581
 Rigidbody:
@@ -324,6 +325,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 85149203}
 --- !u!54 &85149203
 Rigidbody:
@@ -449,6 +451,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 87282544}
 --- !u!54 &87282544
 Rigidbody:
@@ -548,6 +551,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 0
   _isBoostable: 1
+  _interruptMovement: 0
   _rigidbody: {fileID: 0}
 --- !u!65 &96338179
 BoxCollider:
@@ -696,6 +700,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 107917425}
 --- !u!54 &107917425
 Rigidbody:
@@ -1599,6 +1604,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 0
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 0}
 --- !u!65 &283262213
 BoxCollider:
@@ -1789,6 +1795,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 293615945}
 --- !u!54 &293615945
 Rigidbody:
@@ -2098,6 +2105,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 0
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 0}
 --- !u!65 &388183838
 BoxCollider:
@@ -2351,6 +2359,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 409170561}
 --- !u!54 &409170561
 Rigidbody:
@@ -2582,6 +2591,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 443570571}
 --- !u!54 &443570571
 Rigidbody:
@@ -2707,6 +2717,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 465350738}
 --- !u!54 &465350738
 Rigidbody:
@@ -2806,6 +2817,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 0
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 0}
 --- !u!65 &480735738
 BoxCollider:
@@ -2929,6 +2941,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 0
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 0}
 --- !u!114 &497829199
 MonoBehaviour:
@@ -3120,6 +3133,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 605611645}
 --- !u!54 &605611645
 Rigidbody:
@@ -3693,6 +3707,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 646566993}
 --- !u!54 &646566993
 Rigidbody:
@@ -4266,6 +4281,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 762772905}
 --- !u!54 &762772905
 Rigidbody:
@@ -4391,6 +4407,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 769487891}
 --- !u!54 &769487891
 Rigidbody:
@@ -4580,6 +4597,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 791237379}
 --- !u!54 &791237379
 Rigidbody:
@@ -5115,6 +5133,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 0
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 0}
 --- !u!65 &872017175
 BoxCollider:
@@ -5447,6 +5466,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 0
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 0}
 --- !u!65 &905868136
 BoxCollider:
@@ -5714,6 +5734,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 939161302}
 --- !u!54 &939161302
 Rigidbody:
@@ -5839,6 +5860,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 943096038}
 --- !u!54 &943096038
 Rigidbody:
@@ -6449,6 +6471,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 1196940415}
 --- !u!54 &1196940415
 Rigidbody:
@@ -6917,6 +6940,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 1295002241}
 --- !u!54 &1295002241
 Rigidbody:
@@ -7394,6 +7418,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 1384400866}
 --- !u!54 &1384400866
 Rigidbody:
@@ -7494,6 +7519,7 @@ MonoBehaviour:
   _isDashable: 0
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 1387849106}
 --- !u!54 &1387849106
 Rigidbody:
@@ -8012,6 +8038,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 1560042374}
 --- !u!54 &1560042374
 Rigidbody:
@@ -8137,6 +8164,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 1575940130}
 --- !u!54 &1575940130
 Rigidbody:
@@ -8236,6 +8264,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 0
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 0}
 --- !u!65 &1588884359
 BoxCollider:
@@ -8384,6 +8413,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 1607396618}
 --- !u!54 &1607396618
 Rigidbody:
@@ -8714,6 +8744,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 0
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 0}
 --- !u!65 &1696695978
 BoxCollider:
@@ -8981,6 +9012,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 1
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 1815373350}
 --- !u!54 &1815373350
 Rigidbody:
@@ -9573,6 +9605,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 0
   _isBoostable: 0
+  _interruptMovement: 0
   _rigidbody: {fileID: 0}
 --- !u!65 &1977271640
 BoxCollider:
@@ -10130,6 +10163,7 @@ MonoBehaviour:
   _isDashable: 1
   _isPullable: 0
   _isBoostable: 1
+  _interruptMovement: 0
   _rigidbody: {fileID: 0}
 --- !u!65 &2028694115
 BoxCollider:

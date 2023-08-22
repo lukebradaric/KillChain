@@ -44,7 +44,7 @@ namespace KillChain.Player.States
                     // Boost Event
                     _player.Rigidbody.SetVelocity(_player.Rigidbody.velocity * _player.Data.DashBoostSpeedMultiplier);
                 }
-                else
+                else if (_player.Chain.Target.InterruptMovement)
                 {
                     _player.Rigidbody.SetVelocity(-_player.Rigidbody.velocity.normalized * _player.Data.DashReboundSpeed);
                     _player.Rigidbody.SetVelocityY(_player.Data.DashDamageUpwardForce);

@@ -111,7 +111,7 @@ MonoBehaviour:
   _dashReboundUpwardForce: 27.5
   _dashDamageSpeedMultiplier: 0.75
   _dashDamageUpwardForce: 30
-  _dashStopDistance: 4.5
+  _dashStopDistance: 4
   _pullSpeed: 40
   _pullStopDistance: 2.5
   _meleeDamage: 1

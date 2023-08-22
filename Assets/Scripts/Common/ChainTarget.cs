@@ -15,6 +15,8 @@ namespace KillChain.Common
         [SerializeField] private bool _isPullable;
         [Tooltip("Will the player get a speed boost when reaching this target?")]
         [SerializeField] private bool _isBoostable;
+        [Tooltip("Should the players movement be interrupted when reaching this target?")]
+        [SerializeField] private bool _interruptMovement;
 
         [Space]
         [Header("Components")]
@@ -24,6 +26,7 @@ namespace KillChain.Common
         public bool IsDashable => _isDashable;
         public bool IsPullable => _isPullable;
         public bool IsBoostable => _isBoostable;
+        public bool InterruptMovement => _interruptMovement;
 
         Transform IChainTarget.Transform { get => this.transform; }
 

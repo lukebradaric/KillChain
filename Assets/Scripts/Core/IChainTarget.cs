@@ -8,6 +8,7 @@ namespace KillChain.Core
         public bool IsDashable { get; }
         public bool IsPullable { get; }
         public bool IsBoostable { get; }
+        public bool InterruptMovement { get; }
 
         public Transform Transform { get; }
 
