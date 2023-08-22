@@ -37,7 +37,6 @@ namespace KillChain.Player
         [OdinSerialize] public PlayerMelee Melee { get; private set; }
         [OdinSerialize] public PlayerGroundCheck GroundCheck { get; private set; }
         [OdinSerialize] public PlayerJumpBuffer JumpBuffer { get; private set; }
-        [OdinSerialize] public PlayerAudio Audio { get; private set; }
 
         [PropertySpace]
         [Title("Unity Components")]

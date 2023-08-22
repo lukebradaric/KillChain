@@ -29,6 +29,8 @@ namespace KillChain.Player.States
         {
             _player.Rigidbody.SetVelocity((_player.Chain.Target.Transform.position - _stateMachine.transform.position).normalized * _player.Data.DashSpeed);
 
+            DashDamage();
+
             if (Vector3.Distance(_stateMachine.transform.position, _player.Chain.Target.Transform.position) < _player.Data.DashStopDistance)
             {
                 if (_player.Chain.Target.Transform.TryGetComponent<IDamageable>(out var damageable))
@@ -74,6 +76,28 @@ namespace KillChain.Player.States
         private void TargetSetToNullHandler()
         {
             _stateMachine.ChangeState(_player.GroundCheck.IsFound() ? _stateMachine.MoveState : _stateMachine.AirState);
+        }
+
+        private void DashDamage()
+        {
+            Collider[] colliders = Physics.OverlapSphere(_player.transform.position, _player.Data.DashHitBoxRadius);
+            if (colliders.Length == 0)
+            {
+                return;
+            }
+
+            foreach (Collider collider in colliders)
+            {
+                if (collider.TryGetComponent<IDamageable>(out var damageable))
+                {
+                    damageable.Damage(_player.Data.DashDamage);
+                }
+            }
+        }
+
+        public override void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(_player.transform.position, _player.Data.DashHitBoxRadius);
         }
     }
 }

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _duration: 0.3
   _strength: 6
-  _vibrato: 9
+  _vibrato: 12
   _randomness: 65
   _fadeOut: 1

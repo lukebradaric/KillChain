@@ -7,10 +7,6 @@ namespace KillChain.Player.States
     [System.Serializable]
     public class PlayerSlamState : PlayerState
     {
-        [Space]
-        [Header("Components")]
-        [SerializeField] private GameObject _slamParticlePrefab;
-
         public override void Enter()
         {
             // If player was dashing, change chain to idle state
@@ -77,7 +73,6 @@ namespace KillChain.Player.States
         private void Slam()
         {
             _player.SlamEventChannel?.Invoke();
-            GameObject.Instantiate(_slamParticlePrefab, _player.SlamHitBoxTransform.position, Quaternion.identity);
             SlamDamage(_player.Data.SlamGroundHitBoxSize);
         }
 

@@ -104,6 +104,7 @@ MonoBehaviour:
   _dashHeight: 1
   _dashDamage: 1
   _dashSpeed: 40
+  _dashHitBoxRadius: 1
   _dashBoostSpeedMultiplier: 2
   _dashReleaseUpwardForce: 11
   _dashReboundSpeed: 12.5

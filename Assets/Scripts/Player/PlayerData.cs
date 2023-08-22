@@ -196,6 +196,10 @@ namespace KillChain.Player
         [SerializeField] private float _dashSpeed;
         public float DashSpeed => _dashSpeed;
 
+        [Tooltip("Radius of damage HitBox while dashing.")]
+        [SerializeField] private float _dashHitBoxRadius;
+        public float DashHitBoxRadius => _dashHitBoxRadius;
+
         [Tooltip("Value multiplied by player velocity when going through boost")]
         [SerializeField] private float _dashBoostSpeedMultiplier;
         public float DashBoostSpeedMultiplier => _dashBoostSpeedMultiplier;
