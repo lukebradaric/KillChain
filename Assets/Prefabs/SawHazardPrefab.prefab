@@ -116,6 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6550095563673784242}
   - component: {fileID: 6303506713910032386}
+  - component: {fileID: 1284279192798215869}
   - component: {fileID: 1694643346352740024}
   m_Layer: 0
   m_Name: SawHazardPrefab
@@ -161,6 +162,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1284279192798215869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8234299377183964822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0de09a334823a9d4581db8ccdd2753ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1694643346352740024
 MonoBehaviour:
   m_ObjectHideFlags: 0

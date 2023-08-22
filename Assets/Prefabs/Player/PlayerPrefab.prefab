@@ -4946,6 +4946,7 @@ GameObject:
   - component: {fileID: 3079430048673656752}
   - component: {fileID: 6833774285229245568}
   - component: {fileID: 2456443446110144337}
+  - component: {fileID: 8571778652975181197}
   - component: {fileID: 8342270360812556671}
   - component: {fileID: 625749523232385088}
   - component: {fileID: 5505247989807106271}
@@ -5035,6 +5036,18 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &8571778652975181197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779755403413120462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0de09a334823a9d4581db8ccdd2753ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8342270360812556671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5266,6 +5279,7 @@ MonoBehaviour:
   _velocity: 12.5
   _waveCount: 3
   _waveHeight: 1.25
+  _minWaveWidth: 0
   _duration: 1
   _speed: 10
   _affectCurve:
