@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using KillChain.Core.Bootstrap;
 
-namespace KillChain.Tests
+namespace KillChain.Debug
 {
-    public class Test_ReloadScene : MonoBehaviour
+    [AutoBootstrap]
+    public class DebugReloadScene : MonoBehaviour
     {
-        public KeyCode keyCode;
-
-        private void Update()
+        void Update()
         {
-            if (Input.GetKeyDown(keyCode))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
     }
+
 }
