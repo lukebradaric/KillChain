@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   _height: 2
+  _physicMaterial: {fileID: 13400000, guid: b532918421d4cb84eacb1252e7a53d7d, type: 2}
+  _slopePhysicMaterial: {fileID: 13400000, guid: dcdc7b344e671cd439b9c38889a25314,
+    type: 2}
   _moveSpeed: 120
   _downwardsForce: 100
   _minGroundAngle: 5
@@ -30,8 +33,59 @@ MonoBehaviour:
   _airDrag: 2
   _horizontalSensitivity: 0.7
   _verticalSensitivity: 0.7
-  _slideSpeed: 30
-  _slideDownwardsForce: 100
+  _slideHeight: 1
+  _slidePhysicMaterial: {fileID: 13400000, guid: e679aa8a5beab8d489636026f6ed944b,
+    type: 2}
+  _minSlideSpeed: 5
+  _slideDownwardsForce: 300
+  _angledSlideDownwardsForce:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 6.6666665
+      outSlope: 6.6666665
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 45
+      value: 300
+      inSlope: 6.6666665
+      outSlope: 6.6666665
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _slideDrag:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.0375
+      outSlope: 0.0375
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 40
+      value: 1.5
+      inSlope: 0.0375
+      outSlope: 0.0375
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _slamDamage: 1
   _slamSpeed: -50
   _slamGroundHitBoxSize: {x: 4, y: 1, z: 4}

@@ -11,7 +11,7 @@ namespace KillChain.Tests
 
         private void Start()
         {
-            InvokeRepeating(nameof(ShootProjectile), 1, 3f);
+            InvokeRepeating(nameof(ShootProjectile), 1, 2f);
         }
 
         private void ShootProjectile()

@@ -14,27 +14,34 @@ namespace KillChain.Player
             }
             set
             {
-                // Unsubscribe old target
                 if (_target != null)
                 {
+                    // Unsubscribe from previous target if not null
                     _target.Destroyed -= TargetDestroyedHandler;
                 }
 
                 _target = value;
 
-                // Subscribe new target
+                if (_target == null)
+                {
+                    // If new target null, call event
+                    TargetSetToNull?.Invoke();
+                }
+
                 if (_target != null)
                 {
+                    // Subscribe to new target if not null
                     _target.Destroyed += TargetDestroyedHandler;
                 }
             }
         }
 
-        public event Action TargetDestroyed;
+        //public event Action TargetDestroyed;
+        public event Action TargetSetToNull;
 
         private void TargetDestroyedHandler()
         {
-            TargetDestroyed?.Invoke();
+            Target = null;
         }
     }
 }

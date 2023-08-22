@@ -1,10 +1,10 @@
 ﻿using KillChain.Core.Bootstrap;
 using UnityEngine;
 
-namespace KillChain.Interface.Debug
+namespace KillChain.Debug
 {
     [AutoBootstrap]
-    public class DebugStatesText : DebugText
+    public class DebugPlayerVelocity : DebugText
     {
         private Player.Player _player;
 
@@ -20,8 +20,8 @@ namespace KillChain.Interface.Debug
                 return;
             }
 
-            GUI.Label(new Rect(10, 10, 50, 20), $"P:{_player.StateMachine.CurrentState.GetType().Name}", _guiStyle);
-            GUI.Label(new Rect(10, 30, 50, 20), $"C:{_player.ChainStateMachine.CurrentState.GetType().Name}", _guiStyle);
+            _guiStyle.alignment = TextAnchor.LowerLeft;
+            GUI.Label(new Rect(5, Screen.height - 23, 30, 20), $"Velocity: {_player.Rigidbody.velocity.magnitude}", _guiStyle);
         }
     }
 }

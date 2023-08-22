@@ -11,7 +11,8 @@ namespace KillChain.Player.States
         {
             _player.GameInput.SlamPressed += SlamPressedHandler;
             _player.GameInput.FireReleased += FireReleasedHandler;
-            _player.Chain.TargetDestroyed += TargetDestroyedHandler;
+            _player.Chain.TargetSetToNull += TargetSetToNullHandler;
+
             _player.CapsuleCollider.height = _player.Data.DashHeight;
         }
 
@@ -19,7 +20,8 @@ namespace KillChain.Player.States
         {
             _player.GameInput.SlamPressed -= SlamPressedHandler;
             _player.GameInput.FireReleased -= FireReleasedHandler;
-            _player.Chain.TargetDestroyed -= TargetDestroyedHandler;
+            _player.Chain.TargetSetToNull -= TargetSetToNullHandler;
+
             _player.CapsuleCollider.height = _player.Data.Height;
         }
 
@@ -47,8 +49,7 @@ namespace KillChain.Player.States
                 }
 
                 _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.IdleState);
-                // TODO : Check if grounded and pick air or move state
-                _stateMachine.ChangeState(_stateMachine.AirState);
+                _stateMachine.ChangeState(_player.GroundCheck.IsFound() ? _stateMachine.MoveState : _stateMachine.AirState);
             }
         }
 
@@ -67,14 +68,12 @@ namespace KillChain.Player.States
         {
             _player.Rigidbody.AddForce(Vector3.up * _player.Data.DashReleaseUpwardForce, ForceMode.Impulse);
 
-            // TODO : Check grounded and switch to either air or move state
-            _stateMachine.ChangeState(_stateMachine.AirState);
+            _stateMachine.ChangeState(_player.GroundCheck.IsFound() ? _stateMachine.MoveState : _stateMachine.AirState);
         }
 
-        private void TargetDestroyedHandler()
+        private void TargetSetToNullHandler()
         {
-            // TODO : Check if grounded and pick air or move state
-            _stateMachine.ChangeState(_stateMachine.AirState);
+            _stateMachine.ChangeState(_player.GroundCheck.IsFound() ? _stateMachine.MoveState : _stateMachine.AirState);
         }
     }
 }

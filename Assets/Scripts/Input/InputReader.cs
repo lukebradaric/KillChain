@@ -36,9 +36,9 @@ namespace KillChain.Input
 
             if (UnityEngine.Input.GetKeyDown(KeyCode.LeftControl)) _gameInput.OnSlamPressed();
 
-            if (UnityEngine.Input.GetKeyDown(KeyCode.LeftShift)) _gameInput.OnSlidePressed();
+            if (UnityEngine.Input.GetKeyDown(KeyCode.LeftControl)) _gameInput.OnSlidePressed();
 
-            if (UnityEngine.Input.GetKeyUp(KeyCode.LeftShift)) _gameInput.OnSlideReleased();
+            if (UnityEngine.Input.GetKeyUp(KeyCode.LeftControl)) _gameInput.OnSlideReleased();
         }
     }
 }

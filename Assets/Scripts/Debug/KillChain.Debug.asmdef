@@ -1,10 +1,11 @@
 {
-    "name": "KillChain.Tests",
+    "name": "KillChain.Debug",
     "rootNamespace": "",
     "references": [
         "GUID:fd4dbe05ff7edb144892fec8286fc54a",
         "GUID:d6b25a830b1e82545858ae2609b3909e",
-        "GUID:96b02a3f95c51eb409c8a5603d74a7f0"
+        "GUID:96b02a3f95c51eb409c8a5603d74a7f0",
+        "GUID:4f8c53eb644d698438aadbf696738df2"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

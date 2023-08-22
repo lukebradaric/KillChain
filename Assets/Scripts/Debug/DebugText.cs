@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace KillChain.Interface.Debug
+namespace KillChain.Debug
 {
     public class DebugText : MonoBehaviour
     {

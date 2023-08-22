@@ -5,18 +5,26 @@ namespace KillChain.Player.States
 {
     public class PlayerChainStateMachine : StateMachine
     {
-        // TODO : Improve how references are passed
         [Space]
         [Header("Components")]
         [SerializeField] private Player _player;
 
         [Space]
         [Header("States")]
-        [SerializeReference] public PlayerChainState IdleState;
-        [SerializeReference] public PlayerChainState ThrowDashState;
-        [SerializeReference] public PlayerChainState ThrowPullState;
-        [SerializeReference] public PlayerChainState DashState;
-        [SerializeReference] public PlayerChainState PullState;
+        [SerializeReference] private PlayerChainState _idleState;
+        public PlayerChainState IdleState => _idleState;
+
+        [SerializeReference] private PlayerChainState _throwDashState;
+        public PlayerChainState ThrowDashState => _throwDashState;
+
+        [SerializeReference] private PlayerChainState _throwPullState;
+        public PlayerChainState ThrowPullState => _throwPullState;
+
+        [SerializeReference] private PlayerChainState _dashState;
+        public PlayerChainState DashState => _dashState;
+
+        [SerializeReference] private PlayerChainState _pullState;
+        public PlayerChainState PullState => _pullState;
 
         private void Start()
         {

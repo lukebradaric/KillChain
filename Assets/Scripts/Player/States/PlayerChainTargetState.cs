@@ -5,12 +5,12 @@
     {
         public override void Enter()
         {
-            _player.Chain.TargetDestroyed += TargetDestroyedHandler;
+            _player.Chain.TargetSetToNull += TargetSetToNullHandler;
         }
 
         public override void Exit()
         {
-            _player.Chain.TargetDestroyed -= TargetDestroyedHandler;
+            _player.Chain.TargetSetToNull -= TargetSetToNullHandler;
         }
 
         public override void FixedUpdate()
@@ -24,7 +24,7 @@
             _stateMachine.ChangeState(_stateMachine.IdleState);
         }
 
-        private void TargetDestroyedHandler()
+        private void TargetSetToNullHandler()
         {
             _stateMachine.ChangeState(_stateMachine.IdleState);
         }

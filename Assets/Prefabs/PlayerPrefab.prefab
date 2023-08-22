@@ -67,7 +67,7 @@ Transform:
   m_GameObject: {fileID: 1779755403413120462}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 1.5, z: -4.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -146,6 +146,13 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 9cbfebb5eddaa834fab1d0b0f0d2cb2a, type: 2}
+    - {fileID: 11400000, guid: 344dca0415d1c194a8b32e97a238d744, type: 2}
+    - {fileID: 11400000, guid: 916aba536ddc55d4fba479617708dcd7, type: 2}
+    - {fileID: 11400000, guid: d861d8f33c54766449854310e1a5744e, type: 2}
+    - {fileID: 11400000, guid: 29e957d2a561779499d8627162023431, type: 2}
+    - {fileID: 11400000, guid: fecbc33209c89a04a96963c8ddde4477, type: 2}
+    - {fileID: 11400000, guid: 1860cbc0001cce74a9cd91b20991dfca, type: 2}
     - {fileID: 11400000, guid: 75f8bd5a45bd9bc4faea5c78f292092f, type: 2}
     - {fileID: 11400000, guid: 0e1197ef0cd670a45b0e3a1bc27eb8a1, type: 2}
     - {fileID: 11400000, guid: 14fc59887e528844cb79fb8429e8b9bf, type: 2}
@@ -169,60 +176,81 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: TimeManager
+    - Name: SlamEventChannel
       Entry: 10
       Data: 0
-    - Name: Data
+    - Name: ChainThrowEventChannel
       Entry: 10
       Data: 1
-    - Name: GameInput
+    - Name: ChainHitEventChannel
       Entry: 10
       Data: 2
-    - Name: StateMachine
+    - Name: ChainBreakEventChannel
       Entry: 10
       Data: 3
-    - Name: ChainStateMachine
+    - Name: ParryEventChannel
       Entry: 10
       Data: 4
-    - Name: Chain
+    - Name: MeleeEventChannel
       Entry: 10
       Data: 5
-    - Name: Melee
+    - Name: MeleeCooldownStartedEventChannel
       Entry: 10
       Data: 6
-    - Name: GroundCheck
+    - Name: TimeManager
       Entry: 10
       Data: 7
-    - Name: JumpBuffer
+    - Name: Data
       Entry: 10
       Data: 8
-    - Name: Audio
+    - Name: GameInput
       Entry: 10
       Data: 9
-    - Name: CapsuleCollider
+    - Name: StateMachine
       Entry: 10
       Data: 10
-    - Name: Rigidbody
+    - Name: ChainStateMachine
       Entry: 10
       Data: 11
-    - Name: LookTransform
+    - Name: Chain
       Entry: 10
       Data: 12
-    - Name: CameraTransform
+    - Name: Melee
       Entry: 10
       Data: 13
-    - Name: MeleeHitBoxTransform
+    - Name: GroundCheck
       Entry: 10
       Data: 14
-    - Name: SlamHitBoxTransform
+    - Name: JumpBuffer
       Entry: 10
       Data: 15
-    - Name: ChainStartTransform
+    - Name: Audio
       Entry: 10
       Data: 16
-    - Name: ChainLineRenderer
+    - Name: CapsuleCollider
       Entry: 10
       Data: 17
+    - Name: Rigidbody
+      Entry: 10
+      Data: 18
+    - Name: LookTransform
+      Entry: 10
+      Data: 19
+    - Name: CameraTransform
+      Entry: 10
+      Data: 20
+    - Name: MeleeHitBoxTransform
+      Entry: 10
+      Data: 21
+    - Name: SlamHitBoxTransform
+      Entry: 10
+      Data: 22
+    - Name: ChainStartTransform
+      Entry: 10
+      Data: 23
+    - Name: ChainLineRenderer
+      Entry: 10
+      Data: 24
 --- !u!114 &625749523232385088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,13 +286,8 @@ MonoBehaviour:
     - rid: 4680664287582879748
       type: {class: PlayerSlamState, ns: KillChain.Player.States, asm: KillChain.Player}
       data:
-        _playerSlamEventChannel: {fileID: 11400000, guid: 9cbfebb5eddaa834fab1d0b0f0d2cb2a,
-          type: 2}
         _slamParticlePrefab: {fileID: 4424802336641811218, guid: c47b455a3c3769a40aef3b26e0a587e7,
           type: 3}
-        _slamLayerMask:
-          serializedVersion: 2
-          m_Bits: 64
     - rid: 4680664287582879749
       type: {class: PlayerMoveState, ns: KillChain.Player.States, asm: KillChain.Player}
       data: 
@@ -284,32 +307,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 8342270360812556671}
-  IdleState:
-    rid: 4680664352349224960
-  ThrowDashState:
-    rid: 4680664352349224961
-  ThrowPullState:
-    rid: 4680664352349224962
-  DashState:
-    rid: 4680664352349224963
-  PullState:
-    rid: 4680664352349224965
+  _idleState:
+    rid: 4680664379674853376
+  _throwDashState:
+    rid: 4680664379674853377
+  _throwPullState:
+    rid: 4680664379674853378
+  _dashState:
+    rid: 4680664379674853379
+  _pullState:
+    rid: 4680664379674853380
   references:
     version: 2
     RefIds:
-    - rid: 4680664352349224960
+    - rid: 4680664379674853376
       type: {class: PlayerChainIdleState, ns: KillChain.Player.States, asm: KillChain.Player}
       data: 
-    - rid: 4680664352349224961
+    - rid: 4680664379674853377
       type: {class: PlayerChainThrowDashState, ns: KillChain.Player.States, asm: KillChain.Player}
       data: 
-    - rid: 4680664352349224962
+    - rid: 4680664379674853378
       type: {class: PlayerChainThrowPullState, ns: KillChain.Player.States, asm: KillChain.Player}
       data: 
-    - rid: 4680664352349224963
+    - rid: 4680664379674853379
       type: {class: PlayerChainDashState, ns: KillChain.Player.States, asm: KillChain.Player}
       data: 
-    - rid: 4680664352349224965
+    - rid: 4680664379674853380
       type: {class: PlayerChainPullState, ns: KillChain.Player.States, asm: KillChain.Player}
       data: 
 --- !u!114 &2538153903387798411
@@ -383,17 +406,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
-  _playerMeleeEventChannel: {fileID: 11400000, guid: fecbc33209c89a04a96963c8ddde4477,
-    type: 2}
-  _playerMeleeCooldownStartedEventChannel: {fileID: 11400000, guid: 1860cbc0001cce74a9cd91b20991dfca,
-    type: 2}
-  _playerParryEventChannel: {fileID: 11400000, guid: 29e957d2a561779499d8627162023431,
-    type: 2}
   _parryParticlePrefab: {fileID: 4726059673932196062, guid: 520e0c2db39e70d49819d7fff4b29c21,
     type: 3}
-  _meleeLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &8870669896043274936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,15 +447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
-  _playerChainBrokeEventChannel: {fileID: 11400000, guid: d861d8f33c54766449854310e1a5744e,
-    type: 2}
-  _playerMeleeEventChannel: {fileID: 11400000, guid: fecbc33209c89a04a96963c8ddde4477,
-    type: 2}
-  _playerParryEventChannel: {fileID: 11400000, guid: 29e957d2a561779499d8627162023431,
-    type: 2}
-  _playerSlamEventChannel: {fileID: 11400000, guid: 9cbfebb5eddaa834fab1d0b0f0d2cb2a,
-    type: 2}
-  _playerChainAttachAudioAsset: {fileID: 11400000, guid: d2f697bd0d8454043bda90dc7d25a494,
+  _playerChainThrowAudioAsset: {fileID: 11400000, guid: d2f697bd0d8454043bda90dc7d25a494,
     type: 2}
   _playerChainBreakAudioAsset: {fileID: 11400000, guid: eb2029f23a4e6a7429886ec31b5e2211,
     type: 2}

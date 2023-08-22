@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2093542819655544753}
   - component: {fileID: 4688008120018749714}
   - component: {fileID: 8776462449703903784}
+  - component: {fileID: -2774671077195875286}
   m_Layer: 6
   m_Name: TEST EnemyProjectilePrefab
   m_TagString: Untagged
@@ -112,6 +113,22 @@ MonoBehaviour:
   _rigidbody: {fileID: 2093542819655544753}
   _damage: 1
   _maxLifetime: 5
+--- !u!114 &-2774671077195875286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4394878287065079044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f9ac4cda02c224aa3549d501aa672b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isDashable: 1
+  _isPullable: 0
+  _isBoostable: 0
+  _rigidbody: {fileID: 0}
 --- !u!1 &5408902246659446031
 GameObject:
   m_ObjectHideFlags: 0

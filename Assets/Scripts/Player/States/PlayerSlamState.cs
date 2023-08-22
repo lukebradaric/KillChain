@@ -18,13 +18,15 @@ namespace KillChain.Player.States
             {
                 _player.ChainStateMachine.ChangeState(_player.ChainStateMachine.IdleState);
             }
+
+            _player.Rigidbody.drag = _player.Data.AirDrag;
         }
 
         public override void Exit() { }
 
         public override void FixedUpdate()
         {
-            base.Move();
+            base.Move(_player.Data.AirSpeedMultiplier);
 
             _player.Rigidbody.SetVelocityY(_player.Data.SlamSpeed);
 
@@ -41,7 +43,16 @@ namespace KillChain.Player.States
                     return;
                 }
 
-                _stateMachine.ChangeState(_stateMachine.MoveState);
+                // If player is holding slam and flat velocity is valid, enter slide state
+                if (_player.GameInput.IsSlidePressed && _player.Rigidbody.GetFlatVelocity().magnitude > _player.Data.MinSlideSpeed)
+                {
+
+                    _stateMachine.ChangeState(_stateMachine.SlideState);
+                }
+                else
+                {
+                    _stateMachine.ChangeState(_stateMachine.MoveState);
+                }
             }
         }
 

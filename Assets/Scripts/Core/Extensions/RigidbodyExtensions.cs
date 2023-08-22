@@ -18,5 +18,7 @@ namespace KillChain.Core.Extensions
         {
             r.velocity = vector3;
         }
+
+        public static Vector3 GetFlatVelocity(this Rigidbody r) => new Vector3(r.velocity.x, 0, r.velocity.z);
     }
 }

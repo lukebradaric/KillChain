@@ -11,6 +11,8 @@ namespace KillChain.Input
         public float MouseHorizontal { get; private set; }
         public float MouseVertical { get; private set; }
 
+        public bool IsSlidePressed { get; private set; }
+
         public event Action JumpPressed;
         public event Action FirePressed;
         public event Action FireReleased;
@@ -75,11 +77,13 @@ namespace KillChain.Input
         public void OnSlidePressed()
         {
             SlidePressed?.Invoke();
+            IsSlidePressed = true;
         }
 
         public void OnSlideReleased()
         {
             SlideReleased?.Invoke();
+            IsSlidePressed = false;
         }
     }
 }

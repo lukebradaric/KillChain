@@ -13,12 +13,16 @@ namespace KillChain.Player.States
         [Header("States")]
         [SerializeReference] private PlayerState _moveState;
         public PlayerState MoveState => _moveState;
+
         [SerializeReference] private PlayerState _airState;
         public PlayerState AirState => _airState;
+
         [SerializeReference] private PlayerState _dashState;
         public PlayerState DashState => _dashState;
+
         [SerializeReference] private PlayerState _slamState;
         public PlayerState SlamState => _slamState;
+
         [SerializeReference] private PlayerState _slideState;
         public PlayerState SlideState => _slideState;
 

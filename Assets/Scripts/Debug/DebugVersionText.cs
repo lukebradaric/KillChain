@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using KillChain.Core.Bootstrap;
 
-namespace KillChain.Interface.Debug
+namespace KillChain.Debug
 {
     [AutoBootstrap]
     public class DebugVersionText : DebugText

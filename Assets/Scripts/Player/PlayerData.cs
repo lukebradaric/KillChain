@@ -11,6 +11,14 @@ namespace KillChain.Player
         [Tooltip("Default player capsule height.")]
         [SerializeField] private float _height;
         public float Height => _height;
+
+        [Tooltip("Player collider PhysicMaterial.")]
+        [SerializeField] private PhysicMaterial _physicMaterial;
+        public PhysicMaterial PhysicMaterial => _physicMaterial;
+
+        [Tooltip("Player collider PhysicMaterial while on walkable slope.")]
+        [SerializeField] private PhysicMaterial _slopePhysicMaterial;
+        public PhysicMaterial SlopePhysicMaterial => _slopePhysicMaterial;
         #endregion
 
         #region Movement
@@ -104,11 +112,29 @@ namespace KillChain.Player
         #region Slide
         [Space]
         [Header("Slide")]
-        [SerializeField] private float _slideSpeed;
-        public float SlideSpeed => _slideSpeed;
+        [Tooltip("Height of the player while sliding.")]
+        [SerializeField] private float _slideHeight;
+        public float SlideHeight => _slideHeight;
 
+        [Tooltip("Player collider PhysicMaterial while sliding.")]
+        [SerializeField] private PhysicMaterial _slidePhysicMaterial;
+        public PhysicMaterial SlidePhysicMaterial => _slidePhysicMaterial;
+
+        [Tooltip("Minimum speed required to keep sliding.")]
+        [SerializeField] private float _minSlideSpeed;
+        public float MinSlideSpeed => _minSlideSpeed;
+
+        [Tooltip("Downwards force applied while siding.")]
         [SerializeField] private float _slideDownwardsForce;
         public float SlideDownwardsForce => _slideDownwardsForce;
+
+        [Tooltip("Downwards force applied while siding on an angled surface. (X = Velocity Magnitude, Y = Downwards Force)")]
+        [SerializeField] private AnimationCurve _angledSlideDownwardsForce;
+        public AnimationCurve AngledSlideDownwardsForce => _angledSlideDownwardsForce;
+
+        [Tooltip("Player drag while sliding. (X = Velocity Magnitude, Y = Drag)")]
+        [SerializeField] private AnimationCurve _slideDrag;
+        public AnimationCurve SlideDrag => _slideDrag;
         #endregion
 
         #region Slam
